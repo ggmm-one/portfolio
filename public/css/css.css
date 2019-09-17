@@ -1,0 +1,67 @@
+td.app-action a, div.app-action a {
+    margin-right: 1rem;
+}
+
+div.app-auth-login-card {
+    margin-top: 3rem;
+}
+
+div.app-comments-card {
+    margin-bottom: 1rem;
+}
+
+div.app-comments-footer {
+    font-size: 0.56rem;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+div.app-comments-footer span {
+    margin-left: 1rem;
+}
+
+div.app-content {
+    margin-top: 2rem;
+}
+
+span.app-filtered-tag {
+    font-style: italic;
+    font-size: 0.88rem;
+    color: silver;
+}
+
+form.app-form {
+    margin-top: 1rem;
+}
+
+footer.app-footer {
+    margin-top: 7rem;
+    margin-bottom: 3rem;
+    font-size: 0.5rem;
+}
+
+footer.app-footer span {
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+nav.app-nav-master {
+    background: #C33764;
+    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
+    background: linear-gradient(to right, #1D2671, #C33764);
+    border-bottom: 1px solid #1D2671;
+}
+
+a.app-nav-master-link, .navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+nav.app-nav-sub, nav.app-nav-section, ul.app-nav-section {
+    background: #c0cdd8;
+    background: -webkit-linear-gradient(to right, #eef2f3, #E1E9EF);
+    background: linear-gradient(to right, #eef2f3, #E1E9EF);
+}
+
+ul.app-nav-section {
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
