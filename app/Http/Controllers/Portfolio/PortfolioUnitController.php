@@ -46,7 +46,7 @@ class PortfolioUnitController extends Controller
     public function update(Request $request, PortfolioUnit $portfolioUnit)
     {
         $validated = $this->validateValues($request, $portfolioUnit->isRoot());
-        DB::transaction(function() use ($portfolioUnit, $validated) {
+        DB::transaction(function () use ($portfolioUnit, $validated) {
             $portfolioUnit->update($validated);
             PortfolioUnitController::processHierarchy();
         });
@@ -55,7 +55,7 @@ class PortfolioUnitController extends Controller
 
     public function destroy(PortfolioUnit $portfolioUnit)
     {
-        DB::transaction(function() use ($portfolioUnit) {
+        DB::transaction(function () use ($portfolioUnit) {
             $portfolioUnit->deleteIfNotReferenced();
             self::processHierarchy();
         });
@@ -66,11 +66,11 @@ class PortfolioUnitController extends Controller
     {
         $validated = $request->validate([
             'name' => Rule::required()->string(1, PortfolioUnit::DD_NAME_LENGTH)->get(),
-            'type' => Rule::when(!$isRoot, function($rule) {
-                    $rule->required()
+            'type' => Rule::when(!$isRoot, function ($rule) {
+                $rule->required()
                         ->in(array_keys(PortfolioUnit::TYPES));
-                })->get(),
-            'parent_pid' => Rule::when(!$isRoot, function($rule) {
+            })->get(),
+            'parent_pid' => Rule::when(!$isRoot, function ($rule) {
                 $rule->required()
                     ->exists('portfolio_units', 'pid')->where(function ($query) {
                         $query->where('organization_id', Auth::user()->organization_id);
@@ -82,22 +82,16 @@ class PortfolioUnitController extends Controller
         return $isRoot? Arr::only($validated, ['name', 'description']) : $validated;
     }
 
-    public static function processHierarchy($organizationId = null)
+    public static function processHierarchy()
     {
         //Step 1: find and set root
         $query = PortfolioUnit::whereNull('parent_id');
-        if ($organizationId != null) {
-            $query->withoutGlobalScopes()->where('organization_id', $organizationId);
-        }
         $root = $query->first();
         $root->hierarchy_level = 0;
         $root->hierarchy_order = 0;
         $root->save();
         //Step 2: set remain non root recursively
         $query = PortfolioUnit::where('id', '<>', $root->id)->orderBy('name');
-        if ($organizationId != null) {
-            $query->withoutGlobalScopes()->where('organization_id', $organizationId);
-        }
         $portfolioUnits = $query->get();
         self::addChildren($portfolioUnits, $root->id, 0, 0);
     }

@@ -8,14 +8,9 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        foreach(Organization::withoutGlobalScopes()->select('id')->orderBy('id')->get() as $organization) {
-            factory(User::class, rand(5, 10))->create([
-                'organization_id' => $organization->id
+        factory(User::class, rand(5, 10))->create();
+        factory(User::class)->create([
+                'email' => 'admin@example.org'
             ]);
-            factory(User::class)->create([
-                'organization_id' => $organization->id,
-                'email' => $organization->id.'@admin.example.org'
-            ]);
-        }
     }
 }

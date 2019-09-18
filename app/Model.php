@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model as LaravelModel;
 abstract class Model extends LaravelModel
 {
     use Traits\PublicAddressable;
-    use Traits\OrganizationBoundable;
     use Traits\CheckBeforeDeletes;
     use Traits\CascadeSoftDeletes;
     use Traits\SessionFlashes;
@@ -18,11 +17,6 @@ abstract class Model extends LaravelModel
     protected $hidden = [
         'id'
     ];
-
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
 
     public static function getId($pid)
     {

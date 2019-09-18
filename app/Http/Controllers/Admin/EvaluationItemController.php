@@ -95,11 +95,10 @@ class EvaluationItemController extends Controller
         ProjectController::updateProjectScore();
     }
 
-    public static function updateWeightFactor($withoutOrganizationScope = false)
+    public static function updateWeightFactor()
     {
         $query = EvaluationItem::orderBy('id');
-        if ($withoutOrganizationScope) $query->withoutGlobalScope(OrganizationScope::class);
-        $query->update(['weight_factor' => DB::raw("(cast(weight as real) /	(select sum(ei.weight) from evaluation_items ei where ei.organization_id = evaluation_items.organization_id))")]);
-        $query->update(['weight_factor' => DB::raw("(cast(weight_factor as real) / (select evaluation_max from settings where settings.organization_id = evaluation_items.organization_id))")]);
+        $query->update(['weight_factor' => DB::raw("(cast(weight as real) /	(select sum(ei.weight) from evaluation_items ei))")]);
+        $query->update(['weight_factor' => DB::raw("(cast(weight_factor as real) / (select evaluation_max from settings))")]);
     }
 }
