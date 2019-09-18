@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>@yield('pagetitle', 'NextPortfolio')</title>
+<title>@yield('pagetitle', 'Portfolio')</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="/css/bootstrap.css" >
 <link rel="stylesheet" href="/css/css.css" >
@@ -11,7 +11,7 @@
 </head>
 <body id="@yield('bodyid')">
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark app-nav-master">
-    <a class="navbar-brand" href="/">Next Portfolio</a>
+    <a class="navbar-brand" href="/">Portfolio</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headernavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -20,7 +20,7 @@
 </nav>
 @yield('frame')
 <footer class="container text-center app-footer">
-    <span>Next Portfolio</span>
+    <span>Portfolio (c) 2019 ggmm-one</span>
     <span>{{ \Carbon\Carbon::now()->toDateTimeString() }}</span>
 </footer>
 @stack('bottom')
