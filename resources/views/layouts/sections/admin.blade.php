@@ -12,7 +12,6 @@
         <a class="nav-item nav-link" href="{{ route('admin.resource_types.index') }}">{{ __('Resource Types') }}</a>
         <a class="nav-item nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
         <a class="nav-item nav-link" href="{{ route('admin.users.index') }}">{{ __('Roles') }}</a>
-        <a class="nav-item nav-link" href="{{ route('admin.organizations.edit', ['organization' => 'X']) }}">{{ __('Organization') }}</a>
     </div>
 </nav>
 @endsection

@@ -10,7 +10,7 @@ Route::get('/profile/{user}', 'ProfileController@show')->name('profile.show');
 
 $name = ['as' => 'portfolios'];
 Route::resource('portfolios', 'Portfolio\PortfolioUnitController', $name)->parameters(['portfolios' => 'portfolio_unit'])->except(['show']);
-Route::group(['prefix'=>'portfolios/{portfolio_unit}'], function() use ($name) {
+Route::group(['prefix'=>'portfolios/{portfolio_unit}'], function () use ($name) {
     Route::resource('goals', 'Portfolio\PortfolioGoalController', $name)->parameters(['goals' => 'link'])->except(['show']);
     Route::resource('reports', 'Portfolio\PortfolioReportController', $name)->parameters(['reports' => 'link'])->except(['show']);
     Route::resource('links', 'Portfolio\PortfolioLinkController', $name)->except(['show']);
@@ -21,7 +21,7 @@ Route::group(['prefix'=>'portfolios/{portfolio_unit}'], function() use ($name) {
 
 $name = ['as' => 'projects'];
 Route::resource('projects', 'Project\ProjectController', $name)->except(['show']);
-Route::group(['prefix'=>'projects/{project}'], function() use ($name) {
+Route::group(['prefix'=>'projects/{project}'], function () use ($name) {
     Route::resource('evaluations', 'Project\EvaluationScoreController', $name)->parameters(['evaluations' => 'evaluation_score'])->only(['index', 'edit', 'update']);
     Route::resource('reports', 'Project\ProjectReportController', $name)->parameters(['reports' => 'link'])->except(['show']);
     Route::resource('links', 'Project\ProjectLinkController', $name)->except(['show']);
@@ -35,7 +35,7 @@ $name = ['as' => 'resources'];
 Route::view('resources', 'resources.root')->name('resources.root');
 Route::resource('resources/resource_owners', 'Resource\ResourceOwnerController', $name)->except(['show']);
 Route::resource('resources/resources', 'Resource\ResourceController', $name)->except(['show']);
-Route::group(['prefix'=>'resources/{resource}'], function() use ($name) {
+Route::group(['prefix'=>'resources/{resource}'], function () use ($name) {
     Route::resource('capacities', 'Resource\ResourceCapacityController', $name)->parameters(['capacities' => 'resource_capacity'])->except(['show']);
     Route::resource('comments', 'Resource\ResourceCommentController', $name)->except(['show', 'create']);
 });
@@ -48,4 +48,3 @@ Route::resource('admin/settings', 'Admin\SettingController', $name)->only(['edit
 Route::resource('admin/evaluation_items', 'Admin\EvaluationItemController', $name)->except(['show']);
 Route::resource('admin/resource_types', 'Admin\ResourceTypeController', $name)->except(['show']);
 Route::resource('admin/users', 'Admin\UserController', $name)->except(['show']);
-Route::resource('admin/organizations', 'Admin\OrganizationController', $name)->only(['edit', 'update']);

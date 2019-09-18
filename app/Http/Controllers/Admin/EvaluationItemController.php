@@ -12,7 +12,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Project\EvaluationScoreController;
 use App\Http\Controllers\Project\ProjectController;
-use App\Scopes\OrganizationScope;
 use App\Project;
 
 class EvaluationItemController extends Controller
