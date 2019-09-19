@@ -89,10 +89,15 @@ class ProjectController extends Controller
         return $builder;
     }
 
-    public static function updateProjectScore($id = null, $withoutOrganizationScope = false) {
+    public static function updateProjectScore($id = null, $withoutOrganizationScope = false)
+    {
         $query = Project::orderBy('id');
-        if ($withoutOrganizationScope) $query->withoutGlobalScope(OrganizationScope::class);
-        if ($id) $query->where('id', $id);
+        if ($withoutOrganizationScope) {
+            $query->withoutGlobalScope(OrganizationScope::class);
+        }
+        if ($id) {
+            $query->where('id', $id);
+        }
         $query->update(['score' => DB::raw('(select sum(weighted_score) from evaluation_scores where evaluation_scores.project_id = projects.id)')]);
     }
 }
