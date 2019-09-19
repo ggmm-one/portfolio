@@ -28,7 +28,7 @@ class SettingController extends Controller
             $setting->save();
         }
 
-        return Redirect::route('admin.settings.edit', ['setting' => 'X']);
+        return Redirect::route('admin.settings.edit');
     }
 
     private function validateValues(Request $request)

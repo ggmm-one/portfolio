@@ -44,7 +44,8 @@ Route::group(['prefix'=>'resources/{resource}'], function () use ($name) {
 
 $name = ['as' => 'admin'];
 Route::view('admin', 'admin.root')->name('admin.root');
-Route::resource('admin/settings', 'Admin\SettingController', $name)->only(['edit', 'update']);
+Route::get('admin/settings/edit', 'Admin\SettingController@edit')->name('admin.settings.edit');
+Route::patch('admin/settings', 'Admin\SettingController@update', $name)->name('admin.settings.update');
 Route::resource('admin/evaluation_items', 'Admin\EvaluationItemController', $name)->except(['show']);
 Route::resource('admin/resource_types', 'Admin\ResourceTypeController', $name)->except(['show']);
 Route::resource('admin/users', 'Admin\UserController', $name)->except(['show']);

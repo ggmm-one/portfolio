@@ -11,7 +11,7 @@
     <span class="navbar-brand">{{ __('Settings') }}</span>
 </nav>
 
-<form method="POST" action="{{ route('admin.settings.update', ['setting' => 'X']) }}" class="app-form">
+<form method="POST" action="{{ route('admin.settings.update') }}" class="app-form">
     @csrf
     @method('PATCH')
     <h4>Evaluation</h4>
