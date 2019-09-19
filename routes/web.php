@@ -49,3 +49,4 @@ Route::patch('admin/settings', 'Admin\SettingController@update', $name)->name('a
 Route::resource('admin/evaluation_items', 'Admin\EvaluationItemController', $name)->except(['show']);
 Route::resource('admin/resource_types', 'Admin\ResourceTypeController', $name)->except(['show']);
 Route::resource('admin/users', 'Admin\UserController', $name)->except(['show']);
+Route::resource('admin/roles', 'Admin\RoleController', $name)->except(['show']);

@@ -11,7 +11,7 @@
         <a class="nav-item nav-link" href="{{ route('admin.evaluation_items.index') }}">{{ __('Evaluation') }}</a>
         <a class="nav-item nav-link" href="{{ route('admin.resource_types.index') }}">{{ __('Resource Types') }}</a>
         <a class="nav-item nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
-        <a class="nav-item nav-link" href="{{ route('admin.users.index') }}">{{ __('Roles') }}</a>
+        <a class="nav-item nav-link" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
     </div>
 </nav>
 @endsection
