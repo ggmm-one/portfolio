@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use TiMacDonald\Validation\Rule;
-
 use App\User;
 
 class UserController extends Controller
