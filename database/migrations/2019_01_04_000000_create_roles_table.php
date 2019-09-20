@@ -12,6 +12,10 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->modelHeader();
             $table->string('name', Role::DD_NAME_LENGTH);
+            $table->char('permission_portfolios', 1);
+            $table->char('permission_projects', 1);
+            $table->char('permission_resources', 1);
+            $table->char('permission_admin', 1);
             $table->modelFooter();
         });
     }

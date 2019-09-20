@@ -19,6 +19,21 @@
         @form_public_id(['control_value' => $role->pid])
     @endif
     @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $role->name), 'control_validation' => 'required autofocus maxlenght='.\App\Role::DD_NAME_LENGTH])
+    @foreach (['portfolios', 'projects', 'resources', 'admin'] as $type)
+        <div class="form-group form-row">
+            <label for="permission_{{ $type }}" class="col-sm-2 offset-sm-1 col-form-label">{{ __(Str::title($type)) }}</label>
+            @foreach (\App\Role::PERMISSIONS as $k => $v)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="permission_{{ $type }}" id="permission_{{ $type }}" value="{{ $k }}" required
+                        @if ($role->{'permission_'.$type} == $k)
+                            checked=checked
+                        @endif
+                    >
+                    <label class="form-check-label" for="permission_{{ $type }}">{{ __($v) }}</label>
+                </div>
+            @endforeach        
+        </div>    
+    @endforeach
     @form_submit
 </form>
 
