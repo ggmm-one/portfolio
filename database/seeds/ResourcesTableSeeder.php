@@ -13,9 +13,9 @@ class ResourcesTableSeeder extends Seeder
 {
     public function run()
     {
-        $types = ResourceType::withoutGlobalScopes()->select('id')->whereNull('deleted_at')->pluck('id');
-        $users = User::withoutGlobalScopes()->select('id')->whereNull('deleted_at')->pluck('id');
-        foreach (ResourceOwner::withoutGlobalScopes()->select('id', 'name')->whereNull('deleted_at')->orderBy('id')->get() as $owner) {
+        $types = ResourceType::select('id')->whereNull('deleted_at')->pluck('id');
+        $users = User::select('id')->whereNull('deleted_at')->pluck('id');
+        foreach (ResourceOwner::select('id', 'name')->whereNull('deleted_at')->orderBy('id')->get() as $owner) {
             factory(Resource::class, rand(3, 5))->create([
                     'resource_owner_id' => $owner->id,
                     'resource_type_id' => $types->random()
