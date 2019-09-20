@@ -9,6 +9,7 @@ class DatabaseSeeder extends Seeder
     {
         DB::beginTransaction();
         $this->call(AdminTablesSeeder::class);
+        $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(ResourceOwnersTableSeeder::class);
         $this->call(ResourcesTableSeeder::class);

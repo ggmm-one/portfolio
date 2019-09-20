@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as LaravelUser;
 use App\Traits\PublicAddressable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\SessionFlashes;
 
-class User extends Authenticatable
+class User extends LaravelUser
 {
     use Notifiable;
     use PublicAddressable;
@@ -20,7 +20,7 @@ class User extends Authenticatable
     public const DD_EMAIL_LENGTH = 256;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_pid'
     ];
 
     protected $hidden = [
@@ -31,9 +31,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function organization()
+    protected $with = ['role'];
+
+    public function role()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Role::class);
     }
 
+    public function getRolePidAttribute()
+    {
+        return $this->role->pid;
+    }
+
+    public function setRolePidAttribute($value)
+    {
+        $this->attributes['role_id'] = Role::getId($value);
+    }
 }

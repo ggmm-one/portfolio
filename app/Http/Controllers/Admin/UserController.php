@@ -62,7 +62,8 @@ class UserController extends Controller
             'name' => Rule::required()->string(1, User::DD_NAME_LENGTH)->get(),
             'email' => Rule::required()->email(User::DD_EMAIL_LENGTH)->unique('users')->where(function ($query) use ($idToIgnore) {
                 $query->where('id', '<>', $idToIgnore);
-            })->get()
+            })->get(),
+            'role_pid' => Rule::required()->exists('roles', 'pid')->get()
         ]);
     }
 }

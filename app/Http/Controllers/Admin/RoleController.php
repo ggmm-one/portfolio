@@ -41,7 +41,7 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
-        $role->delete();
+        $role->deleteIfNotReferenced();
         return Redirect::route('admin.roles.index');
     }
 

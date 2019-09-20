@@ -14,17 +14,5 @@ abstract class Model extends LaravelModel
     public const DD_DATE_MIN = '1900-01-01';
     public const DD_DATE_MAX = '2199-12-31';
 
-    protected $hidden = [
-        'id'
-    ];
-
-    public static function getId($pid)
-    {
-        return self::where('pid', $pid)->value('id');
-    }
-
-    public static function getPid($id)
-    {
-        return self::where('id', $id)->value('pid');
-    }
+    protected $hidden = ['id'];
 }

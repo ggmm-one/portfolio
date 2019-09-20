@@ -17,4 +17,14 @@ trait PublicAddressable
     {
         return 'pid';
     }
+
+    public static function getId($pid)
+    {
+        return self::where('pid', $pid)->value('id');
+    }
+
+    public static function getPid($id)
+    {
+        return self::where('id', $id)->value('pid');
+    }
 }
