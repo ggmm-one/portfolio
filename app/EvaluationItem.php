@@ -40,7 +40,8 @@ class EvaluationItem extends Model
         return $query->orderBy('sort_order');
     }
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
         static::addGlobalScope(new OrderScope('sort_order', 'ASC'));
     }
