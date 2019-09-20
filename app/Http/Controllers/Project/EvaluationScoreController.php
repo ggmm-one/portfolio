@@ -7,7 +7,6 @@ use App\Project;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Scopes\OrganizationScope;
 use Illuminate\Support\Facades\Redirect;
 use TiMacDonald\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -56,12 +55,9 @@ class EvaluationScoreController extends Controller
         ]);
     }
 
-    public static function updateWeightedScore($id = null, $withoutOrganizationScope = false)
+    public static function updateWeightedScore($id = null)
     {
         $query = EvaluationScore::orderBy('id');
-        if ($withoutOrganizationScope) {
-            $query->withoutGlobalScope(OrganizationScope::class);
-        }
         if ($id) {
             $query->where('id', $id);
         }

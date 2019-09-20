@@ -46,7 +46,6 @@ class ResourceController extends Controller
     public function destroy(Resource $resource)
     {
         //TODO: Check dependencies before deleting
-
     }
 
     private function validateValues(Request $request)
@@ -55,12 +54,10 @@ class ResourceController extends Controller
             'name' => Rule::required()->string(1, Resource::DD_NAME_LENGTH)->get(),
             'resource_type_pid' => Rule::required()
                 ->exists('resource_types', 'pid')->where(function ($query) {
-                    $query->where('organization_id', Auth::user()->organization_id);
                     $query->whereNull('deleted_at');
                 })->get(),
             'resource_owner_pid' => Rule::required()
                 ->exists('resource_owners', 'pid')->where(function ($query) {
-                    $query->where('organization_id', Auth::user()->organization_id);
                     $query->whereNull('deleted_at');
                 })->get(),
             'description' => Rule::max(Resource::DD_DESCRIPTION_LENGTH)->get()

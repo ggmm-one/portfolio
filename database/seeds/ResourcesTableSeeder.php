@@ -1,7 +1,6 @@
 <?php
 
 use App\Comment;
-use App\Organization;
 use App\Resource;
 use App\ResourceOwner;
 use App\ResourceType;

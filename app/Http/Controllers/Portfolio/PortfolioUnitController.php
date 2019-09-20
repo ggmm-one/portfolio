@@ -71,10 +71,7 @@ class PortfolioUnitController extends Controller
                         ->in(array_keys(PortfolioUnit::TYPES));
             })->get(),
             'parent_pid' => Rule::when(!$isRoot, function ($rule) {
-                $rule->required()
-                    ->exists('portfolio_units', 'pid')->where(function ($query) {
-                        $query->where('organization_id', Auth::user()->organization_id);
-                    });
+                $rule->required()->exists('portfolio_units', 'pid');
             })->get(),
             'description' => Rule::max(PortfolioUnit::DD_DESCRIPTION_LENGTH)->get()
         ]);

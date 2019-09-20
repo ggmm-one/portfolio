@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use TiMacDonald\Validation\Rule;
 use App\Libraries\DateHelper;
-use App\Scopes\OrganizationScope;
 
 class ProjectController extends Controller
 {
@@ -89,12 +88,9 @@ class ProjectController extends Controller
         return $builder;
     }
 
-    public static function updateProjectScore($id = null, $withoutOrganizationScope = false)
+    public static function updateProjectScore($id = null)
     {
         $query = Project::orderBy('id');
-        if ($withoutOrganizationScope) {
-            $query->withoutGlobalScope(OrganizationScope::class);
-        }
         if ($id) {
             $query->where('id', $id);
         }
