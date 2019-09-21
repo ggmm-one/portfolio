@@ -1,7 +1,3 @@
-@extends('layouts.frame_app')
-
-@section('content')
-
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ $portfolioUnit->name }}</span>
     <div class="app-action">
@@ -22,7 +18,3 @@
 </ul>
 
 @include('inc.flash_msg')
-
-@yield('subcontent')
-
-@endsection

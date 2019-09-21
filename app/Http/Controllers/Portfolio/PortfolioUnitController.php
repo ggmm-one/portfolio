@@ -18,7 +18,7 @@ class PortfolioUnitController extends Controller
     public function index()
     {
         $portfolioUnits = PortfolioUnit::orderBy('hierarchy_order')->get();
-        return view('portfolios.portfolios.index', compact('portfolioUnits'));
+        return view('portfolios.index', compact('portfolioUnits'));
     }
 
     public function create()

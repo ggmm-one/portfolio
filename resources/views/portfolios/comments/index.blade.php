@@ -1,9 +1,11 @@
-@extends('layouts.sections.portfolios')
+@extends('layouts.frame_app')
 
-@section('pagetitle', __('Portfolio Comments'))
+@section('pagetitle', 'Portfolio Comments')
 @section('bodyid', 'app-portfolios-portfolio-comment-index')
 
-@section('subcontent')
+@section('content')
+
+    @include('portfolios.inc.portfolios_header')
 
     @include('comments.inc.index')
 

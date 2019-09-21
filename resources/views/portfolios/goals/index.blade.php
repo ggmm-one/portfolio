@@ -1,14 +1,16 @@
-@extends('layouts.sections.portfolios')
+@extends('layouts.frame_app')
 
-@section('pagetitle', __('Strategy and Objectives'))
+@section('pagetitle', 'Strategy and Objectives')
 @section('bodyid', 'app-portfolios-portfolio-goals-index')
 
-@section('subcontent')
+@section('content')
 
-<nav class="navbar navbar-light">
-    <span class="navbar-brand">&nbsp;</span>
-    <a href="{{ route('portfolios.goals.create', ['portfolio_unit' => $portfolioUnit->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a>
-</nav>
+    @include('portfolios.inc.portfolios_header')
+
+    <nav class="navbar navbar-light">
+        <span class="navbar-brand">&nbsp;</span>
+        <a href="{{ route('portfolios.goals.create', ['portfolio_unit' => $portfolioUnit->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a>
+    </nav>
 
     @include('links.inc.table')
 

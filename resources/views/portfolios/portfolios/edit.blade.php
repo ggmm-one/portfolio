@@ -1,9 +1,11 @@
-@extends('layouts.sections.portfolios')
+@extends('layouts.frame_app')
 
-@section('pagetitle', __($portfolioUnit->exists ? 'Edit Portfolio' : 'Add Portfolio'))
+@section('pagetitle', $portfolioUnit->exists ? 'Edit Portfolio' : 'Add Portfolio')
 @section('bodyid', 'app-portfolios-portfolio-info-edit')
 
-@section('subcontent')
+@section('content')
+
+    @include('portfolios.inc.portfolios_header')
 
     <form method="POST" action="{{ $formAction }}" class="app-form">
         @csrf
