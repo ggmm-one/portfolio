@@ -38,9 +38,11 @@ class ResourceCommentController extends CommentController
         $data['editAction'] = route('resources.comments.edit', ['resource' => $resource->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['updateAction'] = route('resources.comments.update', ['resource' => $resource->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['deleteAction'] = route('resources.comments.destroy', ['resource' => $resource->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        if ($comment != null) $data['editComment'] = $comment;
+        if ($comment != null) {
+            $data['editComment'] = $comment;
+        }
 
-        return view('resources.comments.index', $data);
+        return view('resources.resources.comments.index', $data);
     }
 
     public function update(Request $request, Resource $resource, Comment $comment)

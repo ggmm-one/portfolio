@@ -1,13 +1,15 @@
-@extends('layouts.sections.resources')
+@extends('layouts.frame_app')
 
 @section('pagetitle', 'Resources')
 @section('bodyid', 'app-resources-resources-edit')
 
-@section('subcontent')
+@include('resources.inc.section_nav_bar')
 
-@include('resources.resources.inc.header')
+@section('content')
 
-<form method="POST" action="{{ $formAction }}" class="app-form">
+    @include('resources.inc.resources_header')
+
+    <form method="POST" action="{{ $formAction }}" class="app-form">
         @csrf
         @if($resource->exists)
             @form_public_id(['control_value' => $resource->pid])

@@ -18,14 +18,14 @@ class ResourceCapacityController extends Controller
     public function index(Resource $resource)
     {
         $capacities = $resource->capacities;
-        return view('resources.capacities.index', compact('resource', 'capacities'));
+        return view('resources.resources.capacities.index', compact('resource', 'capacities'));
     }
 
     public function create(Resource $resource)
     {
         $resourceCapacity = new ResourceCapacity(['start' => Carbon::now()->setDay(1), 'end' => Carbon::now()->addYear()->setDay(1)]);
         $formAction = route('resources.capacities.store', ['resource' => $resource->pid]);
-        return view('resources.capacities.edit', compact('resource', 'resourceCapacity', 'formAction'));
+        return view('resources.resources.capacities.edit', compact('resource', 'resourceCapacity', 'formAction'));
     }
 
     public function store(Request $request, Resource $resource)
@@ -38,21 +38,27 @@ class ResourceCapacityController extends Controller
 
     public function edit(Resource $resource, ResourceCapacity $resourceCapacity)
     {
-        if ($resourceCapacity->resource_id != $resource->id) abort(404);
+        if ($resourceCapacity->resource_id != $resource->id) {
+            abort(404);
+        }
         $formAction = route('resources.capacities.update', ['resource' => $resource->pid, 'resource_capacity' => $resourceCapacity->pid]);
-        return view('resources.capacities.edit', compact('resource', 'resourceCapacity', 'formAction'));
+        return view('resources.resources.capacities.edit', compact('resource', 'resourceCapacity', 'formAction'));
     }
 
     public function update(Request $request, Resource $resource, ResourceCapacity $resourceCapacity)
     {
-        if ($resourceCapacity->resource_id != $resource->id) abort(404);
+        if ($resourceCapacity->resource_id != $resource->id) {
+            abort(404);
+        }
         $resourceCapacity->update($this->validateValues($request));
         return Redirect::route('resources.capacities.index', ['resource' => $resource->pid]);
     }
 
     public function destroy(Resource $resource, ResourceCapacity $resourceCapacity)
     {
-        if ($resourceCapacity->resource_id != $resource->id) abort(404);
+        if ($resourceCapacity->resource_id != $resource->id) {
+            abort(404);
+        }
         $resourceCapacity->delete();
         return Redirect::route('resources.capacities.index', ['resource' => $resource->pid]);
     }

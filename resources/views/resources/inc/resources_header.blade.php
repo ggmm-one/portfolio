@@ -1,3 +1,5 @@
+@include('inc.flash_msg')
+
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ $resource->name }}</span>
     <div>

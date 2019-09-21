@@ -1,33 +1,37 @@
-@extends('layouts.sections.resources')
+@extends('layouts.frame_app')
 
 @section('pagetitle', 'Resources')
 @section('bodyid', 'app-resources-resources-index')
 
-@section('subcontent')
+@include('resources.inc.section_nav_bar')
 
-<nav class="navbar navbar-light app-nav-section">
-    <div>
-        <span class="navbar-brand">
-            {{ __('Resources') }}
-            @include('inc.filtered_tag')
-        </span>
-    </div>
-    <a href="{{ route('resources.resources.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
-</nav>
+@section('content')
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>{{ __('Name') }}</th>
-            <th>{{ __('Type') }}</th>
-            <th>{{ __('Owner') }}</th>
-            <th>{{ __('Actions') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        @each('resources.resources.index_item', $resources, 'resource', 'resources.resources.index_item_empty')
-    </tbody>
-</table>
+    @include('inc.flash_msg')
+
+    <nav class="navbar navbar-light app-nav-section">
+        <div>
+            <span class="navbar-brand">
+                {{ __('Resources') }}
+                @include('inc.filtered_tag')
+            </span>
+        </div>
+        <a href="{{ route('resources.resources.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
+    </nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Type') }}</th>
+                <th>{{ __('Owner') }}</th>
+                <th>{{ __('Actions') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each('resources.resources.index_item', $resources, 'resource', 'resources.resources.index_item_empty')
+        </tbody>
+    </table>
 
 @endsection
 

@@ -1,26 +1,30 @@
-@extends('layouts.sections.resources')
+@extends('layouts.frame_app')
 
 @section('pagetitle', 'Resources')
 @section('bodyid', 'app-resources-resources-owners-index')
 
-@section('subcontent')
+@include('resources.inc.section_nav_bar')
 
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand">{{ __('Resource Owners') }}</span>
-    <a href="{{ route('resources.resource_owners.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
-</nav>
+@section('content')
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>{{ __('Name') }}</th>
-            <th>{{ __('Email') }}</th>
-            <th>{{ __('Actions') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        @each('resources.resource_owners.index_item', $resourceOwners, 'resourceOwner', 'resources.resource_owners.index_item_empty')
-    </tbody>
-</table>
+    @include('inc.flash_msg')
+
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand">{{ __('Resource Owners') }}</span>
+        <a href="{{ route('resources.resource_owners.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
+    </nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Email') }}</th>
+                <th>{{ __('Actions') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each('resources.resource_owners.index_item', $resourceOwners, 'resourceOwner', 'resources.resource_owners.index_item_empty')
+        </tbody>
+    </table>
 
 @endsection

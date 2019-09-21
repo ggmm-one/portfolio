@@ -1,11 +1,13 @@
-@extends('layouts.sections.resources')
+@extends('layouts.frame_app')
 
 @section('pagetitle', __('Resource Capacity'))
 @section('bodyid', 'app-resources-capacities-index')
 
-@section('subcontent')
+@include('resources.inc.section_nav_bar')
 
-    @include('resources.resources.inc.header')
+@section('content')
+
+    @include('resources.inc.resources_header')
 
     <nav class="navbar">
         <span class="navbar-brand">&nbsp;</span>
@@ -26,10 +28,10 @@
         </thead>
         <tbody>
             @if ($capacities->isEmpty())
-                @include('resources.capacities.index_item_empty')
+                @include('resources.resources.capacities.index_item_empty')
             @else
                 @foreach ($capacities as $capacity)
-                    @include('resources.capacities.index_item')
+                    @include('resources.resources.capacities.index_item')
                 @endforeach
             @endif
         </tbody>

@@ -21,7 +21,7 @@ class ResourceController extends Controller
     {
         $resource = new Resource();
         $formAction = route('resources.resources.store');
-        return view('resources.resources.edit', compact('resource', 'formAction'));
+        return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
     public function store(Request $request)
@@ -33,14 +33,14 @@ class ResourceController extends Controller
     public function edit(Resource $resource)
     {
         $formAction = route('resources.resources.update', compact('resource'));
-        return view('resources.resources.edit', compact('resource', 'formAction'));
+        return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
     public function update(Request $request, Resource $resource)
     {
         $resource->update($this->validateValues($request));
         $formAction = route('resources.resources.update', compact('resource'));
-        return view('resources.resources.edit', compact('resource', 'formAction'));
+        return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
     public function destroy(Resource $resource)
