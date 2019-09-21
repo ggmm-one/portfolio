@@ -17,7 +17,7 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $projects = $this->filter($request)->get();
-        return view('projects.projects.index', compact('projects'));
+        return view('projects.index', compact('projects'));
     }
 
     public function create()
@@ -25,7 +25,7 @@ class ProjectController extends Controller
         $project = new Project;
         $formAction = route('projects.projects.store');
         $portfolios = PortfolioUnit::getSelectList();
-        return view('projects.projects.edit', compact('project', 'formAction', 'portfolios'));
+        return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class ProjectController extends Controller
     {
         $portfolios = PortfolioUnit::getSelectList();
         $formAction = route('projects.projects.update', ['project' => $project->pid]);
-        return view('projects.projects.edit', compact('project', 'formAction', 'portfolios'));
+        return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
     public function update(Request $request, Project $project)
@@ -46,7 +46,7 @@ class ProjectController extends Controller
         $project->update($this->validateValues($request));
         $portfolios = PortfolioUnit::getSelectList();
         $formAction = route('projects.projects.update', ['project' => $project->pid]);
-        return view('projects.projects.edit', compact('project', 'formAction', 'portfolios'));
+        return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
     public function destroy(Project $project)

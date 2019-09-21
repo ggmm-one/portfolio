@@ -1,9 +1,14 @@
-@extends('layouts.sections.projects')
+@extends('layouts.frame_app')
 
 @section('pagetitle', 'Edit Evaluation')
 @section('bodyid', 'app-projects-evaluations-edit')
 
-@section('subcontent')
+@section('content')
+
+    @include('inc.flash_msg')
+
+    @include('projects.inc.projects_header')
+
     <form method="POST" action="{{ route('projects.evaluations.update', ['project' => $project->pid, 'evaluation_score' => $evaluationScore]) }}" class="app-form">
         @csrf
         @method('PATCH')

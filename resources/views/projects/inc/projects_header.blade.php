@@ -1,6 +1,3 @@
-@extends('layouts.frame_app')
-
-@section('content')
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ $project->name }}</span>
     <div>
@@ -18,9 +15,3 @@
         <li class="nav-item"><a href="{{ route('projects.comments.index', ['project' => $project->pid]) }}" class="nav-link @activeTab('projects.comments')">{{ __('Comments') }}</a></li>
     @endif
 </ul>
-
-@include('inc.flash_msg')
-
-@yield('subcontent')
-
-@endsection

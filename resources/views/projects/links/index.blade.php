@@ -1,14 +1,18 @@
-@extends('layouts.sections.projects')
+@extends('layouts.frame_app')
 
 @section('pagetitle', 'Links')
 @section('bodyid', 'app-projects-reports-index')
 
-@section('subcontent')
+@section('content')
 
-<nav class="navbar navbar-light">
-    <span class="navbar-brand">&nbsp;</span>
-    <a href="{{ route('projects.links.create', ['project' => $project->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a>
-</nav>
+    @include('inc.flash_msg')
+
+    @include('projects.inc.projects_header')
+
+    <nav class="navbar navbar-light">
+        <span class="navbar-brand">&nbsp;</span>
+        <a href="{{ route('projects.links.create', ['project' => $project->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a>
+    </nav>
 
     @include('links.inc.table')
 

@@ -1,9 +1,13 @@
-@extends('layouts.sections.projects')
+@extends('layouts.frame_app')
 
 @section('pagetitle', $project->exists ? 'Edit Project' : 'Add Project')
 @section('bodyid', 'app-projects-projects-edit')
 
-@section('subcontent')
+@section('content')
+
+    @include('inc.flash_msg')
+
+    @include('projects.inc.projects_header')
 
     <form method="POST" action="{{ $formAction }}" class="app-form">
         @csrf

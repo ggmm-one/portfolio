@@ -1,9 +1,13 @@
-@extends('layouts.sections.projects')
+@extends('layouts.frame_app')
 
-@section('pagetitle', __('Project Comments'))
+@section('pagetitle', 'Project Comments')
 @section('bodyid', 'app-projects-comments-index')
 
-@section('subcontent')
+@section('content')
+
+    @include('inc.flash_msg')
+
+    @include('projects.inc.projects_header')
 
     @include('comments.inc.index')
 
