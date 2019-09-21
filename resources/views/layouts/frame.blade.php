@@ -16,7 +16,6 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     @yield('navbar')
-
 </nav>
 @yield('frame')
 <footer class="container text-center app-footer">
