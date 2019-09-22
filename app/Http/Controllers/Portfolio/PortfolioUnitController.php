@@ -48,7 +48,7 @@ class PortfolioUnitController extends Controller
         $validated = $this->validateValues($request, $portfolioUnit->isRoot());
         DB::transaction(function () use ($portfolioUnit, $validated) {
             $portfolioUnit->update($validated);
-            PortfolioUnitController::processHierarchy();
+            static::processHierarchy();
         });
         return Redirect::route('portfolios.portfolios.edit', ['portfolio_unit' => $portfolioUnit->pid]);
     }
@@ -57,7 +57,7 @@ class PortfolioUnitController extends Controller
     {
         DB::transaction(function () use ($portfolioUnit) {
             $portfolioUnit->deleteIfNotReferenced();
-            self::processHierarchy();
+            static::processHierarchy();
         });
         return Redirect::route('portfolios.portfolios.index');
     }
