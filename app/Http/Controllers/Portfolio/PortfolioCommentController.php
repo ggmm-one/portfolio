@@ -38,7 +38,9 @@ class PortfolioCommentController extends CommentController
         $data['editAction'] = route('portfolios.comments.edit', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['updateAction'] = route('portfolios.comments.update', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['deleteAction'] = route('portfolios.comments.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        if ($comment != null) $data['editComment'] = $comment;
+        if ($comment != null) {
+            $data['editComment'] = $comment;
+        }
 
         return view('portfolios.comments.index', $data);
     }
@@ -56,6 +58,4 @@ class PortfolioCommentController extends CommentController
         $comment->delete();
         return Redirect::route('portfolios.comments.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
-
-
 }
