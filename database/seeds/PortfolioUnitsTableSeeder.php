@@ -11,8 +11,8 @@ class PortfolioUnitsTableSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::withoutGlobalScopes()->select('id')->whereNull('deleted_at')->pluck('id');
-        $root = PortfolioUnit::withoutGlobalScopes()->select('id')->whereNull('parent_id')->value('id');
+        $users = User::select('id')->whereNull('deleted_at')->pluck('id');
+        $root = PortfolioUnit::select('id')->whereNull('parent_id')->value('id');
         factory(PortfolioUnit::class, rand(10, 20))->create([
                 'parent_id' => $root
                 ])->each(function ($portfolio) use ($users) {
