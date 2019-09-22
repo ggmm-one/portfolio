@@ -11,8 +11,8 @@ class EvaluationScoresTableSeeder extends Seeder
 {
     public function run()
     {
-        foreach (Project::withoutGlobalScopes()->select('id')->orderBy('id')->get() as $project) {
-            foreach (EvaluationItem::withoutGlobalScopes()->select('id')->orderBy('id')->get() as $item) {
+        foreach (Project::select('id')->orderBy('id')->get() as $project) {
+            foreach (EvaluationItem::select('id')->orderBy('id')->get() as $item) {
                 factory(EvaluationScore::class)->create([
                     'project_id' => $project->id,
                     'evaluation_item_id' => $item->id

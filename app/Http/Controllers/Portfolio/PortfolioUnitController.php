@@ -17,7 +17,7 @@ class PortfolioUnitController extends Controller
 {
     public function index()
     {
-        $portfolioUnits = PortfolioUnit::orderBy('hierarchy_order')->get();
+        $portfolioUnits = PortfolioUnit::hierarchyOrdered()->get();
         return view('portfolios.index', compact('portfolioUnits'));
     }
 
@@ -82,14 +82,12 @@ class PortfolioUnitController extends Controller
     public static function processHierarchy()
     {
         //Step 1: find and set root
-        $query = PortfolioUnit::whereNull('parent_id');
-        $root = $query->first();
+        $root = PortfolioUnit::whereNull('parent_id')->first();
         $root->hierarchy_level = 0;
         $root->hierarchy_order = 0;
         $root->save();
         //Step 2: set remain non root recursively
-        $query = PortfolioUnit::where('id', '<>', $root->id)->orderBy('name');
-        $portfolioUnits = $query->get();
+        $portfolioUnits = PortfolioUnit::where('id', '<>', $root->id)->ordered()->get();
         self::addChildren($portfolioUnits, $root->id, 0, 0);
     }
 

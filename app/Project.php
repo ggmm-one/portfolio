@@ -93,8 +93,7 @@ class Project extends Model
         return Link::where('linkable_type', self::MORPH_SHORT_NAME)
             ->where('linkable_id', $this->id)
             ->where('linkable_subtype', Link::SUBTYPE_PROJECT_OTHER)
-            ->orderBy('sort_order')
-            ->orderBy('title')
+            ->ordered()
             ->get();
     }
 
@@ -103,8 +102,7 @@ class Project extends Model
         return Link::where('linkable_type', self::MORPH_SHORT_NAME)
             ->where('linkable_id', $this->id)
             ->where('linkable_subtype', Link::SUBTYPE_PROJECT_REPORT)
-            ->orderBy('sort_order')
-            ->orderBy('title')
+            ->ordered()
             ->get();
     }
 
@@ -113,14 +111,15 @@ class Project extends Model
         return number_format($this->attributes['score'], 2);
     }
 
-    public function getConstraintProjectsSelect() {
+    public function getConstraintProjectsSelect()
+    {
         $projectId = $this->id;
         return Project::select('id', 'pid', 'name')
             ->where('id', '<>', $projectId)
-            ->whereNotIn('id', function($query) use ($projectId) {
+            ->whereNotIn('id', function ($query) use ($projectId) {
                 $query->select('after_project_id')->from('project_order_constraints')->where('before_project_id', $projectId)->whereNull('deleted_at');
             })
-            ->orderBy('name')->get()->pluck('name', 'pid');
+            ->ordered()->get()->pluck('name', 'pid');
     }
 
     public function setPortfolioUnitPidAttribute($pid)
@@ -134,5 +133,10 @@ class Project extends Model
     public function getPortfolioUnitPidAttribute()
     {
         return $this->exists? $this->portfolio->pid : null;
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('name');
     }
 }

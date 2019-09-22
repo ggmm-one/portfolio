@@ -75,7 +75,7 @@ class ProjectController extends Controller
 
     private function filter(Request &$request)
     {
-        $builder = Project::with('portfolio:id,pid,name');
+        $builder = Project::with('portfolio:id,pid,name')->ordered();
 
         if ($request->has('portfolio_unit')) {
             $builder->join('portfolio_units', 'portfolio_units.id', '=', 'projects.portfolio_unit_id')
@@ -83,14 +83,12 @@ class ProjectController extends Controller
             $request->setFiltered();
         }
 
-        $builder->orderBy('name');
-
         return $builder;
     }
 
     public static function updateProjectScore($id = null)
     {
-        $query = Project::orderBy('id');
+        $query = Project::query();
         if ($id) {
             $query->where('id', $id);
         }

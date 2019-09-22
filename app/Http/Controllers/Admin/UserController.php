@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('name')->get();
+        $users = User::ordered()->get();
         return view('admin.users.index', compact('users'));
     }
 

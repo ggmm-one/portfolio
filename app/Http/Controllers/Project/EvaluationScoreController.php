@@ -57,7 +57,7 @@ class EvaluationScoreController extends Controller
 
     public static function updateWeightedScore($id = null)
     {
-        $query = EvaluationScore::orderBy('id');
+        $query = EvaluationScore::query();
         if ($id) {
             $query->where('id', $id);
         }

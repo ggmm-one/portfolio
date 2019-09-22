@@ -11,8 +11,8 @@ class ProjectsTableSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::withoutGlobalScopes()->select('id')->whereNull('deleted_at')->pluck('id');
-        foreach (PortfolioUnit::withoutGlobalScopes()->select('id')->whereNull('deleted_at')->orderBy('id')->get() as $portfolioUnit) {
+        $users = User::select('id')->whereNull('deleted_at')->pluck('id');
+        foreach (PortfolioUnit::select('id')->whereNull('deleted_at')->orderBy('id')->get() as $portfolioUnit) {
             factory(Project::class, rand(1, 10))->create([
                     'portfolio_unit_id' => $portfolioUnit->id
                 ])->each(function ($portfolio) use ($users) {

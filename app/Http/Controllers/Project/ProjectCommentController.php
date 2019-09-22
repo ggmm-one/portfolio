@@ -34,7 +34,7 @@ class ProjectCommentController extends CommentController
     {
         $data = array();
         $data['project'] = $project;
-        $data['comments'] = Comment::with('author:id,pid,name')->where('commentable_type', Project::MORPH_SHORT_NAME)->where('commentable_id', $project->id)->orderBy('created_at', 'DESC')->get();
+        $data['comments'] = Comment::with('author:id,pid,name')->where('commentable_type', Project::MORPH_SHORT_NAME)->where('commentable_id', $project->id)->latest()->get();
         $data['editAction'] = route('projects.comments.edit', ['project' => $project->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['updateAction'] = route('projects.comments.update', ['project' => $project->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['deleteAction'] = route('projects.comments.destroy', ['project' => $project->pid, 'comment' => 'CCOOMMMMEENNTT']);

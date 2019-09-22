@@ -12,7 +12,7 @@ class ResourceOwnerController extends Controller
 {
     public function index()
     {
-        $resourceOwners = ResourceOwner::orderBy('name')->get();
+        $resourceOwners = ResourceOwner::ordered()->get();
         return view('resources.resource_owners.index', compact('resourceOwners'));
     }
 

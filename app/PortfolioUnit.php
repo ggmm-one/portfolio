@@ -8,7 +8,6 @@ use Illuminate\Validation\ValidationException;
 
 class PortfolioUnit extends Model
 {
-
     public const MORPH_SHORT_NAME = 'pun';
 
     public const DD_NAME_LENGTH = 256;
@@ -47,8 +46,7 @@ class PortfolioUnit extends Model
         return Link::where('linkable_type', self::MORPH_SHORT_NAME)
             ->where('linkable_id', $this->id)
             ->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_GOAL)
-            ->orderBy('sort_order')
-            ->orderBy('title')
+            ->ordered()
             ->get();
     }
 
@@ -57,8 +55,7 @@ class PortfolioUnit extends Model
         return Link::where('linkable_type', self::MORPH_SHORT_NAME)
             ->where('linkable_id', $this->id)
             ->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_REPORT)
-            ->orderBy('sort_order')
-            ->orderBy('title')
+            ->ordered()
             ->get();
     }
 
@@ -67,8 +64,7 @@ class PortfolioUnit extends Model
         return Link::where('linkable_type', self::MORPH_SHORT_NAME)
             ->where('linkable_id', $this->id)
             ->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_OTHER)
-            ->orderBy('sort_order')
-            ->orderBy('title')
+            ->ordered()
             ->get();
     }
 
@@ -87,7 +83,8 @@ class PortfolioUnit extends Model
         return $this->exists && $this->parent_id == null;
     }
 
-    public function getTypeNameAttribute() {
+    public function getTypeNameAttribute()
+    {
         return self::TYPES[$this->type];
     }
 
@@ -101,7 +98,9 @@ class PortfolioUnit extends Model
     public function setParentPidAttribute($pid)
     {
         $this->parent_id = PortfolioUnit::getId($pid);
-        if ($this->parent_id == null) abort(400);
+        if ($this->parent_id == null) {
+            abort(400);
+        }
     }
 
     public function getParentPidAttribute()
@@ -111,14 +110,28 @@ class PortfolioUnit extends Model
 
     protected function checkBeforeDeleting()
     {
-        if ($this->isRoot()) throw ValidationException::withMessages(['check_before_deleting' => 'Cannot delete default portfolio']);
+        if ($this->isRoot()) {
+            throw ValidationException::withMessages(['check_before_deleting' => 'Cannot delete default portfolio']);
+        }
     }
 
     public static function getSelectList(PortfolioUnit $portfolioUnit = null)
     {
         $root = PortfolioUnit::select('pid', 'name')->whereNull('parent_id');
-        $query = PortfolioUnit::select('pid', 'name')->union($root)->whereNotNull('parent_id')->orderBy('name');
-        if ($portfolioUnit) $query->where('pid', '<>', $portfolioUnit->pid);
+        $query = PortfolioUnit::select('pid', 'name')->union($root)->whereNotNull('parent_id')->ordered();
+        if ($portfolioUnit) {
+            $query->where('pid', '<>', $portfolioUnit->pid);
+        }
         return $query->get()->pluck('name', 'pid');
+    }
+
+    public function scopeHierarchyOrdered($query)
+    {
+        return $query->orderBy('hierarchy_order');
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('name');
     }
 }

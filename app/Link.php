@@ -30,4 +30,9 @@ class Link extends Model
     {
         return $this->morphTo();
     }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('sort_order')->orderBy('title');
+    }
 }

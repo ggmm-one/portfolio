@@ -47,4 +47,9 @@ class User extends LaravelUser
     {
         $this->attributes['role_id'] = Role::getId($value);
     }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('name');
+    }
 }

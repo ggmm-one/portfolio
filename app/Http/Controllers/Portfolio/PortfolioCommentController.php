@@ -34,7 +34,7 @@ class PortfolioCommentController extends CommentController
     {
         $data = array();
         $data['portfolioUnit'] = $portfolioUnit;
-        $data['comments'] = Comment::with('author:id,pid,name')->where('commentable_type', 'pun')->where('commentable_id', $portfolioUnit->id)->orderBy('created_at', 'DESC')->get();
+        $data['comments'] = Comment::with('author:id,pid,name')->where('commentable_type', 'pun')->where('commentable_id', $portfolioUnit->id)->latest()->get();
         $data['editAction'] = route('portfolios.comments.edit', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['updateAction'] = route('portfolios.comments.update', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
         $data['deleteAction'] = route('portfolios.comments.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);

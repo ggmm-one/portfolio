@@ -15,9 +15,13 @@ class ResourceOwner extends Model
         [Resource::class, 'resource_owner_id', 'This owner is used in a resource(s). Please re-assign and try again.']
     ];
 
-    public static function getSelectList()
+    public function scopeOrdered($query)
     {
-        return ResourceOwner::orderBy('name')->get()->pluck('name', 'pid');
+        return $query->orderBy('name');
     }
 
+    public static function getSelectList()
+    {
+        return ResourceOwner::ordered()->get()->pluck('name', 'pid');
+    }
 }
