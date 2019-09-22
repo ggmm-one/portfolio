@@ -96,8 +96,7 @@ class EvaluationItemController extends Controller
 
     public static function updateWeightFactor()
     {
-        $query = EvaluationItem::orderBy('id');
-        $query->update(['weight_factor' => DB::raw("(cast(weight as real) /	(select sum(ei.weight) from evaluation_items ei))")]);
-        $query->update(['weight_factor' => DB::raw("(cast(weight_factor as real) / (select evaluation_max from settings))")]);
+        EvaluationItem::query()->update(['weight_factor' => DB::raw("(cast(weight as real) /	(select sum(ei.weight) from evaluation_items ei))")]);
+        EvaluationItem::query()->update(['weight_factor' => DB::raw("(cast(weight_factor as real) / (select evaluation_max from settings))")]);
     }
 }
