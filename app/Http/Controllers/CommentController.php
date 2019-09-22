@@ -19,7 +19,8 @@ abstract class CommentController extends Controller
     protected function validateModelComment(Model $model, Comment $comment)
     {
         if ($comment->commentable_id != $model->id
-            || $comment->commentable_type != $model::MORPH_SHORT_NAME)
+            || $comment->commentable_type != $model::MORPH_SHORT_NAME) {
             abort(404);
+        }
     }
 }
