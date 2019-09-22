@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Model;
-use App\Scopes\OrderScope;
 
 class EvaluationItem extends Model
 {
@@ -38,11 +37,5 @@ class EvaluationItem extends Model
     public function scopeSorted($query)
     {
         return $query->orderBy('sort_order');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope(new OrderScope('sort_order', 'ASC'));
     }
 }

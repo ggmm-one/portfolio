@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Model;
-use App\Scopes\OrderScope;
 
 class Role extends Model
 {
@@ -31,14 +30,13 @@ class Role extends Model
         return $this->hasMany(User::class);
     }
 
-    public static function getSelectList()
+    public function scopeOrdered($query)
     {
-        return Role::select('id', 'pid', 'name')->get()->pluck('name', 'pid');
+        return $query->orderBy('name');
     }
 
-    protected static function boot()
+    public static function getSelectList()
     {
-        parent::boot();
-        static::addGlobalScope(new OrderScope('name', 'ASC'));
+        return Role::select('id', 'pid', 'name')->ordered()->get()->pluck('name', 'pid');
     }
 }

@@ -17,7 +17,7 @@ class ResourceCapacityController extends Controller
 {
     public function index(Resource $resource)
     {
-        $capacities = $resource->capacities;
+        $capacities = $resource->capacities()->ordered()->get();
         return view('resources.resources.capacities.index', compact('resource', 'capacities'));
     }
 

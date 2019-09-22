@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Model;
-use App\Scopes\OrderScope;
 
 class ResourceCapacity extends Model
 {
@@ -38,8 +37,8 @@ class ResourceCapacity extends Model
         return self::TYPES[$this->type];
     }
 
-    protected static function boot() {
-        parent::boot();
-        static::addGlobalScope(new OrderScope('start', 'ASC'));
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('start');
     }
 }
