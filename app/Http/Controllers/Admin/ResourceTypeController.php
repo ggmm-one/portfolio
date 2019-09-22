@@ -12,7 +12,7 @@ class ResourceTypeController extends Controller
 {
     public function index()
     {
-        $resourceTypes = ResourceType::orderBy('name')->get();
+        $resourceTypes = ResourceType::ordered()->get();
         return view('admin.resource_types.index', compact('resourceTypes'));
     }
 

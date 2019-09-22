@@ -42,9 +42,13 @@ class ResourceType extends Model
         return self::CATEGORIES[$this->category];
     }
 
-    public static function getSelectList()
+    public function scopeOrdered($query)
     {
-        return ResourceType::orderBy('name')->get()->pluck('name', 'pid');
+        return $query->orderBy('name');
     }
 
+    public static function getSelectList()
+    {
+        return ResourceType::ordered()->get()->pluck('name', 'pid');
+    }
 }
