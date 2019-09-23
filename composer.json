@@ -17,7 +17,6 @@
     "require-dev": {
         "filp/whoops": "2.5.0",
         "fzaninotto/faker": "1.8.0",
-        "laravel/telescope": "2.1.0",
         "nunomaduro/collision": "3.0.1"
     },
     "config": {
