@@ -17,7 +17,8 @@
     "require-dev": {
         "filp/whoops": "2.5.0",
         "fzaninotto/faker": "1.8.0",
-        "nunomaduro/collision": "3.0.1"
+        "nunomaduro/collision": "3.0.1",
+        "barryvdh/laravel-debugbar": "3.2.8"
     },
     "config": {
         "optimize-autoloader": true,
