@@ -1,8 +1,8 @@
 <?php
 
-Route::view('/', 'admin.root');
-
 Auth::routes();
+
+Route::view('/', 'admin.root');
 
 Route::get('/profile/{user}', 'ProfileController@show')->name('profile.show');
 
