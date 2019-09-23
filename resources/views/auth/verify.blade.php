@@ -1,4 +1,4 @@
-@extends('layouts.frame_app')
+@extends('layouts.frame_guest')
 
 @section('content')
 <div class="container">

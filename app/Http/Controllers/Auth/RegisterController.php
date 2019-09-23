@@ -6,8 +6,9 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
 
-class RegisterController extends AuthController
+class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
