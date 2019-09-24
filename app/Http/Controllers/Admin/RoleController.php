@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Role;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use TiMacDonald\Validation\Rule;
+use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Redirect;
 
 class RoleController extends Controller
@@ -22,9 +21,9 @@ class RoleController extends Controller
         return view('admin.roles.edit', compact('role'));
     }
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $role = Role::create($this->validateValues($request));
+        $role = Role::create($request->validated());
         return Redirect::route('admin.roles.edit', ['role' => $role->pid]);
     }
 
@@ -33,9 +32,9 @@ class RoleController extends Controller
         return view('admin.roles.edit', compact('role'));
     }
 
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-        $role->update($this->validateValues($request));
+        $role->update($request->validated());
         return Redirect::route('admin.roles.edit', ['role' => $role->pid]);
     }
 
@@ -43,16 +42,5 @@ class RoleController extends Controller
     {
         $role->deleteIfNotReferenced();
         return Redirect::route('admin.roles.index');
-    }
-
-    private function validateValues(Request $request)
-    {
-        return $request->validate([
-            'name' => Rule::required()->string(1, Role::DD_NAME_LENGTH)->get(),
-            'permission_portfolios' => Rule::required()->in(array_keys(Role::PERMISSIONS))->get(),
-            'permission_projects' => Rule::required()->in(array_keys(Role::PERMISSIONS))->get(),
-            'permission_resources' => Rule::required()->in(array_keys(Role::PERMISSIONS))->get(),
-            'permission_admin' => Rule::required()->in(array_keys(Role::PERMISSIONS))->get(),
-        ]);
     }
 }
