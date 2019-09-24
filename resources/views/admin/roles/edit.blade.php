@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-light bg-light app-nav-section">
         <span class="navbar-brand">{{ __($role->exists ? 'Edit Role' : 'Add Role') }}</span>
-        @includeWhen($role->exists, 'inc.delete_btn', ['deleteAction' => route('admin.roles.destroy', ['role' => $role->pid])])
+        @includeWhen($role->exists && auth()->user()->can('delete', $role), 'inc.delete_btn', ['deleteAction' => route('admin.roles.destroy', ['role' => $role->pid])])
     </nav>
 
     <form method="POST" action="{{ route('admin.roles.update', ['role' => $role->pid]) }}" class="app-form">
@@ -36,7 +36,7 @@
                 @endforeach        
             </div>    
         @endforeach
-        @form_submit
+        @if (auth()->user()->can('update', $role)) @form_submit @endif
     </form>
 
 @endsection

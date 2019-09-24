@@ -62,6 +62,6 @@ class UserPolicy
 
     public function adminModule(User $user)
     {
-        return $user->role->permission_admin != Role::PERMISSION_NONE;
+        return !$user->role->adminNone();
     }
 }

@@ -39,4 +39,19 @@ class Role extends Model
     {
         return Role::select('id', 'pid', 'name')->ordered()->get()->pluck('name', 'pid');
     }
+
+    public function adminNone()
+    {
+        return $this->permission_admin == static::PERMISSION_NONE;
+    }
+
+    public function adminRead()
+    {
+        return $this->permission_admin == static::PERMISSION_READ;
+    }
+
+    public function adminAll()
+    {
+        return $this->permission_admin == static::PERMISSION_ALL;
+    }
 }
