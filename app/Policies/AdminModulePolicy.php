@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\Role;
+use App\Model;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RolePolicy
+class AdminModulePolicy
 {
     use HandlesAuthorization;
 
@@ -15,7 +15,7 @@ class RolePolicy
         return !$user->role->adminNone();
     }
 
-    public function view(User $user, Role $model)
+    public function view(User $user, Model $model)
     {
         return !$user->role->adminNone();
     }
@@ -25,22 +25,22 @@ class RolePolicy
         return $user->role->adminAll();
     }
 
-    public function update(User $user, Role $model)
+    public function update(User $user, Model $model)
     {
         return $user->role->adminAll();
     }
 
-    public function delete(User $user, Role $model)
+    public function delete(User $user, Model $model)
     {
         return $user->role->adminAll();
     }
 
-    public function restore(User $user, Role $model)
+    public function restore(User $user, Model $model)
     {
         return $user->role->adminAll();
     }
 
-    public function forceDelete(User $user, Role $model)
+    public function forceDelete(User $user, Model $model)
     {
         return $user->role->adminAll();
     }
