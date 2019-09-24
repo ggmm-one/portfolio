@@ -3,10 +3,10 @@
 @section('navbar')
 <div class="collapse navbar-collapse justify-content-between" id="headernavbar">
     <div class="navbar-nav">
-        <a class="nav-item nav-link app-nav-master-link" href="{{ route('portfolios.portfolios.index') }}">Portfolios</a>
-        <a class="nav-item nav-link app-nav-master-link" href="{{ route('projects.projects.index') }}">Projects</a>
-        <a class="nav-item nav-link app-nav-master-link" href="{{ route('resources.root') }}">Resources</a>
-        <a class="nav-item nav-link app-nav-master-link" href="{{ route('admin.root') }}">Admin</a>
+        @can('portfoliosModule', App\User::class) <a class="nav-item nav-link app-nav-master-link" href="{{ route('portfolios.portfolios.index') }}">{{ __('Portfolios') }}</a> @endcan
+        @can('projectsModule', App\User::class) <a class="nav-item nav-link app-nav-master-link" href="{{ route('projects.projects.index') }}">{{ __('Projects') }}</a> @endcan
+        @can('resourcesModule', App\User::class) <a class="nav-item nav-link app-nav-master-link" href="{{ route('resources.root') }}">{{ __('Resources') }}</a> @endcan
+        @can('adminModule', App\User::class) <a class="nav-item nav-link app-nav-master-link" href="{{ route('admin.root') }}">{{ __('Admin') }}</a> @endcan
     </div>
     <div class="navbar-nav">
         <a class="nav-item nav-link app-nav-master-link" href="{{ route('profile.show', ['user' => Auth::user()->pid]) }}">{{ Auth::user()->name }}</a>
