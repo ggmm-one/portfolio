@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Role;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
+use App\Http\Requests\Admin\RoleRequest;
 use Illuminate\Support\Facades\Redirect;
 
 class RoleController extends Controller

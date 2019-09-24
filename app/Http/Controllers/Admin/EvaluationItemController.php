@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Project\EvaluationScoreController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Project;
-use App\Http\Requests\EvaluationItemRequest;
+use App\Http\Requests\Admin\EvaluationItemRequest;
 
 class EvaluationItemController extends Controller
 {

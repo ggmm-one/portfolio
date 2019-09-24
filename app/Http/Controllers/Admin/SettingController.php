@@ -7,7 +7,7 @@ use App\Setting;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\SettingRequest;
+use App\Http\Requests\Admin\SettingRequest;
 
 class SettingController extends Controller
 {

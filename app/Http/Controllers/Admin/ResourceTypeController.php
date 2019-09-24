@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\ResourceType;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\ResourceTypeRequest;
+use App\Http\Requests\Admin\ResourceTypeRequest;
 
 class ResourceTypeController extends Controller
 {
