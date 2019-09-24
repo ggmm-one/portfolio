@@ -40,7 +40,7 @@ class User extends LaravelUser
 
     public function getRolePidAttribute()
     {
-        return $this->role->pid;
+        return $this->role->pid ?? null;
     }
 
     public function setRolePidAttribute($value)

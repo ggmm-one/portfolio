@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand">{{ __('Users') }}</span>
-        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
+        @if (auth()->user()->can('create', App\User::class)) <a href="{{ route('admin.users.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
     </nav>
 
     <table class="table">

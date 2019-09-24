@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use TiMacDonald\Validation\Rule;
 use App\User;
 
 class UserController extends Controller
@@ -25,9 +24,9 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $user = new User($this->validateValues($request));
+        $user = new User($request->validated());
         $user->password = Str::random(56);
         $user->save();
         return Redirect::route('admin.users.index');
@@ -38,9 +37,9 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $user->update($this->validateValues($request, $user->id));
+        $user->update($request->validated());
         return Redirect::route('admin.users.index');
     }
 
@@ -54,16 +53,5 @@ class UserController extends Controller
             $user->delete();
             return Redirect::route('admin.users.index');
         }
-    }
-
-    private function validateValues(Request $request, $idToIgnore = -1)
-    {
-        return $request->validate([
-            'name' => Rule::required()->string(1, User::DD_NAME_LENGTH)->get(),
-            'email' => Rule::required()->email(User::DD_EMAIL_LENGTH)->unique('users')->where(function ($query) use ($idToIgnore) {
-                $query->where('id', '<>', $idToIgnore);
-            })->get(),
-            'role_pid' => Rule::required()->exists('roles', 'pid')->get()
-        ]);
     }
 }
