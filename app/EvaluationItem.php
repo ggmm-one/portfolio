@@ -11,16 +11,16 @@ class EvaluationItem extends Model
     public const DD_WEIGHT_MAX = 100;
     public const DD_SORT_ORDER_MAX = 1024;
 
+    public const CASCADE = [
+        'evaluationScores'
+    ];
+
     protected $fillable = [
         'name', 'instructions', 'weight', 'sort_order'
     ];
 
     protected $casts = [
         'sort_order' => 'integer'
-    ];
-
-    protected $cascade = [
-        'evaluationScores'
     ];
 
     public function evaluationScores()

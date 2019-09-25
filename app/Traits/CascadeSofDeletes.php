@@ -20,10 +20,12 @@ trait CascadeSoftDeletes
      */
     public function runSoftDelete($time = null)
     {
-        if ($time == null) $time = $this->freshTimestamp();
+        if ($time == null) {
+            $time = $this->freshTimestamp();
+        }
 
-        if (isset($this->cascade)) {
-            foreach ($this->cascade as $models) {
+        if (defined('static::CASCADE')) {
+            foreach (static::CASCADE as $models) {
                 $this->{$models}->each(function ($model, $key) use ($time) {
                     $model->runSoftDelete($time);
                 });
@@ -44,5 +46,4 @@ trait CascadeSoftDeletes
 
         $query->update($columns);
     }
-
 }

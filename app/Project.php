@@ -38,18 +38,18 @@ class Project extends Model
         self::STATUS_CANCELLED => 'Cancelled'
     ];
 
+    public const CASCADE = [
+        'comments',
+        'links',
+        'evaluationScores'
+    ];
+
     protected $fillable = [
         'type', 'status', 'name', 'code', 'portfolio_unit_pid', 'start', 'duration', 'start_after', 'end_before'
     ];
 
     protected $dates = [
         'start', 'start_after', 'end_before'
-    ];
-
-    protected $cascade = [
-        'comments',
-        'links',
-        'evaluationScores'
     ];
 
     protected $attributes = [

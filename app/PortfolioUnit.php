@@ -17,6 +17,11 @@ class PortfolioUnit extends Model
     public const TYPE_PROGRAM = 'R';
     public const TYPES = array(self::TYPE_PORTFOLIO => 'Portfolio', self::TYPE_PROGRAM => 'Program');
 
+    public const CASCADE = [
+        'comments',
+        'links'
+    ];
+
     protected $fillable = [
         'name', 'type', 'parent_pid', 'description'
     ];
@@ -24,11 +29,6 @@ class PortfolioUnit extends Model
     protected $attributes = [
         'name' => 'New Portfolio',
         'type' => self::TYPE_PORTFOLIO
-    ];
-
-    protected $cascade = [
-        'comments',
-        'links'
     ];
 
     protected $checkBeforeDeleting = [
