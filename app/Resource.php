@@ -12,17 +12,17 @@ class Resource extends Model
     public const DD_NAME_LENGTH = 256;
     public const DD_DESCRIPTION_LENGTH = 4000;
 
+    public const CASCADE = [
+        'capacities',
+        'comments'
+    ];
+
     protected $fillable = [
         'name', 'resource_type_pid', 'resource_owner_pid', 'description'
     ];
 
     protected $attributes = [
         'name' => 'New Resource'
-    ];
-
-    protected $cascade = [
-        'capacities',
-        'comments'
     ];
 
     public function owner()
