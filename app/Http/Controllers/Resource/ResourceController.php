@@ -2,31 +2,33 @@
 
 namespace App\Http\Controllers\Resource;
 
-use App\Resource;
+use App\Http\Requests\Resource\ResourceRequest;
 use Illuminate\Http\Request;
+use App\Resource;
 use App\Http\Controllers\Controller;
-use TiMacDonald\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Auth;
 
 class ResourceController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Resource::class);
         $resources = $this->filter($request)->get();
         return view('resources.resources.index', compact('resources', 'isFiltered'));
     }
 
     public function create()
     {
+        $this->authorize('create', Resource::class);
         $resource = new Resource();
         $formAction = route('resources.resources.store');
         return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
-    public function store(Request $request)
+    public function store(ResourceRequest $request)
     {
-        $resource = Resource::create($this->validateValues($request));
+        $this->authorize('create', Resource::class);
+        $resource = Resource::create($request->validated());
         return Redirect::route('resources.resources.edit', compact('resource'));
     }
 
@@ -36,32 +38,18 @@ class ResourceController extends Controller
         return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
-    public function update(Request $request, Resource $resource)
+    public function update(ResourceRequest $request, Resource $resource)
     {
-        $resource->update($this->validateValues($request));
+        $this->authorize('view', $resource);
+        $resource->update($request->validated());
         $formAction = route('resources.resources.update', compact('resource'));
         return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
     public function destroy(Resource $resource)
     {
+        $this->authorize('delete', $resource);
         //TODO: Check dependencies before deleting
-    }
-
-    private function validateValues(Request $request)
-    {
-        return $request->validate([
-            'name' => Rule::required()->string(1, Resource::DD_NAME_LENGTH)->get(),
-            'resource_type_pid' => Rule::required()
-                ->exists('resource_types', 'pid')->where(function ($query) {
-                    $query->whereNull('deleted_at');
-                })->get(),
-            'resource_owner_pid' => Rule::required()
-                ->exists('resource_owners', 'pid')->where(function ($query) {
-                    $query->whereNull('deleted_at');
-                })->get(),
-            'description' => Rule::max(Resource::DD_DESCRIPTION_LENGTH)->get()
-        ]);
     }
 
     private function filter(Request &$request)

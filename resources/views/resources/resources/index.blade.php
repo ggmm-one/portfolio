@@ -16,7 +16,7 @@
                 @include('inc.filtered_tag')
             </span>
         </div>
-        <a href="{{ route('resources.resources.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
+        @if (auth()->user()->can('create', App\Resource::class)) <a href="{{ route('resources.resources.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
     </nav>
 
     <table class="table">
