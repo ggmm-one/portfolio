@@ -49,7 +49,8 @@ class ResourceController extends Controller
     public function destroy(Resource $resource)
     {
         $this->authorize('delete', $resource);
-        //TODO: Check dependencies before deleting
+        $resource->deleteIfNotReferenced();
+        return Redirect::route('resources.resources.index');
     }
 
     private function filter(Request &$request)
