@@ -7,6 +7,8 @@
 
 @section('content')
 
+    @include('inc.flash_msg')
+
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand">{{ __($resourceOwner->exists ? 'Edit Resource Owner' : 'Add Resource Owner') }}</span>
         @if ($resourceOwner->exists)
