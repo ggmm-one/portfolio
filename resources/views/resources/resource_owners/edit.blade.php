@@ -12,7 +12,7 @@
         @if ($resourceOwner->exists)
             <div class="app-action">
                 <a href="{{ route('resources.resources.index', ['owner' => $resourceOwner->pid]) }}">{{ __('Resources') }}</a>
-                @include('inc.delete_btn', compact('deleteAction'))
+                @includeWhen(auth()->user()->can('delete', $resourceOwner), 'inc.delete_btn', compact('deleteAction'))
             </div>
         @endif
     </nav>
@@ -25,7 +25,7 @@
         @endif
         @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $resourceOwner->name), 'control_validation' => 'required autofocus maxlenght='.\App\ResourceOwner::DD_NAME_LENGTH])
         @form_input(['input_type' => 'email', 'control_id' => 'email', 'control_label' => 'Email', 'control_value' => old('email', $resourceOwner->email), 'control_validation' => 'required maxlenght='.\App\ResourceOwner::DD_EMAIL_LENGTH])
-        @form_submit
+        @if (auth()->user()->can('update', $resourceOwner)) @form_submit @endif
     </form>
 
 @endsection
