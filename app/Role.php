@@ -17,12 +17,12 @@ class Role extends Model
         self::PERMISSION_ALL => 'All'
     ];
 
-    protected $fillable = [
-        'name', 'permission_portfolios', 'permission_projects', 'permission_resources', 'permission_resources', 'permission_admin'
+    public const CHECK_BEFORE_DELETING = [
+        [User::class, 'role_id', 'Cannot delete role. Please re-assign users and try again.'],
     ];
 
-    protected $checkBeforeDeleting = [
-        [User::class, 'role_id', 'Cannot delete role. Please re-assign users and try again.'],
+    protected $fillable = [
+        'name', 'permission_portfolios', 'permission_projects', 'permission_resources', 'permission_resources', 'permission_admin'
     ];
 
     public function users()

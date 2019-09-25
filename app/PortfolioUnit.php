@@ -22,6 +22,11 @@ class PortfolioUnit extends Model
         'links'
     ];
 
+    public const CHECK_BEFORE_DELETING = [
+        [PortfolioUnit::class, 'parent_id', 'Cannot delete portfolio. Please re-assign sub portfolios and try again.'],
+        [Project::class, 'portfolio_unit_id', 'Cannot delete portfolio. Please re-assign projects and try again.']
+    ];
+
     protected $fillable = [
         'name', 'type', 'parent_pid', 'description'
     ];
@@ -29,11 +34,6 @@ class PortfolioUnit extends Model
     protected $attributes = [
         'name' => 'New Portfolio',
         'type' => self::TYPE_PORTFOLIO
-    ];
-
-    protected $checkBeforeDeleting = [
-        [PortfolioUnit::class, 'parent_id', 'Cannot delete portfolio. Please re-assign sub portfolios and try again.'],
-        [Project::class, 'portfolio_unit_id', 'Cannot delete portfolio. Please re-assign projects and try again.']
     ];
 
     public function links()

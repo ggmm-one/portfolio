@@ -19,6 +19,10 @@ class ResourceType extends Model
         self::CATEGORY_INTELLECTUAL => 'Intellectual'
     ];
 
+    public const CHECK_BEFORE_DELETING = [
+        [Resource::class, 'resource_type_id', 'Cannot delete resource type. Please re-assign types on resources and try again.']
+    ];
+
     protected $fillable = [
         'name', 'category'
     ];
@@ -26,10 +30,6 @@ class ResourceType extends Model
     protected $attributes = [
         'name' => '',
         'category' => self::CATEGORY_FINANCIAL,
-    ];
-
-    protected $checkBeforeDeleting = [
-        [Resource::class, 'resource_type_id', 'Cannot delete resource type. Please re-assign types on resources and try again.']
     ];
 
     public function resources()

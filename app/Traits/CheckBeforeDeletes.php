@@ -9,8 +9,8 @@ trait CheckBeforeDeletes
     public function deleteIfNotReferenced()
     {
         $this->checkBeforeDeleting();
-        if(isset($this->checkBeforeDeleting)) {
-            foreach ($this->checkBeforeDeleting as $item) {
+        if (defined('static::CHECK_BEFORE_DELETING')) {
+            foreach (static::CHECK_BEFORE_DELETING as $item) {
                 if ($item[0]::where($item[1], $this->id)->whereNull($this->getDeletedAtColumn())->exists()) {
                     throw ValidationException::withMessages(['check_before_deleting' => $item[2]]);
                 }
