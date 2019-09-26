@@ -19,7 +19,7 @@
         @form_input(['input_type' => 'date', 'control_id' => 'end', 'control_label' => 'End', 'control_value' => old('end', $resourceCapacity->end->toDateString()), 'control_validation' => 'required'])
         @form_select(['control_id' => 'type', 'control_label' => 'Type', 'control_value' => old('type', $resourceCapacity->type),'select_options' => \App\ResourceCapacity::TYPES, 'control_size' => 'm'])
         @form_input(['input_type' => 'number', 'control_id' => 'quantity', 'control_label' => 'Quantity', 'control_value' => old('quantity', $resourceCapacity->quantity), 'control_size' => 'm', 'control_validation' => 'min=0 autofocus max='.\App\ResourceCapacity::DD_QUANTITY_MAX])
-        @form_submit
+        @if (auth()->user()->can('update', $resource)) @form_submit @endif
     </form>
 
 @endsection

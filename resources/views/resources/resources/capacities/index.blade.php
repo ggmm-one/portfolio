@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', __('Resource Capacity'))
+@section('pagetitle', 'Resource Capacity')
 @section('bodyid', 'app-resources-capacities-index')
 
 @include('resources.inc.section_nav_bar')
@@ -12,7 +12,7 @@
     <nav class="navbar">
         <span class="navbar-brand">&nbsp;</span>
         <div>
-            <a href="{{ route('resources.capacities.create', compact('resource')) }}" class="btn btn-primary">{{ __('Add') }}</a>
+            @if (auth()->user()->can('create', App\ResourceCapacity::class)) <a href="{{ route('resources.capacities.create', compact('resource')) }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
         </div>
     </nav>
 

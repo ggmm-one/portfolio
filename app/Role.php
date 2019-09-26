@@ -54,4 +54,19 @@ class Role extends Model
     {
         return $this->permission_admin == static::PERMISSION_ALL;
     }
+
+    public function resourcesNone()
+    {
+        return $this->permission_resources == static::PERMISSION_NONE;
+    }
+
+    public function resourcesRead()
+    {
+        return $this->permission_resources == static::PERMISSION_READ;
+    }
+
+    public function resourcesAll()
+    {
+        return $this->permission_resources == static::PERMISSION_ALL;
+    }
 }
