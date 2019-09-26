@@ -4,29 +4,31 @@ namespace App\Http\Controllers\Resource;
 
 use App\Resource;
 use App\Comment;
-use App\Http\Controllers\CommentController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class ResourceCommentController extends CommentController
+class ResourceCommentController extends Controller
 {
     public function index(Resource $resource)
     {
+        $this->authorize('view', $resource);
         return $this->view($resource);
     }
 
-    public function store(Request $request, Resource $resource)
+    public function store(CommentRequest $request, Resource $resource)
     {
-        $comment = new Comment($this->validateValues($request));
+        $this->authorize('create', $resource);
+        $comment = new Comment($request->validated());
         $comment->user_id = Auth::id();
         $resource->comments()->save($comment);
         return Redirect::route('resources.comments.index', ['resource' => $resource->pid]);
     }
 
-    public function edit(Resource $resource, Comment $comment)
+    public function edit(CommentRequest $request, Resource $resource, Comment $comment)
     {
-        $this->validateModelComment($resource, $comment);
+        $this->authorize('view', $resource);
         return $this->view($resource, $comment);
     }
 
@@ -45,16 +47,16 @@ class ResourceCommentController extends CommentController
         return view('resources.resources.comments.index', $data);
     }
 
-    public function update(Request $request, Resource $resource, Comment $comment)
+    public function update(CommentRequest $request, Resource $resource, Comment $comment)
     {
-        $this->validateModelComment($resource, $comment);
-        $comment->update($this->validateValues($request));
+        $this->authorize('update', $resource);
+        $comment->update($request->validated());
         return Redirect::route('resources.comments.index', ['resource' => $resource->pid]);
     }
 
-    public function destroy(Resource $resource, Comment $comment)
+    public function destroy(CommentRequest $request, Resource $resource, Comment $comment)
     {
-        $this->validateModelComment($resource, $comment);
+        $this->authorize('delete', $resource);
         $comment->delete();
         return Redirect::route('resources.comments.index', ['resource' => $resource->pid]);
     }
