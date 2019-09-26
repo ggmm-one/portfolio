@@ -4,29 +4,31 @@ namespace App\Http\Controllers\Portfolio;
 
 use App\Comment;
 use App\PortfolioUnit;
-use App\Http\Controllers\CommentController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\CommentRequest;
 
-class PortfolioCommentController extends CommentController
+class PortfolioCommentController extends Controller
 {
     public function index(PortfolioUnit $portfolioUnit)
     {
+        $this->authorize('view', $portfolioUnit);
         return $this->view($portfolioUnit);
     }
 
-    public function store(Request $request, PortfolioUnit $portfolioUnit)
+    public function store(PortfolioUnit $portfolioUnit)
     {
-        $comment = new Comment($this->validateValues($request));
+        $this->authorize('create', $portfolioUnit);
+        $comment = new Comment($request->validated());
         $comment->user_id = Auth::id();
         $portfolioUnit->comments()->save($comment);
         return Redirect::route('portfolios.comments.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
-    public function edit(PortfolioUnit $portfolioUnit, Comment $comment)
+    public function edit(CommentRequest $request, PortfolioUnit $portfolioUnit, Comment $comment)
     {
-        $this->validateModelComment($portfolioUnit, $comment);
+        $this->authorize('view', $portfolioUnit);
         return $this->view($portfolioUnit, $comment);
     }
 
@@ -45,16 +47,16 @@ class PortfolioCommentController extends CommentController
         return view('portfolios.comments.index', $data);
     }
 
-    public function update(Request $request, PortfolioUnit $portfolioUnit, Comment $comment)
+    public function update(CommentRequest $request, PortfolioUnit $portfolioUnit, Comment $comment)
     {
-        $this->validateModelComment($portfolioUnit, $comment);
-        $comment->update($this->validateValues($request));
+        $this->authorize('update', $portfolioUnit);
+        $comment->update($request->validated());
         return Redirect::route('portfolios.comments.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
-    public function destroy(PortfolioUnit $portfolioUnit, Comment $comment)
+    public function destroy(CommentRequest $request, PortfolioUnit $portfolioUnit, Comment $comment)
     {
-        $this->validateModelComment($portfolioUnit, $comment);
+        $this->authorize('delete', $portfolioUnit);
         $comment->delete();
         return Redirect::route('portfolios.comments.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
