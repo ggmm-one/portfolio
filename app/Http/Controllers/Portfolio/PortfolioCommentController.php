@@ -17,7 +17,7 @@ class PortfolioCommentController extends Controller
         return $this->view($portfolioUnit);
     }
 
-    public function store(PortfolioUnit $portfolioUnit)
+    public function store(CommentRequest $request, PortfolioUnit $portfolioUnit)
     {
         $this->authorize('create', $portfolioUnit);
         $comment = new Comment($request->validated());

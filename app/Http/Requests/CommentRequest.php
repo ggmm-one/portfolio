@@ -33,10 +33,10 @@ class CommentRequest extends FormRequest
 
     public function validateModelComment()
     {
-        $model = null;
-        if (isset($this->resource)) {
-            $model = $this->resource;
+        if ($this->routeIs('*store')) {
+            return;
         }
+        $model = $this->resource ?: $this->portfolio_unit ?: null;
         if ($model == null || $this->comment->commentable_id != $model->id || $this->comment->commentable_type != $model::MORPH_SHORT_NAME) {
             abort(404);
         }
