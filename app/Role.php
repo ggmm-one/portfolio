@@ -69,4 +69,19 @@ class Role extends Model
     {
         return $this->permission_resources == static::PERMISSION_ALL;
     }
+
+    public function portfoliosNone()
+    {
+        return $this->permission_portfolios == static::PERMISSION_NONE;
+    }
+
+    public function portfoliosRead()
+    {
+        return $this->permission_portfolios == static::PERMISSION_READ;
+    }
+
+    public function portfoliosAll()
+    {
+        return $this->permission_portfolios == static::PERMISSION_ALL;
+    }
 }
