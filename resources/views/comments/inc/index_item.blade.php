@@ -22,7 +22,10 @@
         <span><a href="{{ route('profile.show', ['user' => $comment->author->pid])}}">{{ $comment->author->name }}</a></span>
 
         <span title="{{ __('Created at: ').$comment->created_at.__(' | Last updated at: ').$comment->updated_at }}">
-            {{ $comment->updated_at->diffForHumans() }}
+            {{ $comment->created_at->diffForHumans() }}
+            @if ($comment->created_at != $comment->updated_at)
+                ({{ 'Edited '. $comment->updated_at->diffForHumans() }})
+            @endif
         </span>
 
     </div>
