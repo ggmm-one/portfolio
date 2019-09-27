@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\EvaluationItem;
 use App\Policies\AdminModulePolicy;
-use App\Policies\PortfoliosPolicy;
+use App\Policies\PortfoliosModulePolicy;
 use App\Policies\ResourcesModulePolicy;
 use App\PortfolioUnit;
 use App\ResourceOwner;
@@ -19,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
         EvaluationItem::class => AdminModulePolicy::class,
-        PortfolioUnit::class => PortfoliosPolicy::class,
+        PortfolioUnit::class => PortfoliosModulePolicy::class,
         Resource::class => ResourcesModulePolicy::class,
         ResourceCapacity::class => ResourcesModulePolicy::class,
         ResourceOwner::class => ResourcesModulePolicy::class,

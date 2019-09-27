@@ -6,7 +6,7 @@ use App\User;
 use App\Model;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PortfoliosPolicy
+class PortfoliosModulePolicy
 {
     use HandlesAuthorization;
 
