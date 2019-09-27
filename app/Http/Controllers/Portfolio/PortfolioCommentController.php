@@ -43,6 +43,8 @@ class PortfolioCommentController extends Controller
         if ($comment != null) {
             $data['editComment'] = $comment;
         }
+        $data['commentType'] = PortfolioUnit::class;
+        $data['parentModel'] = $portfolioUnit;
 
         return view('portfolios.comments.index', $data);
     }

@@ -43,6 +43,8 @@ class ResourceCommentController extends Controller
         if ($comment != null) {
             $data['editComment'] = $comment;
         }
+        $data['commentType'] = Resource::class;
+        $data['parentModel'] = $resource;
 
         return view('resources.resources.comments.index', $data);
     }
