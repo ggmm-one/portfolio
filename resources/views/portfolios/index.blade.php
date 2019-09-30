@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', __('Portfolios'))
+@section('pagetitle', 'Portfolios')
 @section('bodyid', 'app-portfolios-portfolio-units-index')
 
 @section('content')
@@ -9,7 +9,7 @@
 
     <nav class="navbar navbar-light bg-light app-nav-section">
         <span class="navbar-brand">{{ __('Portfolios') }}</span>
-        <a href="{{ route('portfolios.portfolios.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
+        @if (auth()->user()->can('create', App\PortfolioUnit::class)) <a href="{{ route('portfolios.portfolios.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
     </nav>
 
     <table class="table">

@@ -3,49 +3,49 @@
 namespace App\Http\Controllers\Portfolio;
 
 use App\PortfolioUnit;
-use App\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Request;
-use TiMacDonald\Validation\Rule;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Portfolio\PortfolioUnitRequest;
 
 class PortfolioUnitController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', PortfolioUnit::class);
         $portfolioUnits = PortfolioUnit::hierarchyOrdered()->get();
         return view('portfolios.index', compact('portfolioUnits'));
     }
 
     public function create()
     {
+        $this->authorize('create', PortfolioUnit::class);
         $portfolioUnit = new PortfolioUnit();
         $availParents = PortfolioUnit::getSelectList();
         $formAction = route('portfolios.portfolios.store', ['portfolio_unit' => $portfolioUnit->pid]);
         return view('portfolios.portfolios.edit', compact('portfolioUnit', 'availParents', 'formAction'));
     }
 
-    public function store(Request $request)
+    public function store(PortfolioUnitRequest $request)
     {
-        $portfolioUnit = PortfolioUnit::create($this->validateValues($request));
+        $this->authorize('create', PortfolioUnit::class);
+        $portfolioUnit = PortfolioUnit::create($request->validated());
         PortfolioUnitController::processHierarchy();
         return Redirect::route('portfolios.portfolios.edit', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
     public function edit(PortfolioUnit $portfolioUnit)
     {
+        $this->authorize('view', $portfolioUnit);
         $availParents = PortfolioUnit::getSelectList($portfolioUnit);
         $formAction = route('portfolios.portfolios.update', ['portfolio_unit' => $portfolioUnit->pid]);
         return view('portfolios.portfolios.edit', compact('portfolioUnit', 'availParents', 'formAction'));
     }
 
-    public function update(Request $request, PortfolioUnit $portfolioUnit)
+    public function update(PortfolioUnitRequest $request, PortfolioUnit $portfolioUnit)
     {
-        $validated = $this->validateValues($request, $portfolioUnit->isRoot());
+        $this->authorize('update', $portfolioUnit);
+        $validated = $request->validated();
         DB::transaction(function () use ($portfolioUnit, $validated) {
             $portfolioUnit->update($validated);
             static::processHierarchy();
@@ -55,28 +55,12 @@ class PortfolioUnitController extends Controller
 
     public function destroy(PortfolioUnit $portfolioUnit)
     {
+        $this->authorize('delete', $portfolioUnit);
         DB::transaction(function () use ($portfolioUnit) {
             $portfolioUnit->deleteIfNotReferenced();
             static::processHierarchy();
         });
         return Redirect::route('portfolios.portfolios.index');
-    }
-
-    private function validateValues(Request $request, $isRoot = false)
-    {
-        $validated = $request->validate([
-            'name' => Rule::required()->string(1, PortfolioUnit::DD_NAME_LENGTH)->get(),
-            'type' => Rule::when(!$isRoot, function ($rule) {
-                $rule->required()
-                        ->in(array_keys(PortfolioUnit::TYPES));
-            })->get(),
-            'parent_pid' => Rule::when(!$isRoot, function ($rule) {
-                $rule->required()->exists('portfolio_units', 'pid');
-            })->get(),
-            'description' => Rule::max(PortfolioUnit::DD_DESCRIPTION_LENGTH)->get()
-        ]);
-
-        return $isRoot? Arr::only($validated, ['name', 'description']) : $validated;
     }
 
     public static function processHierarchy()

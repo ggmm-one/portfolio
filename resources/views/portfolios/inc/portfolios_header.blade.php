@@ -3,7 +3,7 @@
     <div class="app-action">
         @if ($portfolioUnit->exists)
             <a href="{{ route('projects.projects.index', ['portfolio_unit' => $portfolioUnit->pid])}}">{{ __('Projects') }}</a>
-            @includeWhen(!$portfolioUnit->isRoot(), 'inc.delete_btn', ['deleteAction' => route('portfolios.portfolios.destroy', ['portfolio_unit' => $portfolioUnit->pid])])
+            @includeWhen(!$portfolioUnit->isRoot() && auth()->user()->can('delete', $portfolioUnit), 'inc.delete_btn', ['deleteAction' => route('portfolios.portfolios.destroy', ['portfolio_unit' => $portfolioUnit->pid])])
         @endif
     </div>
 </nav>
