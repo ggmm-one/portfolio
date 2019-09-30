@@ -39,7 +39,7 @@ class PortfolioGoalController extends Controller
 
     public function edit(PortfolioUnit $portfolioUnit, Link $link)
     {
-        $this->authorize('update', $portfolioUnit);
+        $this->authorize('view', $portfolioUnit);
         $deleteRoute = route('portfolios.goals.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
         $formAction = route('portfolios.goals.update', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
         $parentModel = $portfolioUnit;
@@ -48,6 +48,7 @@ class PortfolioGoalController extends Controller
 
     public function update(LinkRequest $request, PortfolioUnit $portfolioUnit, Link $link)
     {
+        $this->authorize('update', $portfolioUnit);
         $link->update($request->validated());
         return Redirect::route('portfolios.goals.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
