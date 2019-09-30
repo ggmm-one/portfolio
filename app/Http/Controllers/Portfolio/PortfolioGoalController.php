@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Portfolio;
 
 use App\Link;
 use App\PortfolioUnit;
-use App\Http\Controllers\LinkController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\LinkRequest;
 use Illuminate\Support\Facades\Redirect;
 
-class PortfolioGoalController extends LinkController
+class PortfolioGoalController extends Controller
 {
     public function index(PortfolioUnit $portfolioUnit)
     {
@@ -24,9 +24,9 @@ class PortfolioGoalController extends LinkController
         return view('links.edit', compact('link', 'formAction'));
     }
 
-    public function store(Request $request,PortfolioUnit $portfolioUnit)
+    public function store(LinkRequest $request, PortfolioUnit $portfolioUnit)
     {
-        $link = new Link($this->validateValues($request));
+        $link = new Link($request->validated());
         $link->linkable_subtype = Link::SUBTYPE_PORTFOLIO_GOAL;
         $portfolioUnit->links()->save($link);
         return Redirect::route('portfolios.goals.index', ['portfolio_unit' => $portfolioUnit->pid]);
@@ -34,24 +34,20 @@ class PortfolioGoalController extends LinkController
 
     public function edit(PortfolioUnit $portfolioUnit, Link $link)
     {
-        $this->validateModelLink($portfolioUnit, $link, Link::SUBTYPE_PORTFOLIO_GOAL);
         $deleteRoute = route('portfolios.goals.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
         $formAction = route('portfolios.goals.update', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
         return view('links.edit', compact('link', 'deleteRoute', 'formAction'));
     }
 
-    public function update(Request $request, PortfolioUnit $portfolioUnit, Link $link)
+    public function update(LinkRequest $request, PortfolioUnit $portfolioUnit, Link $link)
     {
-        $this->validateModelLink($portfolioUnit, $link, Link::SUBTYPE_PORTFOLIO_GOAL);
-        $link->update($this->validateValues($request));
+        $link->update($request->validated());
         return Redirect::route('portfolios.goals.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
     public function destroy(PortfolioUnit $portfolioUnit, Link $link)
     {
-        $this->validateModelLink($portfolioUnit, $link, Link::SUBTYPE_PORTFOLIO_GOAL);
         $link->delete();
         return Redirect::route('portfolios.goals.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
-
 }
