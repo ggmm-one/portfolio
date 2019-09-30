@@ -9,7 +9,7 @@
 
     <nav class="navbar navbar-light">
         <span class="navbar-brand">&nbsp;</span>
-        <a href="{{ route('portfolios.goals.create', ['portfolio_unit' => $portfolioUnit->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a>
+        @if (auth()->user()->can('create', App\PortfolioUnit::class)) <a href="{{ route('portfolios.goals.create', ['portfolio_unit' => $portfolioUnit->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
     </nav>
 
     @include('links.inc.table')
