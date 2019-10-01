@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Project;
 
 use App\Project;
 use App\Link;
-use Illuminate\Http\Request;
-use App\Http\Controllers\LinkController;
+use App\Http\Requests\LinkRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 
-class ProjectReportController extends LinkController
+class ProjectReportController extends Controller
 {
     public function index(Project $project)
     {
+        $this->authorize('view', $project);
         $links = $project->reports;
         $editRoute = route('projects.reports.edit', ['project' => $project->pid, 'link' => 'LLIINNKK']);
         return view('projects.reports.index', compact('project', 'links', 'editRoute'));
@@ -19,42 +20,43 @@ class ProjectReportController extends LinkController
 
     public function create(Project $project)
     {
+        $this->authorize('create', $project);
         $link = new Link;
         $formAction = route('projects.reports.store', ['project' => $project->pid]);
-        return view('links.edit', compact('link', 'formAction'));
+        $parentModel = $project;
+        $deleteRoute = '';
+        return view('links.edit', compact('link', 'formAction', 'parentModel', 'deleteRoute'));
     }
 
-    public function store(Request $request, Project $project)
+    public function store(LinkRequest $request, Project $project)
     {
-        $link = new Link($this->validateValues($request));
+        $this->authorize('view', $project);
+        $link = new Link($request->validated());
         $link->linkable_subtype = Link::SUBTYPE_PROJECT_REPORT;
         $project->links()->save($link);
-
         return Redirect::route('projects.reports.index', ['project' => $project->pid]);
     }
 
-    public function edit(Request $request, Project $project, Link $link)
+    public function edit(Project $project, Link $link)
     {
-        $this->validateModelLink($project, $link, Link::SUBTYPE_PROJECT_REPORT);
+        $this->authorize('view', $project);
         $deleteRoute = route('projects.reports.destroy', ['project' => $project->pid, 'link' => $link->pid]);
         $formAction = route('projects.reports.update', ['project' => $project->pid, 'link' => $link->pid]);
-        return view('links.edit', compact('link', 'deleteRoute', 'formAction'));
+        $parentModel = $project;
+        return view('links.edit', compact('link', 'deleteRoute', 'formAction', 'parentModel'));
     }
 
-    public function update(Request $request, Project $project, Link $link)
+    public function update(LinkRequest $request, Project $project, Link $link)
     {
-        $this->validateModelLink($project, $link, Link::SUBTYPE_PROJECT_REPORT);
-        $validated = $this->validateValues($request);
-        $link->update($validated);
+        $this->authorize('update', $project);
+        $link->update($request->validated());
         return Redirect::route('projects.reports.index', ['project' => $project->pid]);
     }
 
     public function destroy(Project $project, Link $link)
     {
-        $this->validateModelLink($project, $link, Link::SUBTYPE_PROJECT_REPORT);
+        $this->authorize('delete', $project);
         $link->delete();
         return Redirect::route('projects.reports.index', ['project' => $project->pid]);
     }
-
-
 }

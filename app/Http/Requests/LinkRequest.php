@@ -34,7 +34,7 @@ class LinkRequest extends FormRequest
         if ($this->routeIs('*store')) {
             return;
         }
-        $model = $this->portfolio_unit ?: null;
+        $model = $this->portfolio_unit ?: $this->project ?: null;
         if ($model == null || $this->link->linkable_id != $model->id || $this->link->linkable_type != $model::MORPH_SHORT_NAME) {
             abort(404);
         }
