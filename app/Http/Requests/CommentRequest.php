@@ -36,7 +36,7 @@ class CommentRequest extends FormRequest
         if ($this->routeIs('*store')) {
             return;
         }
-        $model = $this->resource ?: $this->portfolio_unit ?: null;
+        $model = $this->resource ?: $this->portfolio_unit ?: $this->project ?: null;
         if ($model == null || $this->comment->commentable_id != $model->id || $this->comment->commentable_type != $model::MORPH_SHORT_NAME) {
             abort(404);
         }

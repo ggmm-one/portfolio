@@ -4,29 +4,31 @@ namespace App\Http\Controllers\Project;
 
 use App\Comment;
 use App\Project;
-use App\Http\Controllers\CommentController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class ProjectCommentController extends CommentController
+class ProjectCommentController extends Controller
 {
     public function index(Project $project)
     {
+        $this->authorize('view', $project);
         return $this->view($project);
     }
 
-    public function store(Request $request, Project $project)
+    public function store(CommentRequest $request, Project $project)
     {
-        $comment = new Comment($this->validateValues($request));
+        $this->authorize('create', $project);
+        $comment = new Comment($request->validated());
         $comment->user_id = Auth::id();
         $project->comments()->save($comment);
         return Redirect::route('projects.comments.index', ['project' => $project->pid]);
     }
 
-    public function edit(Project $project, Comment $comment)
+    public function edit(CommentRequest $request, Project $project, Comment $comment)
     {
-        $this->validateModelComment($project, $comment);
+        $this->authorize('view', $project);
         return $this->view($project, $comment);
     }
 
@@ -41,20 +43,22 @@ class ProjectCommentController extends CommentController
         if ($comment != null) {
             $data['editComment'] = $comment;
         }
+        $data['commentType'] = Project::class;
+        $data['parentModel'] = $project;
 
         return view('projects.comments.index', $data);
     }
 
-    public function update(Request $request, Project $project, Comment $comment)
+    public function update(CommentRequest $request, Project $project, Comment $comment)
     {
-        $this->validateModelComment($project, $comment);
-        $comment->update($this->validateValues($request));
+        $this->authorize('update', $project);
+        $comment->update($request->validated());
         return Redirect::route('projects.comments.index', ['project' => $project->pid]);
     }
 
-    public function destroy(Project $project, Comment $comment)
+    public function destroy(CommentRequest $request, Project $project, Comment $comment)
     {
-        $this->validateModelComment($project, $comment);
+        $this->authorize('delete', $project);
         $comment->delete();
         return Redirect::route('projects.comments.index', ['project' => $project->pid]);
     }
