@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ $project->name }}</span>
     <div>
-        @includeWhen($project->exists, 'inc.delete_btn', ['deleteAction' => route('projects.projects.destroy', ['project' => $project->pid])])
+        @includeWhen($project->exists && auth()->user()->can('delete', $project), 'inc.delete_btn', ['deleteAction' => route('projects.projects.destroy', ['project' => $project->pid])])
     </div>
 </nav>
 <ul class="nav nav-tabs bg-light app-nav-section">

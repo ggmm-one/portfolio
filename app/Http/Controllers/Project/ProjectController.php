@@ -4,46 +4,49 @@ namespace App\Http\Controllers\Project;
 
 use App\Project;
 use App\PortfolioUnit;
-use App\Model;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Project\ProjectRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
-use TiMacDonald\Validation\Rule;
-use App\Libraries\DateHelper;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Project::class);
         $projects = $this->filter($request)->get();
         return view('projects.index', compact('projects'));
     }
 
     public function create()
     {
+        $this->authorize('create', Project::class);
         $project = new Project;
         $formAction = route('projects.projects.store');
         $portfolios = PortfolioUnit::getSelectList();
         return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        $project = Project::create($this->validateValues($request));
+        $this->authorize('create', Project::class);
+        $project = Project::create($request->validated());
         return Redirect::route('projects.projects.edit', ['project' => $project->pid]);
     }
 
     public function edit(Project $project)
     {
+        $this->authorize('view', $project);
         $portfolios = PortfolioUnit::getSelectList();
         $formAction = route('projects.projects.update', ['project' => $project->pid]);
         return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        $project->update($this->validateValues($request));
+        $this->authorize('update', $project);
+        $project->update($request->validated());
         $portfolios = PortfolioUnit::getSelectList();
         $formAction = route('projects.projects.update', ['project' => $project->pid]);
         return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
@@ -51,26 +54,11 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
+        $this->authorize('delete', $project);
         DB::transaction(function () use ($project) {
             $project->delete();
         });
         return Redirect::route('projects.projects.index');
-    }
-
-    private function validateValues(Request $request)
-    {
-        $values = $request->validate([
-            'name' => Rule::required()->string(1, Project::DD_NAME_LENGTH)->get(),
-            'code' => Rule::nullable()->string(1, Project::DD_CODE_LENGTH)->get(),
-            'portfolio_unit_pid' => Rule::required()->get(),
-            'type' => Rule::required()->in(array_keys(Project::TYPES))->get(),
-            'status' => Rule::required()->in(array_keys(Project::STATUS))->get(),
-            'start' => Rule::nullable()->after(Model::DD_DATE_MIN)->before(Model::DD_DATE_MAX)->get(),
-            'duration' => Rule::nullable()->integer()->min(1)->max(Project::DD_DURATION_MAX)->get(),
-            'description' => Rule::nullable()->string(1, Project::DD_DESCRIPTION_LENGTH)->get()
-        ]);
-        $values['start'] = DateHelper::setDateToMonth($values['start']);
-        return $values;
     }
 
     private function filter(Request &$request)

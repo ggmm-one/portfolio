@@ -23,7 +23,7 @@
         @form_input(['input_type' => 'date', 'control_id' => 'start', 'control_label' => 'Start', 'control_value' => old('start', isset($project->start) ? $project->start->toDateString() : '')])
         @form_input(['input_type' => 'number', 'control_id' => 'duration', 'control_label' => 'Duration (months)', 'control_value' => old('duration', $project->duration), 'control_validation' => 'min=1 max='.\App\Project::DD_DURATION_MAX, 'control_size' => 'm'])
         @form_textarea(['control_id' => 'description', 'control_label' => 'Description', 'control_value' => old('description', $project->description), 'control_validation' => 'maxlength='.\App\Project::DD_DESCRIPTION_LENGTH])
-        @form_submit
+        @if (auth()->user()->can('update', $project)) @form_submit @endif
     </form>
 
 @endsection

@@ -12,7 +12,7 @@
             <span class="navbar-brand">{{ __('Projects') }}</span>
             @include('inc.filtered_tag')
         </div>
-        <a href="{{ route('projects.projects.create') }}" class="btn btn-primary">{{ __('Add') }}</a>
+        @if (auth()->user()->can('create', App\Project::class)) <a href="{{ route('projects.projects.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
     </nav>
 
     <table class="table">
