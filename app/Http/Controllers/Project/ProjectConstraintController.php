@@ -4,46 +4,42 @@ namespace App\Http\Controllers\Project;
 
 use App\ProjectOrderConstraint;
 use App\Http\Controllers\Controller;
-use App\Project;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProjectConstraintRequest;
 use Illuminate\Support\Facades\Redirect;
-use TiMacDonald\Validation\Rule;
+use App\Project;
 
 class ProjectConstraintController extends Controller
 {
     public function index(Project $project)
     {
+        $this->authorize('view', $project);
         $beforeProjects = $project->beforeProjects;
         $afterProjects = $project->afterProjects;
         $selectProjects = $project->getConstraintProjectsSelect();
         return view('projects.constraints.edit', compact('project', 'beforeProjects', 'afterProjects', 'selectProjects'));
     }
 
-    public function store(Request $request, Project $project)
+    public function store(ProjectConstraintRequest $request, Project $project)
     {
-        $project_pid = $request->validate([
-            'pid' => Rule::required()->exists('projects')->get()
-        ]);
+        $this->authorize('create', ProjectOrderConstraint::class);
         $projectOrderConstraint = new projectOrderConstraint();
         $projectOrderConstraint->before_project_id = $project->id;
-        $projectOrderConstraint->after_project_id = Project::getId($project_pid);
+        $projectOrderConstraint->after_project_id = Project::getId($request->validated()['pid']);
         $projectOrderConstraint->save();
         return Redirect::route('projects.constraints.index', compact('project'));
     }
 
-    public function update(Request $request, Project $project)
+    public function update(ProjectConstraintRequest $request, Project $project)
     {
-        $values = $request->validate([
-            'start_after' => Rule::nullable()->date()->get(),
-            'end_before' => Rule::nullable()->date()->get()
-        ]);
-        $project->update($values);
+        $this->authorize('update', $project);
+        $project->update($request->validated());
         return Redirect::route('projects.constraints.index', compact('project'));
     }
 
     public function destroy(Project $project, ProjectOrderConstraint $projectOrderConstraint)
     {
-        if ($project->id != $projectOrderConstraint->before_project_id) abort(400);
+        abort_if($project->id != $projectOrderConstraint->before_project_id, 400);
+        $this->authorize('delete', $projectOrderConstraint);
         $projectOrderConstraint->delete();
         return Redirect::route('projects.constraints.index', compact('project'));
     }

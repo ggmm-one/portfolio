@@ -17,7 +17,7 @@ class CreateProjectOrderConstraintsTable extends Migration
             $table->foreign('before_project_id', 'fk_project_order_constraints_before_project_id')->references('id')->on('projects');
             $table->index('after_project_id', 'ix_project_order_constraints_after_project_id');
             $table->foreign('after_project_id', 'fk_project_order_constraints_after_project_id')->references('id')->on('projects');
-            $table->unique(['before_project_id', 'after_project_id'], 'ux_project_order_constraints_before_project_id_after_project_id');
+            $table->unique(['before_project_id', 'after_project_id', 'deleted_at'], 'ux_project_order_constraints_before_project_id_after_project_id');
         });
     }
 
