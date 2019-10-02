@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\EvaluationItem;
+use App\EvaluationScore;
 use App\Policies\AdminModulePolicy;
 use App\Policies\PortfoliosModulePolicy;
 use App\Policies\ProjectsModulePolicy;
@@ -21,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
         EvaluationItem::class => AdminModulePolicy::class,
+        EvaluationScore::class => ProjectsModulePolicy::class,
         Project::class => ProjectsModulePolicy::class,
         PortfolioUnit::class => PortfoliosModulePolicy::class,
         Resource::class => ResourcesModulePolicy::class,

@@ -32,7 +32,7 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th>Total</th>
+                <th>{{ __('Total') }}</th>
                 <th>{{ $project->formatted_score }}</th>
                 <th></th>
             </tr>
