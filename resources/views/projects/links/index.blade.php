@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-light">
         <span class="navbar-brand">&nbsp;</span>
-        <a href="{{ route('projects.links.create', ['project' => $project->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a>
+        @if (auth()->user()->can('create', App\Project::class)) <a href="{{ route('projects.links.create', ['project' => $project->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
     </nav>
 
     @include('links.inc.table')
