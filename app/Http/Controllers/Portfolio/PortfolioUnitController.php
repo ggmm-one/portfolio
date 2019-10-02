@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Portfolio\PortfolioUnitRequest;
+use App\Services\PortfolioHierarchyService;
 
 class PortfolioUnitController extends Controller
 {
@@ -42,49 +43,24 @@ class PortfolioUnitController extends Controller
         return view('portfolios.portfolios.edit', compact('portfolioUnit', 'availParents', 'formAction'));
     }
 
-    public function update(PortfolioUnitRequest $request, PortfolioUnit $portfolioUnit)
+    public function update(PortfolioUnitRequest $request, PortfolioUnit $portfolioUnit, PortfolioHierarchyService $portfolioHierarchyService)
     {
         $this->authorize('update', $portfolioUnit);
         $validated = $request->validated();
-        DB::transaction(function () use ($portfolioUnit, $validated) {
+        DB::transaction(function () use ($portfolioUnit, $validated, $portfolioHierarchyService) {
             $portfolioUnit->update($validated);
-            static::processHierarchy();
+            $portfolioHierarchyService->process();
         });
         return Redirect::route('portfolios.portfolios.edit', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
-    public function destroy(PortfolioUnit $portfolioUnit)
+    public function destroy(PortfolioUnit $portfolioUnit, PortfolioHierarchyService $portfolioHierarchyService)
     {
         $this->authorize('delete', $portfolioUnit);
-        DB::transaction(function () use ($portfolioUnit) {
+        DB::transaction(function () use ($portfolioUnit, $portfolioHierarchyService) {
             $portfolioUnit->deleteIfNotReferenced();
-            static::processHierarchy();
+            $portfolioHierarchyService->processHierarchy();
         });
         return Redirect::route('portfolios.portfolios.index');
-    }
-
-    public static function processHierarchy()
-    {
-        //Step 1: find and set root
-        $root = PortfolioUnit::whereNull('parent_id')->first();
-        $root->hierarchy_level = 0;
-        $root->hierarchy_order = 0;
-        $root->save();
-        //Step 2: set remain non root recursively
-        $portfolioUnits = PortfolioUnit::where('id', '<>', $root->id)->ordered()->get();
-        self::addChildren($portfolioUnits, $root->id, 0, 0);
-    }
-
-    private static function addChildren(&$portfolioUnits, $parentId, $parentLevel, $lastOrder)
-    {
-        $thisLevel = $parentLevel + 1;
-        foreach ($portfolioUnits->where('parent_id', $parentId) as $key => $portfolioUnit) {
-            $portfolioUnit->hierarchy_level = $thisLevel;
-            $portfolioUnit->hierarchy_order = ++$lastOrder;
-            $portfolioUnit->save();
-            unset($portfolioUnits[$key]);
-            $lastOrder = self::addChildren($portfolioUnits, $portfolioUnit->id, $thisLevel, $lastOrder);
-        }
-        return $lastOrder;
     }
 }

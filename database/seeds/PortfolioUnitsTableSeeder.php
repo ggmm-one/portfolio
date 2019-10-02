@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Portfolio\PortfolioUnitController;
 use Illuminate\Database\Seeder;
+use App\Services\PortfolioHierarchyService;
 use App\PortfolioUnit;
 use App\User;
 use App\Comment;
@@ -29,6 +29,6 @@ class PortfolioUnitsTableSeeder extends Seeder
                         'linkable_subtype' => Link::SUBTYPE_PORTFOLIO_OTHER
                     ]));
                 });
-        PortfolioUnitController::processHierarchy();
+        (new PortfolioHierarchyService())->process();
     }
 }
