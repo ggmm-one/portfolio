@@ -4,8 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Project;
 use App\EvaluationItem;
 use App\EvaluationScore;
-use App\Http\Controllers\Project\EvaluationScoreController;
-use App\Http\Controllers\Project\ProjectController;
+use App\Services\ProjectScoringService;
 
 class EvaluationScoresTableSeeder extends Seeder
 {
@@ -20,7 +19,8 @@ class EvaluationScoresTableSeeder extends Seeder
             }
         }
         DB::statement('update evaluation_scores set score = (select evaluation_max from settings) where score > (select evaluation_max from settings)');
-        EvaluationScoreController::updateWeightedScore(null, true);
-        ProjectController::updateProjectScore(null, true);
+        $scoring = new ProjectScoringService;
+        $scoring->updateWeightedScore(null);
+        $scoring->updateProjectScore(null);
     }
 }

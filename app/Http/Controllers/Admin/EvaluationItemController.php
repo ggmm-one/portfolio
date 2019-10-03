@@ -8,8 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Project\EvaluationScoreController;
-use App\Http\Controllers\Project\ProjectController;
+use App\Services\ProjectScoringService;
 use App\Project;
 use App\Http\Requests\Admin\EvaluationItemRequest;
 
@@ -31,10 +30,10 @@ class EvaluationItemController extends Controller
         return view('admin.evaluation_items.edit', compact('evaluationItem', 'formAction'));
     }
 
-    public function store(EvaluationItemRequest $request)
+    public function store(EvaluationItemRequest $request, ProjectScoringService $projectScoringService)
     {
         $this->authorize('create', EvaluationItem::class);
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request, $projectScoringService) {
             $evaluationItem = EvaluationItem::create($request->validated());
             foreach (Project::all() as $project) {
                 $evaluationScore = new EvaluationScore([
@@ -45,7 +44,7 @@ class EvaluationItemController extends Controller
                 $evaluationScore->evaluation_item_id = $evaluationItem->id;
                 $evaluationScore->save();
             }
-            $this->recalculate();
+            $projectScoringService->recalculateAll();
         });
         return Redirect::route('admin.evaluation_items.index');
     }
@@ -57,37 +56,24 @@ class EvaluationItemController extends Controller
         return view('admin.evaluation_items.edit', compact('evaluationItem', 'formAction'));
     }
 
-    public function update(EvaluationItemRequest $request, EvaluationItem $evaluationItem)
+    public function update(EvaluationItemRequest $request, EvaluationItem $evaluationItem, ProjectScoringService $projectScoringService)
     {
         $this->authorize('update', $evaluationItem);
-        DB::transaction(function () use ($evaluationItem, $request) {
+        DB::transaction(function () use ($evaluationItem, $request, $projectScoringService) {
             $evaluationItem->update($request->validated());
-            $this->recalculate();
+            $projectScoringService->recalculateAll();
         });
 
         return Redirect::route('admin.evaluation_items.index');
     }
 
-    public function destroy(EvaluationItem $evaluationItem)
+    public function destroy(EvaluationItem $evaluationItem, ProjectScoringService $projectScoringService)
     {
         $this->authorize('delete', $evaluationItem);
-        DB::transaction(function () use ($evaluationItem) {
+        DB::transaction(function () use ($evaluationItem, $projectScoringService) {
             $evaluationItem->delete();
-            $this->recalculate();
+            $projectScoringService->recalculateAll();
         });
         return Redirect::route('admin.evaluation_items.index');
-    }
-
-    private function recalculate()
-    {
-        self::updateWeightFactor();
-        EvaluationScoreController::updateWeightedScore();
-        ProjectController::updateProjectScore();
-    }
-
-    public static function updateWeightFactor()
-    {
-        EvaluationItem::query()->update(['weight_factor' => DB::raw("(cast(weight as real) / (select sum(ei.weight) from evaluation_items ei))")]);
-        EvaluationItem::query()->update(['weight_factor' => DB::raw("(cast(weight_factor as real) / (select evaluation_max from settings))")]);
     }
 }

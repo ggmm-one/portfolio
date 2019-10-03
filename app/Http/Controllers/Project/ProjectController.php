@@ -73,13 +73,4 @@ class ProjectController extends Controller
 
         return $builder;
     }
-
-    public static function updateProjectScore($id = null)
-    {
-        $query = Project::query();
-        if ($id) {
-            $query->where('id', $id);
-        }
-        $query->update(['score' => DB::raw('(select sum(weighted_score) from evaluation_scores where evaluation_scores.project_id = projects.id)')]);
-    }
 }

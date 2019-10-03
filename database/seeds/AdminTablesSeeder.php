@@ -3,9 +3,9 @@
 use App\ResourceType;
 use App\Setting;
 use App\EvaluationItem;
-use App\Http\Controllers\Admin\EvaluationItemController;
 use App\PortfolioUnit;
 use Illuminate\Database\Seeder;
+use App\Services\ProjectScoringService;
 
 class AdminTablesSeeder extends Seeder
 {
@@ -21,7 +21,7 @@ class AdminTablesSeeder extends Seeder
         }
 
         factory(EvaluationItem::class, rand(10, 20))->create();
-        EvaluationItemController::updateWeightFactor(true);
+        (new ProjectScoringService)->updateWeightFactor();
 
         factory(PortfolioUnit::class)->create([
                 'name' => 'Main Portfolio',
