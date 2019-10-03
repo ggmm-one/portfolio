@@ -3,8 +3,8 @@
 namespace App\Http\Requests\Admin;
 
 use App\ResourceType;
-use TiMacDonald\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use TiMacDonald\Validation\Rule;
 
 class ResourceTypeRequest extends FormRequest
 {
@@ -17,7 +17,7 @@ class ResourceTypeRequest extends FormRequest
     {
         return [
             'name' => Rule::required()->string(1, ResourceType::DD_NAME_LENGTH)->get(),
-            'category' => Rule::required()->in(array_keys(ResourceType::CATEGORIES))->get()
+            'category' => Rule::required()->in(array_keys(ResourceType::CATEGORIES))->get(),
         ];
     }
 }

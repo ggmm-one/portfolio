@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Project;
 use App\PortfolioUnit;
+use App\Project;
 use App\Resource;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             PortfolioUnit::MORPH_SHORT_NAME => 'App\PortfolioUnit',
             Project::MORPH_SHORT_NAME => 'App\Project',
-            Resource::MORPH_SHORT_NAME => 'App\Resource'
+            Resource::MORPH_SHORT_NAME => 'App\Resource',
         ]);
     }
 

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Portfolio;
 
-use App\PortfolioUnit;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Portfolio\PortfolioUnitRequest;
+use App\PortfolioUnit;
 use App\Services\PortfolioHierarchyService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class PortfolioUnitController extends Controller
 {
@@ -15,6 +15,7 @@ class PortfolioUnitController extends Controller
     {
         $this->authorize('viewAny', PortfolioUnit::class);
         $portfolioUnits = PortfolioUnit::hierarchyOrdered()->get();
+
         return view('portfolios.index', compact('portfolioUnits'));
     }
 
@@ -24,6 +25,7 @@ class PortfolioUnitController extends Controller
         $portfolioUnit = new PortfolioUnit();
         $availParents = PortfolioUnit::getSelectList();
         $formAction = route('portfolios.portfolios.store', ['portfolio_unit' => $portfolioUnit->pid]);
+
         return view('portfolios.portfolios.edit', compact('portfolioUnit', 'availParents', 'formAction'));
     }
 
@@ -31,7 +33,8 @@ class PortfolioUnitController extends Controller
     {
         $this->authorize('create', PortfolioUnit::class);
         $portfolioUnit = PortfolioUnit::create($request->validated());
-        PortfolioUnitController::processHierarchy();
+        self::processHierarchy();
+
         return Redirect::route('portfolios.portfolios.edit', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
@@ -40,6 +43,7 @@ class PortfolioUnitController extends Controller
         $this->authorize('view', $portfolioUnit);
         $availParents = PortfolioUnit::getSelectList($portfolioUnit);
         $formAction = route('portfolios.portfolios.update', ['portfolio_unit' => $portfolioUnit->pid]);
+
         return view('portfolios.portfolios.edit', compact('portfolioUnit', 'availParents', 'formAction'));
     }
 
@@ -51,6 +55,7 @@ class PortfolioUnitController extends Controller
             $portfolioUnit->update($validated);
             $portfolioHierarchyService->process();
         });
+
         return Redirect::route('portfolios.portfolios.edit', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
@@ -61,6 +66,7 @@ class PortfolioUnitController extends Controller
             $portfolioUnit->deleteIfNotReferenced();
             $portfolioHierarchyService->processHierarchy();
         });
+
         return Redirect::route('portfolios.portfolios.index');
     }
 }

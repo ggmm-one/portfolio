@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Project;
 
-use App\Project;
-use App\Link;
-use App\Http\Requests\LinkRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LinkRequest;
+use App\Link;
+use App\Project;
 use Illuminate\Support\Facades\Redirect;
 
 class ProjectLinkController extends Controller
@@ -15,6 +15,7 @@ class ProjectLinkController extends Controller
         $this->authorize('view', $project);
         $links = $project->other_links;
         $editRoute = route('projects.links.edit', ['project' => $project->pid, 'link' => 'LLIINNKK']);
+
         return view('projects.links.index', compact('project', 'links', 'editRoute'));
     }
 
@@ -25,6 +26,7 @@ class ProjectLinkController extends Controller
         $formAction = route('projects.links.store', ['project' => $project->pid]);
         $parentModel = $project;
         $deleteRoute = '';
+
         return view('links.edit', compact('link', 'formAction', 'parentModel', 'deleteRoute'));
     }
 
@@ -34,6 +36,7 @@ class ProjectLinkController extends Controller
         $link = new Link($request->validated());
         $link->linkable_subtype = Link::SUBTYPE_PROJECT_OTHER;
         $project->links()->save($link);
+
         return Redirect::route('projects.links.index', ['project' => $project->pid]);
     }
 
@@ -43,6 +46,7 @@ class ProjectLinkController extends Controller
         $deleteRoute = route('projects.links.destroy', ['project' => $project->pid, 'link' => $link->pid]);
         $formAction = route('projects.links.update', ['project' => $project->pid, 'link' => $link->pid]);
         $parentModel = $project;
+
         return view('links.edit', compact('link', 'deleteRoute', 'formAction', 'parentModel'));
     }
 
@@ -50,6 +54,7 @@ class ProjectLinkController extends Controller
     {
         $this->authorize('update', $project);
         $link->update($request->validated());
+
         return Redirect::route('projects.links.index', ['project' => $project->pid]);
     }
 
@@ -57,6 +62,7 @@ class ProjectLinkController extends Controller
     {
         $this->authorize('delete', $project);
         $link->delete();
+
         return Redirect::route('projects.links.index', ['project' => $project->pid]);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Model;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PortfoliosModulePolicy
@@ -12,12 +12,12 @@ class PortfoliosModulePolicy
 
     public function viewAny(User $user)
     {
-        return !$user->role->portfoliosNone();
+        return ! $user->role->portfoliosNone();
     }
 
     public function view(User $user, Model $model)
     {
-        return !$user->role->portfoliosNone();
+        return ! $user->role->portfoliosNone();
     }
 
     public function create(User $user)

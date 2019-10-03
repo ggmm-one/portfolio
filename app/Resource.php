@@ -2,9 +2,6 @@
 
 namespace App;
 
-use App\Model;
-use App\ResourceOwner;
-
 class Resource extends Model
 {
     public const MORPH_SHORT_NAME = 'res';
@@ -14,15 +11,15 @@ class Resource extends Model
 
     public const CASCADE = [
         'capacities',
-        'comments'
+        'comments',
     ];
 
     protected $fillable = [
-        'name', 'resource_type_pid', 'resource_owner_pid', 'description'
+        'name', 'resource_type_pid', 'resource_owner_pid', 'description',
     ];
 
     protected $attributes = [
-        'name' => 'New Resource'
+        'name' => 'New Resource',
     ];
 
     public function owner()

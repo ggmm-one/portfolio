@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\EvaluationScore;
 use App\Setting;
+use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
 class EvaluationScoreRequest extends FormRequest
@@ -20,9 +20,10 @@ class EvaluationScoreRequest extends FormRequest
             return [];
         } else {
             $evaluationMax = Setting::first()->value('evaluation_max');
+
             return [
                 'score' => Rule::required()->integer(1, $evaluationMax)->get(),
-                'description' => Rule::required()->string(1, EvaluationScore::DD_DESCRIPTION_LENGTH)->get()
+                'description' => Rule::required()->string(1, EvaluationScore::DD_DESCRIPTION_LENGTH)->get(),
             ];
         }
     }

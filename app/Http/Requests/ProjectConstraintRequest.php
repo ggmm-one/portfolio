@@ -19,7 +19,7 @@ class ProjectConstraintRequest extends FormRequest
         } elseif ($this->routeIs('*update')) {
             return [
                 'start_after' => Rule::nullable()->date()->get(),
-                'end_before' => Rule::nullable()->date()->get()
+                'end_before' => Rule::nullable()->date()->get(),
             ];
         }
     }

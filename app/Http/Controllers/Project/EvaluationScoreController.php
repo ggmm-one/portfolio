@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Project;
 
 use App\EvaluationScore;
-use App\Project;
-use App\Setting;
-use App\Http\Requests\EvaluationScoreRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EvaluationScoreRequest;
+use App\Project;
 use App\Services\ProjectScoringService;
-use Illuminate\Support\Facades\Redirect;
+use App\Setting;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class EvaluationScoreController extends Controller
 {
@@ -19,6 +19,7 @@ class EvaluationScoreController extends Controller
         $evaluationScores = $project->evaluationScores()->with('evaluationItem')->get()->sortBy(function ($score) {
             return $score->evaluationItem->sort_order;
         });
+
         return view('projects.evaluations.index', compact('project', 'evaluationScores'));
     }
 
@@ -27,6 +28,7 @@ class EvaluationScoreController extends Controller
         $this->authorize('view', $project);
         $setting = Setting::first();
         $evaluationScore->load('evaluationItem');
+
         return view('projects.evaluations.edit', compact('project', 'evaluationScore', 'setting'));
     }
 
@@ -38,6 +40,7 @@ class EvaluationScoreController extends Controller
             $projectScoringService->updateWeightedScore($evaluationScore->id);
             $projectScoringService->updateProjectScore($project->id);
         });
+
         return Redirect::route('projects.evaluations.index', compact('project'));
     }
 }

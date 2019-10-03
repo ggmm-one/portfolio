@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Project;
 
-use App\Project;
-use App\PortfolioUnit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\ProjectRequest;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\DB;
+use App\PortfolioUnit;
+use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectController extends Controller
 {
@@ -16,6 +16,7 @@ class ProjectController extends Controller
     {
         $this->authorize('viewAny', Project::class);
         $projects = $this->filter($request)->get();
+
         return view('projects.index', compact('projects'));
     }
 
@@ -25,6 +26,7 @@ class ProjectController extends Controller
         $project = new Project;
         $formAction = route('projects.projects.store');
         $portfolios = PortfolioUnit::getSelectList();
+
         return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
@@ -32,6 +34,7 @@ class ProjectController extends Controller
     {
         $this->authorize('create', Project::class);
         $project = Project::create($request->validated());
+
         return Redirect::route('projects.projects.edit', ['project' => $project->pid]);
     }
 
@@ -40,6 +43,7 @@ class ProjectController extends Controller
         $this->authorize('view', $project);
         $portfolios = PortfolioUnit::getSelectList();
         $formAction = route('projects.projects.update', ['project' => $project->pid]);
+
         return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
@@ -49,6 +53,7 @@ class ProjectController extends Controller
         $project->update($request->validated());
         $portfolios = PortfolioUnit::getSelectList();
         $formAction = route('projects.projects.update', ['project' => $project->pid]);
+
         return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
     }
 
@@ -58,6 +63,7 @@ class ProjectController extends Controller
         DB::transaction(function () use ($project) {
             $project->delete();
         });
+
         return Redirect::route('projects.projects.index');
     }
 

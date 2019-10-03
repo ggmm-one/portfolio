@@ -2,16 +2,14 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
-use App\ResourceCapacity;
-use Illuminate\Http\Request;
 use App\Libraries\DateHelper;
+use App\ResourceCapacity;
+use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Http\Request;
 
 class NoIntervalOverlap implements Rule
 {
-
     private $request;
-
 
     public function __construct(Request $request)
     {
@@ -29,7 +27,8 @@ class NoIntervalOverlap implements Rule
         if ($route->resource_capacity) {
             $query->where('resource_capacities.pid', '<>', $route->resource_capacity->pid);
         }
-        return !$query->exists();
+
+        return ! $query->exists();
     }
 
     public function message()

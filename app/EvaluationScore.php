@@ -2,14 +2,12 @@
 
 namespace App;
 
-use App\Model;
-
 class EvaluationScore extends Model
 {
     public const DD_DESCRIPTION_LENGTH = 4000;
 
     protected $fillable = [
-        'score', 'description'
+        'score', 'description',
     ];
 
     public function project()
@@ -22,7 +20,8 @@ class EvaluationScore extends Model
         return $this->belongsTo(EvaluationItem::class);
     }
 
-    public function setScoreAttribute($value) {
+    public function setScoreAttribute($value)
+    {
         $this->attributes['score'] = $value;
         $this->attributes['weighted_score'] = $value;
     }
@@ -31,5 +30,4 @@ class EvaluationScore extends Model
     {
         return number_format($this->attributes['weighted_score'], 2);
     }
-
 }

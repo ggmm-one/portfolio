@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Resource;
 
-use App\Http\Requests\Resource\ResourceRequest;
-use Illuminate\Http\Request;
-use App\Resource;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Resource\ResourceRequest;
+use App\Resource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class ResourceController extends Controller
@@ -14,6 +14,7 @@ class ResourceController extends Controller
     {
         $this->authorize('viewAny', Resource::class);
         $resources = $this->filter($request)->get();
+
         return view('resources.resources.index', compact('resources', 'isFiltered'));
     }
 
@@ -22,6 +23,7 @@ class ResourceController extends Controller
         $this->authorize('create', Resource::class);
         $resource = new Resource();
         $formAction = route('resources.resources.store');
+
         return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
@@ -29,12 +31,14 @@ class ResourceController extends Controller
     {
         $this->authorize('create', Resource::class);
         $resource = Resource::create($request->validated());
+
         return Redirect::route('resources.resources.edit', compact('resource'));
     }
 
     public function edit(Resource $resource)
     {
         $formAction = route('resources.resources.update', compact('resource'));
+
         return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
@@ -43,6 +47,7 @@ class ResourceController extends Controller
         $this->authorize('view', $resource);
         $resource->update($request->validated());
         $formAction = route('resources.resources.update', compact('resource'));
+
         return view('resources.resources.info.edit', compact('resource', 'formAction'));
     }
 
@@ -50,6 +55,7 @@ class ResourceController extends Controller
     {
         $this->authorize('delete', $resource);
         $resource->deleteIfNotReferenced();
+
         return Redirect::route('resources.resources.index');
     }
 

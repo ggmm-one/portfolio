@@ -8,11 +8,11 @@ class ResourceOwner extends Model
     public const DD_EMAIL_LENGTH = 256;
 
     public const CHECK_BEFORE_DELETING = [
-        [Resource::class, 'resource_owner_id', 'This owner is used in a resource(s). Please re-assign and try again.']
+        [Resource::class, 'resource_owner_id', 'This owner is used in a resource(s). Please re-assign and try again.'],
     ];
 
     protected $fillable = [
-        'name', 'email'
+        'name', 'email',
     ];
 
     public function scopeOrdered($query)
@@ -22,6 +22,6 @@ class ResourceOwner extends Model
 
     public static function getSelectList()
     {
-        return ResourceOwner::ordered()->get()->pluck('name', 'pid');
+        return self::ordered()->get()->pluck('name', 'pid');
     }
 }

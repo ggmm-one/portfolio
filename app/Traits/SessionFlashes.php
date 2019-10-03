@@ -26,5 +26,4 @@ trait SessionFlashes
     {
         return implode(' ', preg_split('/(?=[A-Z])/', Str::after(get_class($this), '\\')));
     }
-
 }

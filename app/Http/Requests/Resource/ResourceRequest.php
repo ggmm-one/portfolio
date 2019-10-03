@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Resource;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Resource;
+use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
 class ResourceRequest extends FormRequest
@@ -25,7 +25,7 @@ class ResourceRequest extends FormRequest
                 ->exists('resource_owners', 'pid')->where(function ($query) {
                     $query->whereNull('deleted_at');
                 })->get(),
-            'description' => Rule::max(Resource::DD_DESCRIPTION_LENGTH)->get()
+            'description' => Rule::max(Resource::DD_DESCRIPTION_LENGTH)->get(),
         ];
     }
 }

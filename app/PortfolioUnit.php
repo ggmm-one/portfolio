@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Model;
-use App\Link;
 use Illuminate\Validation\ValidationException;
 
 class PortfolioUnit extends Model
@@ -15,25 +13,25 @@ class PortfolioUnit extends Model
 
     public const TYPE_PORTFOLIO = 'P';
     public const TYPE_PROGRAM = 'R';
-    public const TYPES = array(self::TYPE_PORTFOLIO => 'Portfolio', self::TYPE_PROGRAM => 'Program');
+    public const TYPES = [self::TYPE_PORTFOLIO => 'Portfolio', self::TYPE_PROGRAM => 'Program'];
 
     public const CASCADE = [
         'comments',
-        'links'
+        'links',
     ];
 
     public const CHECK_BEFORE_DELETING = [
-        [PortfolioUnit::class, 'parent_id', 'Cannot delete portfolio. Please re-assign sub portfolios and try again.'],
-        [Project::class, 'portfolio_unit_id', 'Cannot delete portfolio. Please re-assign projects and try again.']
+        [self::class, 'parent_id', 'Cannot delete portfolio. Please re-assign sub portfolios and try again.'],
+        [Project::class, 'portfolio_unit_id', 'Cannot delete portfolio. Please re-assign projects and try again.'],
     ];
 
     protected $fillable = [
-        'name', 'type', 'parent_pid', 'description'
+        'name', 'type', 'parent_pid', 'description',
     ];
 
     protected $attributes = [
         'name' => 'New Portfolio',
-        'type' => self::TYPE_PORTFOLIO
+        'type' => self::TYPE_PORTFOLIO,
     ];
 
     public function links()
@@ -75,7 +73,7 @@ class PortfolioUnit extends Model
 
     public function parent()
     {
-        return $this->belongsTo(PortfolioUnit::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     public function isRoot()
@@ -89,7 +87,7 @@ class PortfolioUnit extends Model
     }
 
     /**
-     * Sets the id for the parent, given the parent's public id
+     * Sets the id for the parent, given the parent's public id.
      *
      * @param string pid The parent's public id
      *
@@ -97,7 +95,7 @@ class PortfolioUnit extends Model
      */
     public function setParentPidAttribute($pid)
     {
-        $this->parent_id = PortfolioUnit::getId($pid);
+        $this->parent_id = self::getId($pid);
         if ($this->parent_id == null) {
             abort(400);
         }
@@ -105,7 +103,7 @@ class PortfolioUnit extends Model
 
     public function getParentPidAttribute()
     {
-        return $this->exists? ($this->parent_id == null ? $this->pid : $this->parent->pid) : null;
+        return $this->exists ? ($this->parent_id == null ? $this->pid : $this->parent->pid) : null;
     }
 
     protected function checkBeforeDeleting()
@@ -115,13 +113,14 @@ class PortfolioUnit extends Model
         }
     }
 
-    public static function getSelectList(PortfolioUnit $portfolioUnit = null)
+    public static function getSelectList(self $portfolioUnit = null)
     {
-        $root = PortfolioUnit::select('pid', 'name')->whereNull('parent_id');
-        $query = PortfolioUnit::select('pid', 'name')->union($root)->whereNotNull('parent_id')->ordered();
+        $root = self::select('pid', 'name')->whereNull('parent_id');
+        $query = self::select('pid', 'name')->union($root)->whereNotNull('parent_id')->ordered();
         if ($portfolioUnit) {
             $query->where('pid', '<>', $portfolioUnit->pid);
         }
+
         return $query->get()->pluck('name', 'pid');
     }
 

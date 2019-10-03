@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Model;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminModulePolicy
@@ -12,12 +12,12 @@ class AdminModulePolicy
 
     public function viewAny(User $user)
     {
-        return !$user->role->adminNone();
+        return ! $user->role->adminNone();
     }
 
     public function view(User $user, Model $model)
     {
-        return !$user->role->adminNone();
+        return ! $user->role->adminNone();
     }
 
     public function create(User $user)

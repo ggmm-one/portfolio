@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Resource;
 
-use App\ResourceOwner;
-use App\Http\Requests\Resource\ResourceOwnerRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Resource\ResourceOwnerRequest;
+use App\ResourceOwner;
 use Illuminate\Support\Facades\Redirect;
 
 class ResourceOwnerController extends Controller
@@ -13,6 +13,7 @@ class ResourceOwnerController extends Controller
     {
         $this->authorize('viewAny', ResourceOwner::class);
         $resourceOwners = ResourceOwner::ordered()->get();
+
         return view('resources.resource_owners.index', compact('resourceOwners'));
     }
 
@@ -21,6 +22,7 @@ class ResourceOwnerController extends Controller
         $this->authorize('create', ResourceOwner::class);
         $resourceOwner = new ResourceOwner();
         $formAction = route('resources.resource_owners.store');
+
         return view('resources.resource_owners.edit', compact('resourceOwner', 'formAction'));
     }
 
@@ -28,6 +30,7 @@ class ResourceOwnerController extends Controller
     {
         $this->authorize('create', ResourceOwner::class);
         ResourceOwner::create($request->validated());
+
         return Redirect::route('resources.resource_owners.index');
     }
 
@@ -36,6 +39,7 @@ class ResourceOwnerController extends Controller
         $this->authorize('view', $resourceOwner);
         $formAction = route('resources.resource_owners.update', ['resource_owner' => $resourceOwner->pid]);
         $deleteAction = route('resources.resource_owners.destroy', ['resource_owner' => $resourceOwner->pid]);
+
         return view('resources.resource_owners.edit', compact('resourceOwner', 'formAction', 'deleteAction'));
     }
 
@@ -43,6 +47,7 @@ class ResourceOwnerController extends Controller
     {
         $this->authorize('update', $resourceOwner);
         $resourceOwner->update($request->validated());
+
         return Redirect::route('resources.resource_owners.index');
     }
 
@@ -50,6 +55,7 @@ class ResourceOwnerController extends Controller
     {
         $this->authorize('delete', $resourceOwner);
         $resourceOwner->deleteIfNotReferenced();
+
         return Redirect::route('resources.resource_owners.index');
     }
 }

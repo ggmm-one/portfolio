@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Portfolio;
 
-use App\PortfolioUnit;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\LinkRequest;
 use App\Link;
-use App\Http\Controllers\Controller;
+use App\PortfolioUnit;
 use Illuminate\Support\Facades\Redirect;
 
 class PortfolioReportController extends Controller
@@ -15,6 +15,7 @@ class PortfolioReportController extends Controller
         $this->authorize('view', $portfolioUnit);
         $links = $portfolioUnit->reports;
         $editRoute = route('portfolios.reports.edit', ['portfolio_unit' => $portfolioUnit->pid, 'link' => 'LLIINNKK']);
+
         return view('portfolios.reports.index', compact('portfolioUnit', 'links', 'editRoute'));
     }
 
@@ -25,6 +26,7 @@ class PortfolioReportController extends Controller
         $formAction = route('portfolios.reports.store', ['portfolio_unit' => $portfolioUnit->pid]);
         $parentModel = $portfolioUnit;
         $deleteRoute = '';
+
         return view('links.edit', compact('link', 'formAction', 'parentModel', 'deleteRoute'));
     }
 
@@ -34,6 +36,7 @@ class PortfolioReportController extends Controller
         $link = new Link($request->validated());
         $link->linkable_subtype = Link::SUBTYPE_PORTFOLIO_REPORT;
         $portfolioUnit->links()->save($link);
+
         return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
@@ -43,6 +46,7 @@ class PortfolioReportController extends Controller
         $deleteRoute = route('portfolios.reports.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
         $formAction = route('portfolios.reports.update', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
         $parentModel = $portfolioUnit;
+
         return view('links.edit', compact('link', 'deleteRoute', 'formAction', 'parentModel'));
     }
 
@@ -50,6 +54,7 @@ class PortfolioReportController extends Controller
     {
         $this->authorize('update', $portfolioUnit);
         $link->update($request->validated());
+
         return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 
@@ -57,6 +62,7 @@ class PortfolioReportController extends Controller
     {
         $this->authorize('delete', $portfolioUnit);
         $link->delete();
+
         return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit->pid]);
     }
 }

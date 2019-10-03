@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Role;
+use App\User;
 
 class UserPolicy extends AdminModulePolicy
 {
@@ -24,6 +24,6 @@ class UserPolicy extends AdminModulePolicy
 
     public function adminModule(User $user)
     {
-        return !$user->role->adminNone();
+        return ! $user->role->adminNone();
     }
 }

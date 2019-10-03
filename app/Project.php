@@ -2,9 +2,6 @@
 
 namespace App;
 
-use App\Model;
-use Illuminate\Support\Facades\DB;
-
 class Project extends Model
 {
     public const MORPH_SHORT_NAME = 'prj';
@@ -18,7 +15,7 @@ class Project extends Model
     public const TYPE_WORK_ITEM = 'W';
     public const TYPES = [
         self::TYPE_PROJECT => 'Project',
-        self::TYPE_WORK_ITEM => 'Work Item'
+        self::TYPE_WORK_ITEM => 'Work Item',
     ];
 
     public const STATUS_DRAFT = 'D';
@@ -35,27 +32,27 @@ class Project extends Model
         self::STATUS_APPROVED => 'Approved',
         self::STATUS_IN_PROGRESS => 'In Progress',
         self::STATUS_CLOSED => 'Closed',
-        self::STATUS_CANCELLED => 'Cancelled'
+        self::STATUS_CANCELLED => 'Cancelled',
     ];
 
     public const CASCADE = [
         'comments',
         'links',
-        'evaluationScores'
+        'evaluationScores',
     ];
 
     protected $fillable = [
-        'type', 'status', 'name', 'code', 'portfolio_unit_pid', 'start', 'duration', 'start_after', 'end_before'
+        'type', 'status', 'name', 'code', 'portfolio_unit_pid', 'start', 'duration', 'start_after', 'end_before',
     ];
 
     protected $dates = [
-        'start', 'start_after', 'end_before'
+        'start', 'start_after', 'end_before',
     ];
 
     protected $attributes = [
         'name' => 'New Project',
-        'type' => Project::TYPE_PROJECT,
-        'status' => Project::STATUS_DRAFT
+        'type' => self::TYPE_PROJECT,
+        'status' => self::STATUS_DRAFT,
     ];
 
     public function portfolio()
@@ -114,7 +111,8 @@ class Project extends Model
     public function getConstraintProjectsSelect()
     {
         $projectId = $this->id;
-        return Project::select('id', 'pid', 'name')
+
+        return self::select('id', 'pid', 'name')
             ->where('id', '<>', $projectId)
             ->whereNotIn('id', function ($query) use ($projectId) {
                 $query->select('after_project_id')->from('project_order_constraints')->where('before_project_id', $projectId)->whereNull('deleted_at');
@@ -132,7 +130,7 @@ class Project extends Model
 
     public function getPortfolioUnitPidAttribute()
     {
-        return $this->exists? $this->portfolio->pid : null;
+        return $this->exists ? $this->portfolio->pid : null;
     }
 
     public function scopeOrdered($query)

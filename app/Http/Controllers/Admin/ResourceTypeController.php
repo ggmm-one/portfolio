@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\ResourceType;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Admin\ResourceTypeRequest;
+use App\ResourceType;
+use Illuminate\Support\Facades\Redirect;
 
 class ResourceTypeController extends Controller
 {
@@ -13,6 +13,7 @@ class ResourceTypeController extends Controller
     {
         $this->authorize('viewAny', ResourceType::class);
         $resourceTypes = ResourceType::ordered()->get();
+
         return view('admin.resource_types.index', compact('resourceTypes'));
     }
 
@@ -21,6 +22,7 @@ class ResourceTypeController extends Controller
         $this->authorize('create', ResourceType::class);
         $resourceType = new ResourceType();
         $formAction = route('admin.resource_types.store');
+
         return view('admin.resource_types.edit', compact('resourceType', 'formAction'));
     }
 
@@ -28,6 +30,7 @@ class ResourceTypeController extends Controller
     {
         $this->authorize('create', ResourceType::class);
         ResourceType::create($request->validated());
+
         return Redirect::route('admin.resource_types.index');
     }
 
@@ -35,6 +38,7 @@ class ResourceTypeController extends Controller
     {
         $this->authorize('view', $resourceType);
         $formAction = route('admin.resource_types.update', ['resource_type' => $resourceType]);
+
         return view('admin.resource_types.edit', compact('resourceType', 'formAction'));
     }
 
@@ -42,6 +46,7 @@ class ResourceTypeController extends Controller
     {
         $this->authorize('update', $resourceType);
         $resourceType->update($request->validated());
+
         return Redirect::route('admin.resource_types.index');
     }
 
@@ -49,6 +54,7 @@ class ResourceTypeController extends Controller
     {
         $this->authorize('delete', $resourceType);
         $resourceType->deleteIfNotReferenced();
+
         return Redirect::route('admin.resource_types.index');
     }
 }

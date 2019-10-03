@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Model;
-
 class Link extends Model
 {
     public const DD_TITLE_LENGTH = 256;
@@ -17,13 +15,13 @@ class Link extends Model
     public const SUBTYPE_PROJECT_OTHER = 'Z';
 
     protected $fillable = [
-        'title', 'url', 'sort_order'
+        'title', 'url', 'sort_order',
     ];
 
     protected $attributes = [
         'title' => '',
         'url' => '',
-        'sort_order' => 0
+        'sort_order' => 0,
     ];
 
     public function linkable()

@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Model;
-
 class Role extends Model
 {
     public const DD_NAME_LENGTH = 256;
@@ -14,7 +12,7 @@ class Role extends Model
     public const PERMISSIONS = [
         self::PERMISSION_NONE => 'None',
         self::PERMISSION_READ => 'Read',
-        self::PERMISSION_ALL => 'All'
+        self::PERMISSION_ALL => 'All',
     ];
 
     public const CHECK_BEFORE_DELETING = [
@@ -22,7 +20,7 @@ class Role extends Model
     ];
 
     protected $fillable = [
-        'name', 'permission_portfolios', 'permission_projects', 'permission_resources', 'permission_resources', 'permission_admin'
+        'name', 'permission_portfolios', 'permission_projects', 'permission_resources', 'permission_resources', 'permission_admin',
     ];
 
     public function users()
@@ -37,7 +35,7 @@ class Role extends Model
 
     public static function getSelectList()
     {
-        return Role::select('id', 'pid', 'name')->ordered()->get()->pluck('name', 'pid');
+        return self::select('id', 'pid', 'name')->ordered()->get()->pluck('name', 'pid');
     }
 
     public function adminNone()

@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Model;
-
 class ResourceType extends Model
 {
     public const DD_NAME_LENGTH = 256;
@@ -16,15 +14,15 @@ class ResourceType extends Model
         self::CATEGORY_FINANCIAL => 'Financial',
         self::CATEGORY_HUMAN => 'Human',
         self::CATEGORY_ASSETS => 'Assets',
-        self::CATEGORY_INTELLECTUAL => 'Intellectual'
+        self::CATEGORY_INTELLECTUAL => 'Intellectual',
     ];
 
     public const CHECK_BEFORE_DELETING = [
-        [Resource::class, 'resource_type_id', 'Cannot delete resource type. Please re-assign types on resources and try again.']
+        [Resource::class, 'resource_type_id', 'Cannot delete resource type. Please re-assign types on resources and try again.'],
     ];
 
     protected $fillable = [
-        'name', 'category'
+        'name', 'category',
     ];
 
     protected $attributes = [
@@ -49,6 +47,6 @@ class ResourceType extends Model
 
     public static function getSelectList()
     {
-        return ResourceType::ordered()->get()->pluck('name', 'pid');
+        return self::ordered()->get()->pluck('name', 'pid');
     }
 }

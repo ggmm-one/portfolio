@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\EvaluationItem;
-use Illuminate\Support\Facades\DB;
 use App\EvaluationScore;
 use App\Project;
+use Illuminate\Support\Facades\DB;
 
 class ProjectScoringService
 {
@@ -18,8 +18,8 @@ class ProjectScoringService
 
     public function updateWeightFactor()
     {
-        EvaluationItem::query()->update(['weight_factor' => DB::raw("(cast(weight as real) / (select sum(ei.weight) from evaluation_items ei))")]);
-        EvaluationItem::query()->update(['weight_factor' => DB::raw("(cast(weight_factor as real) / (select evaluation_max from settings))")]);
+        EvaluationItem::query()->update(['weight_factor' => DB::raw('(cast(weight as real) / (select sum(ei.weight) from evaluation_items ei))')]);
+        EvaluationItem::query()->update(['weight_factor' => DB::raw('(cast(weight_factor as real) / (select evaluation_max from settings))')]);
     }
 
     public function updateWeightedScore($id = null)

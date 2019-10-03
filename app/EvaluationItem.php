@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Model;
-
 class EvaluationItem extends Model
 {
     public const DD_NAME_LENGTH = 256;
@@ -12,15 +10,15 @@ class EvaluationItem extends Model
     public const DD_SORT_ORDER_MAX = 1024;
 
     public const CASCADE = [
-        'evaluationScores'
+        'evaluationScores',
     ];
 
     protected $fillable = [
-        'name', 'instructions', 'weight', 'sort_order'
+        'name', 'instructions', 'weight', 'sort_order',
     ];
 
     protected $casts = [
-        'sort_order' => 'integer'
+        'sort_order' => 'integer',
     ];
 
     public function evaluationScores()

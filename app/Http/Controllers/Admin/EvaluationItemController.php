@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\EvaluationItem;
 use App\EvaluationScore;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\Admin\EvaluationItemRequest;
+use App\Project;
+use App\Services\ProjectScoringService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use App\Services\ProjectScoringService;
-use App\Project;
-use App\Http\Requests\Admin\EvaluationItemRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class EvaluationItemController extends Controller
 {
@@ -19,6 +19,7 @@ class EvaluationItemController extends Controller
         $this->authorize('viewAny', EvaluationItem::class);
         $evaluationItems = EvaluationItem::sorted()->get();
         $sum = array_sum(Arr::pluck($evaluationItems, 'weight'));
+
         return view('admin.evaluation_items.index', compact('evaluationItems', 'sum'));
     }
 
@@ -27,6 +28,7 @@ class EvaluationItemController extends Controller
         $this->authorize('create', EvaluationItem::class);
         $evaluationItem = new EvaluationItem();
         $formAction = route('admin.evaluation_items.store');
+
         return view('admin.evaluation_items.edit', compact('evaluationItem', 'formAction'));
     }
 
@@ -38,7 +40,7 @@ class EvaluationItemController extends Controller
             foreach (Project::all() as $project) {
                 $evaluationScore = new EvaluationScore([
                     'score' => 1,
-                    'description' => 'Automatic Initial Assigned Score'
+                    'description' => 'Automatic Initial Assigned Score',
                 ]);
                 $evaluationScore->project_id = $project->id;
                 $evaluationScore->evaluation_item_id = $evaluationItem->id;
@@ -46,6 +48,7 @@ class EvaluationItemController extends Controller
             }
             $projectScoringService->recalculateAll();
         });
+
         return Redirect::route('admin.evaluation_items.index');
     }
 
@@ -53,6 +56,7 @@ class EvaluationItemController extends Controller
     {
         $this->authorize('view', $evaluationItem);
         $formAction = route('admin.evaluation_items.update', ['evaluation_item' => $evaluationItem->pid]);
+
         return view('admin.evaluation_items.edit', compact('evaluationItem', 'formAction'));
     }
 
@@ -74,6 +78,7 @@ class EvaluationItemController extends Controller
             $evaluationItem->delete();
             $projectScoringService->recalculateAll();
         });
+
         return Redirect::route('admin.evaluation_items.index');
     }
 }

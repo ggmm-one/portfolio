@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Project;
 
+use App\Libraries\DateHelper;
+use App\Model;
+use App\Project;
 use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
-use App\Project;
-use App\Model;
-use App\Libraries\DateHelper;
 
 class ProjectRequest extends FormRequest
 {
@@ -25,7 +25,7 @@ class ProjectRequest extends FormRequest
             'status' => Rule::required()->in(array_keys(Project::STATUS))->get(),
             'start' => Rule::nullable()->after(Model::DD_DATE_MIN)->before(Model::DD_DATE_MAX)->get(),
             'duration' => Rule::nullable()->integer()->min(1)->max(Project::DD_DURATION_MAX)->get(),
-            'description' => Rule::nullable()->string(1, Project::DD_DESCRIPTION_LENGTH)->get()
+            'description' => Rule::nullable()->string(1, Project::DD_DESCRIPTION_LENGTH)->get(),
         ];
     }
 
@@ -33,6 +33,7 @@ class ProjectRequest extends FormRequest
     {
         $validated = parent::validated();
         $validated['start'] = DateHelper::setDateToMonth($validated['start']);
+
         return $validated;
     }
 }

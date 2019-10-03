@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Comment;
+use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
 class CommentRequest extends FormRequest
@@ -19,7 +19,7 @@ class CommentRequest extends FormRequest
             return [];
         } else {
             return [
-                'content' => Rule::required()->string(1, Comment::DD_CONTENT_LENGTH)->get()
+                'content' => Rule::required()->string(1, Comment::DD_CONTENT_LENGTH)->get(),
             ];
         }
     }

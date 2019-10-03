@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Resource;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\ResourceOwner;
+use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
 class ResourceOwnerRequest extends FormRequest
@@ -17,7 +17,7 @@ class ResourceOwnerRequest extends FormRequest
     {
         return [
             'name' => Rule::required()->string(1, ResourceOwner::DD_NAME_LENGTH)->get(),
-            'email' => Rule::required()->email(ResourceOwner::DD_EMAIL_LENGTH)->get()
+            'email' => Rule::required()->email(ResourceOwner::DD_EMAIL_LENGTH)->get(),
         ];
     }
 }

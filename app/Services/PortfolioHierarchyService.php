@@ -28,6 +28,7 @@ class PortfolioHierarchyService
             unset($portfolioUnits[$key]);
             $lastOrder = self::addChildren($portfolioUnits, $portfolioUnit->id, $thisLevel, $lastOrder);
         }
+
         return $lastOrder;
     }
 }

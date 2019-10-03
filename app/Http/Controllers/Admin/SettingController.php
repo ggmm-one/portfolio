@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\EvaluationScore;
-use App\Setting;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SettingRequest;
+use App\Setting;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\Admin\SettingRequest;
 
 class SettingController extends Controller
 {
@@ -15,6 +15,7 @@ class SettingController extends Controller
     {
         $setting = Setting::first();
         $this->authorize('view', $setting);
+
         return view('admin.settings.edit', compact('setting'));
     }
 
