@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-trait CascadeSofDeletes
+trait CascadeSoftDeletes
 {
     use SoftDeletes {
         SoftDeletes::runSoftDelete as laravelRunSoftDelete;
