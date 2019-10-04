@@ -19,7 +19,7 @@
         @endif
         
 
-        <span><a href="{{ route('profile.show', ['user' => $comment->author->pid])}}">{{ $comment->author->name }}</a></span>
+        <span title="{{ $comment->author->pid }}">{{ $comment->author->name }}</span>
 
         <span title="{{ __('Created at: ').$comment->created_at.__(' | Last updated at: ').$comment->updated_at }}">
             {{ $comment->created_at->diffForHumans() }}

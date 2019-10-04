@@ -2,8 +2,6 @@
 
 Route::view('/', 'root');
 
-Route::get('/profile/{user}', 'ProfileController@show')->name('profile.show');
-
 //PORTFOLIOS SECTION
 
 $name = ['as' => 'portfolios'];
