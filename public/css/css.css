@@ -1,3 +1,45 @@
+#app-navbar {
+    background: #C33764;
+    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
+    background: linear-gradient(to right, #1D2671, #C33764);
+    border-bottom: 1px solid #1D2671;
+    color:white;
+}
+
+#app-navbar a {
+    color:white;
+}
+
+a.app-navbar-toggler-close {
+    display: none;
+}
+
+#app-navbar:target .collapsible {
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+#app-navbar:target .app-navbar-toggler-open {
+    display: none;
+}
+
+#app-navbar:target .app-navbar-toggler-close {
+    display: inline;
+}
+
+#main-menu:target .collapsible {
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+#main-menu:target .app-navbar-toggler-open {
+    display: none;
+}
+
+#main-menu:target .app-navbar-toggler-close {
+    display: inline;
+}
+
 td.app-action a, div.app-action a {
     margin-right: 1rem;
 }
@@ -44,24 +86,3 @@ footer.app-footer span {
     margin-left: 1rem;
 }
 
-nav.app-nav-master {
-    background: #C33764;
-    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
-    background: linear-gradient(to right, #1D2671, #C33764);
-    border-bottom: 1px solid #1D2671;
-}
-
-a.app-nav-master-link, .navbar-dark .navbar-nav .nav-link {
-    color: white;
-}
-
-nav.app-nav-sub, nav.app-nav-section, ul.app-nav-section {
-    background: #c0cdd8;
-    background: -webkit-linear-gradient(to right, #eef2f3, #E1E9EF);
-    background: linear-gradient(to right, #eef2f3, #E1E9EF);
-}
-
-ul.app-nav-section {
-    padding-left: 1rem;
-    margin-bottom: 1rem;
-}
