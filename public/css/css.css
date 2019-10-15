@@ -14,29 +14,16 @@ a.app-navbar-toggler-close {
     display: none;
 }
 
-#app-navbar:target .collapsible {
+#app-navbar:target .collapsible,  #app-navbar-section:target .collapsible {
     display: -ms-flexbox !important;
     display: flex !important;
 }
 
-#app-navbar:target .app-navbar-toggler-open {
+#app-navbar:target .app-navbar-toggler-open, #app-navbar-section:target .app-navbar-toggler-open {
     display: none;
 }
 
-#app-navbar:target .app-navbar-toggler-close {
-    display: inline;
-}
-
-#main-menu:target .collapsible {
-    display: -ms-flexbox !important;
-    display: flex !important;
-}
-
-#main-menu:target .app-navbar-toggler-open {
-    display: none;
-}
-
-#main-menu:target .app-navbar-toggler-close {
+#app-navbar:target .app-navbar-toggler-close, #app-navbar-section:target .app-navbar-toggler-close {
     display: inline;
 }
 

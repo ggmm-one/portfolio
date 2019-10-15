@@ -1,12 +1,17 @@
 @section('sectionnavbar')
-<nav class="navbar navbar-expand-lg navbar-light bg-light app-nav-sub">
-    <a class="navbar-brand" href="/resources">{{ __('Resources') }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminnavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="adminnavbar">
-        <a class="nav-item nav-link" href="{{ route('resources.resources.index') }}">{{ __('Resources') }}</a>
-        <a class="nav-item nav-link" href="{{ route('resources.resource_owners.index') }}">{{ __('Owners') }}</a>
-    </div>
-</nav>
+    <nav id="app-navbar-section" class="navbar navbar-expand-sm navbar-light bg-light">
+        <span class="navbar-brand">{{ __('Resources') }}</span>
+        <a href="#app-navbar-section" class="navbar-toggler app-navbar-toggler-open" type="button"
+                aria-controls="app-navbar-nav" aria-expanded="false" aria-label="Open navigation">
+                <span class="navbar-toggler-icon"></span>
+        </a>
+        <a href="#app-navbar-collapsed" class="navbar-toggler app-navbar-toggler-close" type="button"
+            aria-controls="app-navbar-nav" aria-expanded="true" aria-label="Close navigation">
+            <span class="navbar-toggler-icon"></span>
+        </a>
+        <div id="app-navbar-section-nav" class="collapsible collapse navbar-collapse navbar-nav">
+            <a class="nav-item nav-link" href="{{ route('resources.resources.index') }}">{{ __('Resources') }}</a>
+            <a class="nav-item nav-link" href="{{ route('resources.resource_owners.index') }}">{{ __('Owners') }}</a>
+        </div>
+    </nav>
 @endsection
