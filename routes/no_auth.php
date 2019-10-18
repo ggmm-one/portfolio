@@ -1,5 +1,5 @@
 <?php
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('auth/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('auth/login', 'Auth\LoginController@login');
+Route::post('auth/logout', 'Auth\LoginController@logout')->name('logout');
