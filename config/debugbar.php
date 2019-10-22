@@ -136,7 +136,7 @@ return [
             'hints'             => true,    // Show hints for common mistakes
         ],
         'mail' => [
-            'full_log' => false,
+            'full_log' => true,
         ],
         'views' => [
             'data' => false,    //Note: Can slow down the application, because the data can be quite large..

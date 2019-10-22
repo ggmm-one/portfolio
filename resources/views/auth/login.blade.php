@@ -1,6 +1,6 @@
 @extends('layouts.frame_guest')
 
-@section('pagetitle', __('Login'))
+@section('pagetitle', 'Login')
 @section('bodyid', 'app-auth-login')
 
 @section('content')
