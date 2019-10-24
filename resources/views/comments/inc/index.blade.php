@@ -1,4 +1,4 @@
-@includeWhen(!isset($editComment) && auth()->user()->can('create', $commentType), 'comments.inc.form')
+@includeWhen(!isset($editComment) && auth()->user()->can('create', UrlHelper::commentType()), 'comments.inc.form')
 
 <hr>
 
@@ -6,8 +6,7 @@
     @include('comments.inc.index_item_empty')
 @else
     @foreach ($comments as $comment)
-
-        @if (isset($editComment) && $comment->id == $editComment->id && auth()->user()->can('update', $parentModel))
+        @if (isset($editComment) && $comment->id == $editComment->id && auth()->user()->can('update', $comment))
             @include('comments.inc.edit')
         @else
             @include('comments.inc.index_item')

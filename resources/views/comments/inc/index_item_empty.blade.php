@@ -1,1 +1,1 @@
-<p>{{ __('No comments found') }}</p>
+<p>{{ __('No comment found') }}</p>

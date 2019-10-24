@@ -4,19 +4,19 @@
     </div>
     <div class="card-footer bg-light text-right text-muted app-comments-footer">
 
-        @if (auth()->user()->can('create', $parentModel))
-            <span><a href="{{ str_replace('CCOOMMMMEENNTT', $comment->pid, $editAction).'#'.$comment->pid}}">{{ __('Edit') }}</a></span>
-        @endif
+        @can('update', $comment)
+            <span><a href="{{ UrlHelper::commentUrl('edit', $comment->pid) }}">{{ __('Edit') }}</a></span>
+        @endcan
 
-        @if (auth()->user()->can('update', $parentModel))
+        @can('delete', $comment)
             <span>
                 <a href="#" class="app-js-delete-btn" data-delete-form-id="delete-form-{{ $comment->pid }}">{{ __('Delete') }}</a>
-                <form id="delete-form-{{ $comment->pid }}" action="{{ str_replace('CCOOMMMMEENNTT', $comment->pid, $deleteAction) }}" method="POST" style="display: none;">
+                <form id="delete-form-{{ $comment->pid }}" action="{{ UrlHelper::commentUrl('destroy', $comment->pid) }}" method="POST" style="display: none;">
                     @method('DELETE')
                     @csrf
                 </form>
             </span>
-        @endif
+        @endcan
         
 
         <span title="{{ $comment->author->pid }}">{{ $comment->author->name }}</span>

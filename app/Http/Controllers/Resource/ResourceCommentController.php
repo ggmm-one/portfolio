@@ -37,17 +37,11 @@ class ResourceCommentController extends Controller
 
     private function view(Resource $resource, Comment $comment = null)
     {
-        $data = [];
-        $data['resource'] = $resource;
+        $data = ['resource' => $resource];
         $data['comments'] = Comment::with('author:id,pid,name')->where('commentable_type', Resource::MORPH_SHORT_NAME)->where('commentable_id', $resource->id)->latest()->get();
-        $data['editAction'] = route('resources.comments.edit', ['resource' => $resource->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        $data['updateAction'] = route('resources.comments.update', ['resource' => $resource->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        $data['deleteAction'] = route('resources.comments.destroy', ['resource' => $resource->pid, 'comment' => 'CCOOMMMMEENNTT']);
         if ($comment != null) {
             $data['editComment'] = $comment;
         }
-        $data['commentType'] = Resource::class;
-        $data['parentModel'] = $resource;
 
         return view('resources.resources.comments.index', $data);
     }

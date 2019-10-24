@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Comment;
 use App\EvaluationItem;
 use App\EvaluationScore;
 use App\Policies\AdminModulePolicy;
+use App\Policies\CommentPolicy;
 use App\Policies\PortfoliosModulePolicy;
 use App\Policies\ProjectsModulePolicy;
 use App\Policies\ResourcesModulePolicy;
@@ -22,6 +24,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
+        Comment::class => CommentPolicy::class,
         EvaluationItem::class => AdminModulePolicy::class,
         EvaluationScore::class => ProjectsModulePolicy::class,
         Project::class => ProjectsModulePolicy::class,
