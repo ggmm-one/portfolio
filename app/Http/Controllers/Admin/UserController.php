@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -31,6 +32,8 @@ class UserController extends Controller
         $user = new User($request->validated());
         $user->password = Str::random(56);
         $user->save();
+
+        Password::broker()->sendResetLink(['email' => $user->email]);
 
         return Redirect::route('admin.users.index');
     }
