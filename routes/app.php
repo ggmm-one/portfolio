@@ -1,5 +1,6 @@
 <?php
 
+Route::post('auth/logout', 'Auth\LoginController@logout')->name('logout');
 Route::view('/', 'root');
 
 //PORTFOLIOS SECTION

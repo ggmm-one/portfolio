@@ -12,11 +12,6 @@ class LoginController extends Controller
 
     protected $redirectTo = '/';
 
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
-
     protected function loggedOut(Request $request)
     {
         return redirect('/auth/login');
