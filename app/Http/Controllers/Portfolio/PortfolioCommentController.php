@@ -37,17 +37,11 @@ class PortfolioCommentController extends Controller
 
     private function view(PortfolioUnit $portfolioUnit, Comment $comment = null)
     {
-        $data = [];
-        $data['portfolioUnit'] = $portfolioUnit;
+        $data = ['portfolioUnit' => $portfolioUnit];
         $data['comments'] = Comment::with('author:id,pid,name')->where('commentable_type', 'pun')->where('commentable_id', $portfolioUnit->id)->latest()->get();
-        $data['editAction'] = route('portfolios.comments.edit', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        $data['updateAction'] = route('portfolios.comments.update', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        $data['deleteAction'] = route('portfolios.comments.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'comment' => 'CCOOMMMMEENNTT']);
         if ($comment != null) {
             $data['editComment'] = $comment;
         }
-        $data['commentType'] = PortfolioUnit::class;
-        $data['parentModel'] = $portfolioUnit;
 
         return view('portfolios.comments.index', $data);
     }

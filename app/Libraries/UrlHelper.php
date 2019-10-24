@@ -1,5 +1,6 @@
 <?php
 
+use App\PortfolioUnit;
 use App\Resource;
 use Illuminate\Support\Facades\Route;
 
@@ -11,8 +12,9 @@ final class UrlHelper
         $route[2] = $action;
 
         $params = ['comment' => $commentPid];
-        if ($route[0] == 'resources') {
-            $params['resource'] = request()->resource;
+        switch ($route[0]) {
+            case 'resources': $params['resource'] = request()->resource; break;
+            case 'portfolios': $params['portfolio_unit'] = request()->portfolio_unit; break;
         }
 
         return route(implode('.', $route), $params).($action == 'edit' ? '#'.$commentPid : '');
@@ -22,6 +24,7 @@ final class UrlHelper
     {
         switch (explode('.', Route::currentRouteName())[0]) {
             case 'resources': return Resource::class;
+            case 'portfolios': return PortfolioUnit::class;
         }
     }
 }
