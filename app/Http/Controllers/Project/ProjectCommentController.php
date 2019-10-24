@@ -37,17 +37,11 @@ class ProjectCommentController extends Controller
 
     private function view(Project $project, Comment $comment = null)
     {
-        $data = [];
-        $data['project'] = $project;
+        $data = ['project' => $project];
         $data['comments'] = Comment::with('author:id,pid,name')->where('commentable_type', Project::MORPH_SHORT_NAME)->where('commentable_id', $project->id)->latest()->get();
-        $data['editAction'] = route('projects.comments.edit', ['project' => $project->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        $data['updateAction'] = route('projects.comments.update', ['project' => $project->pid, 'comment' => 'CCOOMMMMEENNTT']);
-        $data['deleteAction'] = route('projects.comments.destroy', ['project' => $project->pid, 'comment' => 'CCOOMMMMEENNTT']);
         if ($comment != null) {
             $data['editComment'] = $comment;
         }
-        $data['commentType'] = Project::class;
-        $data['parentModel'] = $project;
 
         return view('projects.comments.index', $data);
     }
