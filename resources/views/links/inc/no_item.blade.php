@@ -1,5 +1,5 @@
 <tr>
     <td>
-        {{ __('No records found') }}
+        {{ __('No record found') }}
     </td>
 </tr>

@@ -14,20 +14,16 @@ class ProjectReportController extends Controller
     {
         $this->authorize('view', $project);
         $links = $project->reports;
-        $editRoute = route('projects.reports.edit', ['project' => $project->pid, 'link' => 'LLIINNKK']);
 
-        return view('projects.reports.index', compact('project', 'links', 'editRoute'));
+        return view('projects.reports.index', compact('project', 'links'));
     }
 
     public function create(Project $project)
     {
         $this->authorize('create', $project);
         $link = new Link;
-        $formAction = route('projects.reports.store', ['project' => $project->pid]);
-        $parentModel = $project;
-        $deleteRoute = '';
 
-        return view('links.edit', compact('link', 'formAction', 'parentModel', 'deleteRoute'));
+        return view('links.edit', compact('link'));
     }
 
     public function store(LinkRequest $request, Project $project)
@@ -43,11 +39,8 @@ class ProjectReportController extends Controller
     public function edit(Project $project, Link $link)
     {
         $this->authorize('view', $project);
-        $deleteRoute = route('projects.reports.destroy', ['project' => $project->pid, 'link' => $link->pid]);
-        $formAction = route('projects.reports.update', ['project' => $project->pid, 'link' => $link->pid]);
-        $parentModel = $project;
 
-        return view('links.edit', compact('link', 'deleteRoute', 'formAction', 'parentModel'));
+        return view('links.edit', compact('link'));
     }
 
     public function update(LinkRequest $request, Project $project, Link $link)

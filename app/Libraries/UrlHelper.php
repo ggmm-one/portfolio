@@ -16,13 +16,37 @@ final class UrlHelper
         switch ($route[0]) {
             case 'resources': $params['resource'] = request()->resource; break;
             case 'portfolios': $params['portfolio_unit'] = request()->portfolio_unit; break;
-            case 'projects': $params['projects'] = request()->projects; break;
+            case 'projects': $params['project'] = request()->project; break;
         }
 
         return route(implode('.', $route), $params).($action == 'edit' ? '#'.$commentPid : '');
     }
 
     public static function commentType()
+    {
+        switch (explode('.', Route::currentRouteName())[0]) {
+            case 'resources': return Resource::class;
+            case 'portfolios': return PortfolioUnit::class;
+            case 'projects': return Project::class;
+        }
+    }
+
+    public static function linkUrl(string $action, $linkPid)
+    {
+        $route = explode('.', Route::currentRouteName());
+        $route[2] = $action;
+
+        $params = ['link' => $linkPid];
+        switch ($route[0]) {
+            case 'resources': $params['resource'] = request()->resource; break;
+            case 'portfolios': $params['portfolio_unit'] = request()->portfolio_unit; break;
+            case 'projects': $params['project'] = request()->project; break;
+        }
+
+        return route(implode('.', $route), $params);
+    }
+
+    public static function linkType()
     {
         switch (explode('.', Route::currentRouteName())[0]) {
             case 'resources': return Resource::class;
