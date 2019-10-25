@@ -27,6 +27,10 @@ a.app-navbar-toggler-close {
     display: inline;
 }
 
+#app-navbar-section-nav a {
+    color: #007bff;
+}
+
 td.app-action a, div.app-action a {
     margin-right: 1rem;
 }
