@@ -9,6 +9,8 @@
 
     @include('projects.inc.projects_header')
 
+    <br>
+
     <h5>{{ __('Timeline Constraint') }}</h5>
 
     <form action="{{ route('projects.constraints.update', ['project' => $project->pid, 'project_order_constraint' => $project->pid]) }}" method="POST">
