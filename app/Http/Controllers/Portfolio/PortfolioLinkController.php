@@ -14,7 +14,6 @@ class PortfolioLinkController extends Controller
     {
         $this->authorize('view', $portfolioUnit);
         $links = $portfolioUnit->other_links;
-        $editRoute = route('portfolios.links.edit', ['portfolio_unit' => $portfolioUnit->pid, 'link' => 'LLIINNKK']);
 
         return view('portfolios.links.index', compact('portfolioUnit', 'links', 'editRoute'));
     }
@@ -23,9 +22,6 @@ class PortfolioLinkController extends Controller
     {
         $this->authorize('create', $portfolioUnit);
         $link = new Link;
-        $formAction = route('portfolios.links.store', ['portfolio_unit' => $portfolioUnit->pid]);
-        $parentModel = $portfolioUnit;
-        $deleteRoute = '';
 
         return view('links.edit', compact('link', 'formAction', 'parentModel', 'deleteRoute'));
     }
@@ -43,9 +39,6 @@ class PortfolioLinkController extends Controller
     public function edit(PortfolioUnit $portfolioUnit, Link $link)
     {
         $this->authorize('view', $portfolioUnit);
-        $deleteRoute = route('portfolios.links.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
-        $formAction = route('portfolios.links.update', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
-        $parentModel = $portfolioUnit;
 
         return view('links.edit', compact('link', 'deleteRoute', 'formAction', 'parentModel'));
     }

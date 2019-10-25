@@ -14,20 +14,16 @@ class PortfolioGoalController extends Controller
     {
         $this->authorize('view', $portfolioUnit);
         $links = $portfolioUnit->goals;
-        $editRoute = route('portfolios.goals.edit', ['portfolio_unit' => $portfolioUnit->pid, 'link' => 'LLIINNKK']);
 
-        return view('portfolios.goals.index', compact('portfolioUnit', 'links', 'editRoute'));
+        return view('portfolios.goals.index', compact('portfolioUnit', 'links'));
     }
 
     public function create(PortfolioUnit $portfolioUnit)
     {
         $this->authorize('create', $portfolioUnit);
         $link = new Link;
-        $formAction = route('portfolios.goals.store', ['portfolio_unit' => $portfolioUnit->pid]);
-        $parentModel = $portfolioUnit;
-        $deleteRoute = '';
 
-        return view('links.edit', compact('link', 'formAction', 'deleteRoute', 'parentModel'));
+        return view('links.edit', compact('link'));
     }
 
     public function store(LinkRequest $request, PortfolioUnit $portfolioUnit)
@@ -43,9 +39,6 @@ class PortfolioGoalController extends Controller
     public function edit(PortfolioUnit $portfolioUnit, Link $link)
     {
         $this->authorize('view', $portfolioUnit);
-        $deleteRoute = route('portfolios.goals.destroy', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
-        $formAction = route('portfolios.goals.update', ['portfolio_unit' => $portfolioUnit->pid, 'link' => $link->pid]);
-        $parentModel = $portfolioUnit;
 
         return view('links.edit', compact('link', 'deleteRoute', 'formAction', 'parentModel'));
     }
