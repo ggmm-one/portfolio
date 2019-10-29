@@ -7,7 +7,7 @@
 <ul class="nav nav-tabs bg-light app-nav-section">
     <li class="nav-item"><a href="{{ route('projects.projects.edit', ['project' => $project->pid]) }}" class="nav-link @activeTab('projects.projects')">{{ __('Info') }}</a></li>
     @if($project->exists)
-        <li class="nav-item"><a href="{{ route('projects.reports.index', ['project' => $project->pid]) }}" class="nav-link @activeTab('projects.reports')">{{ __('Resources') }}</a></li>
+        <li class="nav-item"><a href="{{ route('projects.resources.index', ['project' => $project->pid]) }}" class="nav-link @activeTab('projects.resources')">{{ __('Resources') }}</a></li>
         <li class="nav-item"><a href="{{ route('projects.evaluations.index', ['project' => $project->pid]) }}" class="nav-link @activeTab('projects.evaluations')">{{ __('Evaluation') }}</a></li>
         <li class="nav-item"><a href="{{ route('projects.constraints.index', ['project' => $project->pid]) }}" class="nav-link @activeTab('projects.constraints')">{{ __('Constraints') }}</a></li>
         <li class="nav-item"><a href="{{ route('projects.reports.index', ['project' => $project->pid]) }}" class="nav-link @activeTab('projects.reports')">{{ __('Reports') }}</a></li>

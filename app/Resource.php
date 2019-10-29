@@ -61,4 +61,9 @@ class Resource extends Model
     {
         $this->resource_owner_id = ResourceOwner::getId($value);
     }
+
+    public static function getSelectList()
+    {
+        return self::select('id', 'pid', 'name')->orderBy('name')->get()->pluck('name', 'pid');
+    }
 }

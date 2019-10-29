@@ -19,6 +19,7 @@ Route::group(['prefix'=>'portfolios/{portfolio_unit}'], function () use ($name) 
 $name = ['as' => 'projects'];
 Route::resource('projects', 'Project\ProjectController', $name)->except(['show']);
 Route::group(['prefix'=>'projects/{project}'], function () use ($name) {
+    Route::resource('resources', 'Project\ResourceAllocationController', $name)->except(['show']);
     Route::resource('evaluations', 'Project\EvaluationScoreController', $name)->parameters(['evaluations' => 'evaluation_score'])->only(['index', 'edit', 'update']);
     Route::resource('reports', 'Project\ProjectReportController', $name)->parameters(['reports' => 'link'])->except(['show']);
     Route::resource('links', 'Project\ProjectLinkController', $name)->except(['show']);

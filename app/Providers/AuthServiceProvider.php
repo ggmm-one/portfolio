@@ -14,6 +14,7 @@ use App\PortfolioUnit;
 use App\Project;
 use App\ProjectOrderConstraint;
 use App\Resource;
+use App\ResourceAllocation;
 use App\ResourceCapacity;
 use App\ResourceOwner;
 use App\ResourceType;
@@ -31,6 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         ProjectOrderConstraint::class => ProjectsModulePolicy::class,
         PortfolioUnit::class => PortfoliosModulePolicy::class,
         Resource::class => ResourcesModulePolicy::class,
+        ResourceAllocation::class => ProjectsModulePolicy::class,
         ResourceCapacity::class => ResourcesModulePolicy::class,
         ResourceOwner::class => ResourcesModulePolicy::class,
         ResourceType::class => AdminModulePolicy::class,

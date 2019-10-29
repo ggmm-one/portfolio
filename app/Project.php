@@ -39,6 +39,7 @@ class Project extends Model
         'comments',
         'links',
         'evaluationScores',
+        'resourceEvaluations',
     ];
 
     protected $fillable = [
@@ -63,6 +64,11 @@ class Project extends Model
     public function evaluationScores()
     {
         return $this->hasMany(EvaluationScore::class);
+    }
+
+    public function resourceAllocations()
+    {
+        return $this->hasMany(ResourceAllocation::class);
     }
 
     public function comments()
