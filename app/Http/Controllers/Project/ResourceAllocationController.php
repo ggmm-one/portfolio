@@ -7,15 +7,18 @@ use App\Http\Requests\Project\ResourceAllocationRequest;
 use App\Project;
 use App\Resource;
 use App\ResourceAllocation;
+use App\Services\ResourceAllocationService;
 use Illuminate\Support\Facades\Redirect;
 
 class ResourceAllocationController extends Controller
 {
-    public function index(Project $project)
+    public function index(Project $project, ResourceAllocationService $resourceAllocationService)
     {
         $this->authorize('viewAny', ResourceAllocation::class);
+        $allocations = $project->resourceAllocations()->with(['project:id,pid,duration', 'resource:id,pid,name'])->orderBy('sort_order')->orderBy('resource_id')->get();
+        $allocations = $resourceAllocationService->complete($allocations);
 
-        return view('projects.resources.index', compact('project'));
+        return view('projects.resources.index', compact('project', 'allocations'));
     }
 
     public function create(Project $project)
