@@ -14,6 +14,10 @@ class Resource extends Model
         'comments',
     ];
 
+    public const CHECK_BEFORE_DELETING = [
+        [ResourceAllocation::class, 'resource_id', 'Cannot delete resource - allocated to project. Please re-assign and try again.'],
+    ];
+
     protected $fillable = [
         'name', 'resource_type_pid', 'resource_owner_pid', 'description',
     ];
