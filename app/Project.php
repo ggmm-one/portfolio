@@ -39,7 +39,7 @@ class Project extends Model
         'comments',
         'links',
         'evaluationScores',
-        'resourceEvaluations',
+        'resourceAllocations',
     ];
 
     protected $fillable = [
