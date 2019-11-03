@@ -24,12 +24,10 @@ class ResourceAllocationController extends Controller
     public function create(Project $project)
     {
         $this->authorize('create', ResourceAllocation::class);
-        $allocation = new ResourceAllocation();
-        $resources = Resource::getSelectList();
+        $resourceAllocation = new ResourceAllocation();
         $formAction = route('projects.resources.store', ['project' => $project->pid]);
-        $months = array_combine(range(1, $project->duration), array_map(null, range(1, $project->duration)));
 
-        return view('projects.resources.edit', compact('project', 'allocation', 'resources', 'months', 'formAction'));
+        return view('projects.resources.edit', array_merge(compact('project', 'resourceAllocation', 'formAction'), $this->dropdowns($project)));
     }
 
     public function store(ResourceAllocationRequest $request, Project $project)
@@ -43,8 +41,10 @@ class ResourceAllocationController extends Controller
     public function edit(Project $project, ResourceAllocation $resourceAllocation)
     {
         $this->authorize('update', $resourceAllocation);
+        $formAction = route('projects.resources.update', ['project' => $project->pid, 'resource_allocation' => $resourceAllocation->pid]);
+        $deleteAction = route('projects.resources.destroy', ['project' => $project->pid, 'resource_allocation' => $resourceAllocation->pid]);
 
-        return view('projects.resources.edit', ['project' => $project->pid, 'resource_allocation' => $resourceAllocation->pid]);
+        return view('projects.resources.edit', array_merge(compact('project', 'resourceAllocation', 'formAction', 'deleteAction'), $this->dropdowns($project)));
     }
 
     public function update(ResourceAllocationRequest $request, Project $project, ResourceAllocation $resourceAllocation)
@@ -55,10 +55,19 @@ class ResourceAllocationController extends Controller
         return Redirect::route('projects.resources.index', ['project' => $project->pid]);
     }
 
-    public function destroy(Project $project, ResourceAllocation $resourceAllocation)
+    public function destroy($project, ResourceAllocation $resourceAllocation)
     {
         $this->authorize('delete', $resourceAllocation);
+        $resourceAllocation->delete();
 
-        return Redirect::route('projects.resources.index', ['project' => $project->pid]);
+        return Redirect::route('projects.resources.index', ['project' => $project]);
+    }
+
+    private function dropdowns(Project $project)
+    {
+        $months = array_combine(range(1, $project->duration), array_map(null, range(1, $project->duration)));
+        $resources = Resource::getSelectList();
+
+        return compact('months', 'resources');
     }
 }

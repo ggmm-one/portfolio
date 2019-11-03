@@ -6,7 +6,7 @@
 @for($i=0; $i < $count; $i++)
     @if ($i % $duration == 0) </tr><tr><td><a href="{{ route('resources.resources.edit', ['resource' => $allocations[$i]->resource->pid]) }}">{{ $allocations[$i]->resource->name }}</a></td> @endif
     <td>
-        @if ($allocations[$i]->exists) <a href="{{ route('projects.resources.edit', ['resource' => $allocations[$i]->resource->pid, 'project' => $project->pid]) }}"> @endif
+        @if ($allocations[$i]->exists) <a href="{{ route('projects.resources.edit', ['resource_allocation' => $allocations[$i]->pid, 'project' => $project->pid]) }}"> @endif
         {{ $allocations[$i]->quantity }}
         @if ($allocations[$i]->exists) </a> @endif
     </td>
