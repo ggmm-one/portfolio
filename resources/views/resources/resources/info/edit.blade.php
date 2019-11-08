@@ -19,7 +19,7 @@
         @form_select(['control_id' => 'resource_type_pid', 'control_label' => 'Type', 'control_value' => old('resource_type_pid', $resource->resource_type_pid),'select_options' => \App\ResourceType::getSelectList()])
         @form_select(['control_id' => 'resource_owner_pid', 'control_label' => 'Owner', 'control_value' => old('resource_owner_pid', $resource->resource_owner_pid),'select_options' => \App\ResourceOwner::getSelectList()])
         @form_textarea(['control_id' => 'description', 'control_label' => 'Description', 'control_value' => old('description', $resource->description), 'control_validation' => 'maxlength='.\App\Resource::DD_DESCRIPTION_LENGTH])
-        @if (auth()->user()->can('update', $resource)) @form_submit @endif
+        @can('update', $resource) @form_submit @endcan
     </form>
 
 @endsection

@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand">{{ __('Resource Owners') }}</span>
-        @if (auth()->user()->can('create', App\ResourceOwner::class)) <a href="{{ route('resources.resource_owners.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
+        @can('create', App\ResourceOwner::class) <a href="{{ route('resources.resource_owners.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
     </nav>
 
     <table class="table">

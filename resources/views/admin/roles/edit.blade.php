@@ -36,7 +36,7 @@
                 @endforeach        
             </div>    
         @endforeach
-        @if (auth()->user()->can('update', $role)) @form_submit @endif
+        @can('update', $role) @form_submit @endcan
     </form>
 
 @endsection

@@ -17,7 +17,7 @@
         @form_select(['control_id' => 'type', 'control_label' => 'Type', 'control_value' => old('type', $portfolioUnit->type),'select_options' => App\PortfolioUnit::TYPES, 'control_size' => 'm', 'disabled' => $portfolioUnit->isRoot()])
         @form_select(['control_id' => 'parent_pid', 'control_label' => 'Parent', 'control_value' => old('parent_pid', $portfolioUnit->parent_pid),'select_options' => $availParents, 'disabled' => $portfolioUnit->isRoot()])
         @form_textarea(['control_id' => 'description', 'control_label' => 'Description', 'control_value' => old('description', $portfolioUnit->description), 'control_validation' => 'maxlength='.\App\portfolioUnit::DD_DESCRIPTION_LENGTH])
-        @if (auth()->user()->can('update', $portfolioUnit)) @form_submit @endif
+        @can('update', $portfolioUnit) @form_submit @endcan
     </form>
 
 @endsection

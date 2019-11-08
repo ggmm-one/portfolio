@@ -12,7 +12,7 @@
     <nav class="navbar">
         <span class="navbar-brand">&nbsp;</span>
         <div>
-            @if (auth()->user()->can('create', App\ResourceCapacity::class)) <a href="{{ route('resources.capacities.create', compact('resource')) }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
+            @can('create', App\ResourceCapacity::class) <a href="{{ route('resources.capacities.create', compact('resource')) }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
         </div>
     </nav>
 

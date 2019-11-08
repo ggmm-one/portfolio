@@ -9,7 +9,7 @@
 
     <nav class="navbar navbar-light bg-light app-nav-section">
         <span class="navbar-brand">{{ __('Portfolios') }}</span>
-        @if (auth()->user()->can('create', App\PortfolioUnit::class)) <a href="{{ route('portfolios.portfolios.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
+        @can('create', App\PortfolioUnit::class)) <a href="{{ route('portfolios.portfolios.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
     </nav>
 
     <table class="table">
