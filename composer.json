@@ -15,7 +15,7 @@
         "timacdonald/rule-builder": "4.0.0"
     },
     "require-dev": {
-        "filp/whoops": "2.5.0",
+        "filp/whoops": "2.6.0",
         "fzaninotto/faker": "1.9.1",
         "nunomaduro/collision": "3.0.1",
         "barryvdh/laravel-debugbar": "3.2.8"
