@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "laravel/framework": "7.3.0",
+        "laravel/framework": "7.4.0",
         "laravel/tinker": "2.3.0",
         "fideloper/proxy": "4.3.0",
         "timacdonald/rule-builder": "4.0.0"
