@@ -45,5 +45,7 @@ trait CascadeSoftDeletes
         }
 
         $query->update($columns);
+
+        $this->syncOriginalAttributes(array_keys($columns));
     }
 }
