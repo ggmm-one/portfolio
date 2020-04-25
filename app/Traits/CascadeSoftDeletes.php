@@ -24,8 +24,8 @@ trait CascadeSoftDeletes
             $time = $this->freshTimestamp();
         }
 
-        if (defined('static::CASCADE')) {
-            foreach (static::CASCADE as $models) {
+        if (isset($this->cascadeDelete)) {
+            foreach ($this->cascadeDelete as $models) {
                 $this->{$models}->each(function ($model, $key) use ($time) {
                     $model->runSoftDelete($time);
                 });

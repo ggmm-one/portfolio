@@ -9,7 +9,7 @@ class EvaluationItem extends Model
     public const DD_WEIGHT_MAX = 100;
     public const DD_SORT_ORDER_MAX = 1024;
 
-    public const CASCADE = [
+    protected $cascadeDelete = [
         'evaluationScores',
     ];
 

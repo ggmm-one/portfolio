@@ -9,7 +9,7 @@ class Resource extends Model
     public const DD_NAME_LENGTH = 256;
     public const DD_DESCRIPTION_LENGTH = 4000;
 
-    public const CASCADE = [
+    protected $cascadeDelete = [
         'capacities',
         'comments',
     ];

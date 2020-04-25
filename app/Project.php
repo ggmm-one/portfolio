@@ -35,7 +35,7 @@ class Project extends Model
         self::STATUS_CANCELLED => 'Cancelled',
     ];
 
-    public const CASCADE = [
+    protected $cascadeDelete = [
         'comments',
         'links',
         'evaluationScores',

@@ -15,7 +15,7 @@ class PortfolioUnit extends Model
     public const TYPE_PROGRAM = 'R';
     public const TYPES = [self::TYPE_PORTFOLIO => 'Portfolio', self::TYPE_PROGRAM => 'Program'];
 
-    public const CASCADE = [
+    protected $cascadeDelete = [
         'comments',
         'links',
     ];
