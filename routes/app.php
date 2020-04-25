@@ -40,11 +40,8 @@ Route::group(['prefix'=>'resources/{resource}'], function () use ($name) {
 
 // ADMIN SECTION
 
-$name = ['as' => 'admin'];
-Route::view('admin', 'admin.root')->name('admin.root');
-Route::get('admin/settings/edit', 'Admin\SettingController@edit')->name('admin.settings.edit');
-Route::patch('admin/settings', 'Admin\SettingController@update', $name)->name('admin.settings.update');
-Route::resource('admin/evaluation_items', 'Admin\EvaluationItemController', $name)->except(['show']);
-Route::resource('admin/resource_types', 'Admin\ResourceTypeController', $name)->except(['show']);
-Route::resource('admin/users', 'Admin\UserController', $name)->except(['show']);
-Route::resource('admin/roles', 'Admin\RoleController', $name)->except(['show']);
+Route::resource('settings', 'SettingController')->only(['index', 'update']);
+Route::resource('evaluation_items', 'EvaluationItemController')->except(['show']);
+Route::resource('resource_types', 'ResourceTypeController')->except(['show']);
+Route::resource('users', 'UserController')->except(['show']);
+Route::resource('roles', 'RoleController')->except(['show']);
