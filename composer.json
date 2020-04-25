@@ -9,17 +9,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "facade/ignition": "^2.0",
+        "fideloper/proxy": "4.3.0",
         "laravel/framework": "7.7.1",
         "laravel/tinker": "2.4.0",
         "laravel/ui": "2.0.1",
-        "fideloper/proxy": "4.3.0",
         "timacdonald/rule-builder": "4.0.0"
     },
     "require-dev": {
-        "filp/whoops": "2.7.1",
         "fzaninotto/faker": "1.9.1",
-        "nunomaduro/collision": "4.2.0",
-        "barryvdh/laravel-debugbar": "3.3.2"
+        "nunomaduro/collision": "4.2.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -49,7 +48,7 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
