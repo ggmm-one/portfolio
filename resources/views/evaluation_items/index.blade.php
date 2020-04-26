@@ -3,7 +3,7 @@
 @section('pagetitle', __('Evaluation Items'))
 @section('bodyid', 'app-admin-evaluation-items-index')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

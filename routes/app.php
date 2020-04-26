@@ -29,13 +29,11 @@ Route::group(['prefix'=>'projects/{project}'], function () use ($name) {
 
 //RESOURCES SECTION
 
-$name = ['as' => 'resources'];
-Route::view('resources', 'resources.root')->name('resources.root');
-Route::resource('resources/resource_owners', 'Resource\ResourceOwnerController', $name)->except(['show']);
-Route::resource('resources/resources', 'Resource\ResourceController', $name)->except(['show']);
-Route::group(['prefix'=>'resources/{resource}'], function () use ($name) {
-    Route::resource('capacities', 'Resource\ResourceCapacityController', $name)->parameters(['capacities' => 'resource_capacity'])->except(['show']);
-    Route::resource('comments', 'Resource\ResourceCommentController', $name)->except(['show', 'create']);
+Route::resource('resource_owners', 'ResourceOwnerController')->except(['show']);
+Route::resource('resources', 'ResourceController')->except(['show']);
+Route::group(['prefix'=>'resources/{resource}'], function () {
+    Route::resource('resource_capacities', 'ResourceCapacityController')->except(['show']);
+    Route::resource('comments', 'ResourceCommentController')->except(['show', 'create']);
 });
 
 // ADMIN SECTION

@@ -3,7 +3,7 @@
 @section('pagetitle', __('Users'))
 @section('bodyid', 'app-admin-users-index')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

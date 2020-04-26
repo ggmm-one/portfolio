@@ -3,7 +3,7 @@
 @section('pagetitle', __('Settings'))
 @section('bodyid', 'app-admin-settings-edit')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

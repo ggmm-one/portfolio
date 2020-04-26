@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Resource;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Resource\ResourceRequest;
+use App\Http\Requests\ResourceRequest;
 use App\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,16 +14,16 @@ class ResourceController extends Controller
         $this->authorize('viewAny', Resource::class);
         $resources = $this->filter($request)->get();
 
-        return view('resources.resources.index', compact('resources', 'isFiltered'));
+        return view('resources.index', compact('resources', 'isFiltered'));
     }
 
     public function create()
     {
         $this->authorize('create', Resource::class);
         $resource = new Resource();
-        $formAction = route('resources.resources.store');
+        $formAction = route('resources.store');
 
-        return view('resources.resources.info.edit', compact('resource', 'formAction'));
+        return view('resources.info.edit', compact('resource', 'formAction'));
     }
 
     public function store(ResourceRequest $request)
@@ -32,23 +31,23 @@ class ResourceController extends Controller
         $this->authorize('create', Resource::class);
         $resource = Resource::create($request->validated());
 
-        return Redirect::route('resources.resources.edit', compact('resource'));
+        return Redirect::route('resources.edit', compact('resource'));
     }
 
     public function edit(Resource $resource)
     {
-        $formAction = route('resources.resources.update', compact('resource'));
+        $formAction = route('resources.update', compact('resource'));
 
-        return view('resources.resources.info.edit', compact('resource', 'formAction'));
+        return view('resources.edit', compact('resource', 'formAction'));
     }
 
     public function update(ResourceRequest $request, Resource $resource)
     {
         $this->authorize('view', $resource);
         $resource->update($request->validated());
-        $formAction = route('resources.resources.update', compact('resource'));
+        $formAction = route('resources.update', compact('resource'));
 
-        return view('resources.resources.info.edit', compact('resource', 'formAction'));
+        return view('resources.edit', compact('resource', 'formAction'));
     }
 
     public function destroy(Resource $resource)
@@ -56,7 +55,7 @@ class ResourceController extends Controller
         $this->authorize('delete', $resource);
         $resource->deleteIfNotReferenced();
 
-        return Redirect::route('resources.resources.index');
+        return Redirect::route('resources.index');
     }
 
     private function filter(Request &$request)

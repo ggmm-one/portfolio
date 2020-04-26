@@ -1,0 +1,17 @@
+<tr>
+    <td>{{ $capacity->start->format('Y-m') }}</td>
+    <td>{{ $capacity->end->format('Y-m') }}</td>
+    <td>{{ __($capacity->type_name) }}</td>
+    <td>{{ __($capacity->quantity) }}</td>
+    <td class="app-action">
+        <a href="{{ route('resource_capacities.edit', ['resource' => $resource->pid, 'resource_capacity' => $capacity]) }}">{{ __('Edit') }}</a>
+        @can('delete', $capacity)
+        @php $deleteAction = route('resource_capacities.destroy', ['resource' => $resource->pid, 'resource_capacity' => $capacity]); @endphp
+        <a href="#" class="app-js-delete-btn" data-delete-form-id="delete-form-{{ md5($deleteAction) }}">{{ __('Delete') }}</a>
+        <form id="delete-form-{{ md5($deleteAction) }}" action="{{ $deleteAction }}" method="POST" style="display: none;">
+            @method('DELETE')
+            @csrf
+        </form>
+        @endcan
+    </td>
+</tr>

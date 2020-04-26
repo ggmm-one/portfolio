@@ -3,7 +3,7 @@
 @section('pagetitle', __('Roles'))
 @section('bodyid', 'app-admin-roles-index')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

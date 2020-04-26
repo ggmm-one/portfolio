@@ -3,7 +3,7 @@
 @section('pagetitle', $evaluationItem->exists ? 'Edit Evaluation Item' : 'Add Evaluation Item')
 @section('bodyid', 'app-admin-evaluation-items-edit')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

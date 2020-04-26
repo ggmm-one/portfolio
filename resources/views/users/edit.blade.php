@@ -3,7 +3,7 @@
 @section('pagetitle', $user->exists ? 'Edit User' : 'Add User')
 @section('bodyid', 'app-admin-users-edit')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

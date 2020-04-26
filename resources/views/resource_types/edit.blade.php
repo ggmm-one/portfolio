@@ -3,7 +3,7 @@
 @section('pagetitle', $resourceType->exists ? 'Edit Resource Type' : 'Add Resource Type')
 @section('bodyid', 'app-admin-resource-types-edit')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

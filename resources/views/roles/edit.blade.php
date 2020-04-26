@@ -3,7 +3,7 @@
 @section('pagetitle', $role->exists ? 'Edit Role' : 'Add Role')
 @section('bodyid', 'app-admin-roles-edit')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 

@@ -3,7 +3,7 @@
 @section('pagetitle', __('Resource Types'))
 @section('bodyid', 'app-admin-resource-types-index')
 
-@include('layouts.navbar.admin')
+@include('layouts.navbars.admin')
 
 @section('content')
 
