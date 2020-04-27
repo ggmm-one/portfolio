@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\Traits\CascadeSoftDeletes;
 use App\Traits\CheckBeforeDeletes;
 use App\Traits\PublicAddressable;
 use App\Traits\SessionFlashes;
+use Ggmm\Model\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model as LaravelModel;
 
 abstract class Model extends LaravelModel
