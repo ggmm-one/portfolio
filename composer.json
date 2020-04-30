@@ -12,7 +12,7 @@
         "facade/ignition": "^2.0",
         "fideloper/proxy": "4.3.0",
         "ggmm-one/model-helpers-for-laravel": "^1.0",
-        "laravel/framework": "7.8.1",
+        "laravel/framework": "7.9.2",
         "laravel/tinker": "2.4.0",
         "laravel/ui": "2.0.1",
         "timacdonald/rule-builder": "4.0.0"
