@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', 'Constraints')
-@section('bodyid', 'app-projects-constraints-index')
 
 @section('content')
 

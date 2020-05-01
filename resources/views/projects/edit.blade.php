@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', $project->exists ? 'Edit Project' : 'Add Project')
-@section('bodyid', 'app-projects-projects-edit')
 
 @section('content')
 

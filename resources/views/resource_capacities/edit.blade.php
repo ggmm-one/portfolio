@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', $resourceCapacity->exists ? 'Edit Capacity' : 'Add Capacity')
-@section('bodyid', 'app-resources-capacities-edit')
 
 @include('layouts.navbars.resources')
 

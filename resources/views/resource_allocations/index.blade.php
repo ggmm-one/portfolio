@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', 'Resources')
-@section('bodyid', 'app-projects-resources-index')
 
 @section('content')
 

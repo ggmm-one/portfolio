@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', $role->exists ? 'Edit Role' : 'Add Role')
-@section('bodyid', 'app-admin-roles-edit')
 
 @include('layouts.navbars.admin')
 

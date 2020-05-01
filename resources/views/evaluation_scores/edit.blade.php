@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', 'Edit Evaluation')
-@section('bodyid', 'app-projects-evaluations-edit')
 
 @section('content')
 

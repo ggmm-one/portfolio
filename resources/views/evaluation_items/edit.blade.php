@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', $evaluationItem->exists ? 'Edit Evaluation Item' : 'Add Evaluation Item')
-@section('bodyid', 'app-admin-evaluation-items-edit')
 
 @include('layouts.navbars.admin')
 

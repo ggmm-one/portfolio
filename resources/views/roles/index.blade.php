@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', __('Roles'))
-@section('bodyid', 'app-admin-roles-index')
 
 @include('layouts.navbars.admin')
 

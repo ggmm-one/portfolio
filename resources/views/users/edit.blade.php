@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', $user->exists ? 'Edit User' : 'Add User')
-@section('bodyid', 'app-admin-users-edit')
 
 @include('layouts.navbars.admin')
 

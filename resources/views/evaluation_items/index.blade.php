@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', __('Evaluation Items'))
-@section('bodyid', 'app-admin-evaluation-items-index')
 
 @include('layouts.navbars.admin')
 

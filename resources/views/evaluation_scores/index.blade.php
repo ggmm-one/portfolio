@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', 'Evaluations')
-@section('bodyid', 'app-projects-evaluations-index')
 
 @section('content')
 

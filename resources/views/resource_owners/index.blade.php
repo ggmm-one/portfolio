@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', 'Resources')
-@section('bodyid', 'app-resources-resources-owners-index')
 
 @include('layouts.navbars.resources')
 

@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', __('Resource Types'))
-@section('bodyid', 'app-admin-resource-types-index')
 
 @include('layouts.navbars.admin')
 

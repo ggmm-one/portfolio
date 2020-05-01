@@ -1,7 +1,6 @@
 @extends('layouts.frame_app')
 
 @section('pagetitle', __('Settings'))
-@section('bodyid', 'app-admin-settings-edit')
 
 @include('layouts.navbars.admin')
 

@@ -1,7 +1,6 @@
 @extends('layouts.frame_guest')
 
 @section('pagetitle', 'Login')
-@section('bodyid', 'app-auth-login')
 
 @section('content')
 
@@ -22,21 +21,21 @@
                             <input id="email" name="email" type="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="form-control @error('email') is-invalid @enderror">
                         </div>
                         @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
 
                     <div class="form-group form-row">
-                        <label for="password"  class="col-sm-2 offset-sm-1 col-form-label">{{ __('Password') }}</label>
+                        <label for="password" class="col-sm-2 offset-sm-1 col-form-label">{{ __('Password') }}</label>
                         <div class="col-sm-8">
                             <input id="password" name="password" type="password" required autocomplete="current-password" class="form-control @error('password') is-invalid @enderror">
                         </div>
                         @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
 
@@ -50,7 +49,7 @@
 
                     <div class="form-group form-row">
                         <div class="col-sm-8 offset-sm-3">
-                            <input id="remember" name="remember" type="checkbox" class=""  {{ old('remember') ? 'checked' : '' }}>
+                            <input id="remember" name="remember" type="checkbox" class="" {{ old('remember') ? 'checked' : '' }}>
                             <label class="form-check-label" for="remember">{{ __('Remember me') }}</label>
                         </div>
                     </div>
@@ -58,7 +57,7 @@
                     <div class="form-group form-row">
                         <div class="col-sm-8 offset-sm-3">
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
+                            <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
                             @endif
                         </div>
                     </div>
