@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "55365f1bdf967147d1bbd2d52b3c1041",
+    "content-hash": "3d1e11adf8a5759e734f397b2053f134",
     "packages": [
         {
             "name": "brick/math",
@@ -612,16 +612,16 @@
         },
         {
             "name": "ggmm-one/model-helpers-for-laravel",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ggmm-one/model-helpers-for-laravel.git",
-                "reference": "8a443eb678cc13b592ebd562db5a0a2f1991677c"
+                "reference": "ad5cd30a2b9e9b9758328ceef6ea995e1b067b89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ggmm-one/model-helpers-for-laravel/zipball/8a443eb678cc13b592ebd562db5a0a2f1991677c",
-                "reference": "8a443eb678cc13b592ebd562db5a0a2f1991677c",
+                "url": "https://api.github.com/repos/ggmm-one/model-helpers-for-laravel/zipball/ad5cd30a2b9e9b9758328ceef6ea995e1b067b89",
+                "reference": "ad5cd30a2b9e9b9758328ceef6ea995e1b067b89",
                 "shasum": ""
             },
             "require": {
@@ -643,8 +643,8 @@
                     "email": "ggmm@ggmm.one"
                 }
             ],
-            "description": "A set of helpers for making building Laravel apps even faster",
-            "time": "2020-04-24T10:07:35+00:00"
+            "description": "A set of helpers for building Laravel apps even faster",
+            "time": "2020-05-01T22:24:14+00:00"
         },
         {
             "name": "laravel/framework",
