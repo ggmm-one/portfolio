@@ -14,7 +14,7 @@
         "ggmm-one/model-helpers-for-laravel": "^1.0",
         "laravel/framework": "7.9.2",
         "laravel/tinker": "2.4.0",
-        "laravel/ui": "2.0.1",
+        "laravel/ui": "2.0.3",
         "timacdonald/rule-builder": "4.0.0"
     },
     "require-dev": {
