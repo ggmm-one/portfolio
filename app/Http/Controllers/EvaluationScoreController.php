@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Project;
+namespace App\Http\Controllers;
 
 use App\EvaluationScore;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\EvaluationScoreRequest;
 use App\Project;
 use App\Services\ProjectScoringService;
@@ -20,7 +19,7 @@ class EvaluationScoreController extends Controller
             return $score->evaluationItem->sort_order;
         });
 
-        return view('projects.evaluations.index', compact('project', 'evaluationScores'));
+        return view('evaluation_scores.index', compact('project', 'evaluationScores'));
     }
 
     public function edit(EvaluationScoreRequest $request, Project $project, EvaluationScore $evaluationScore)
@@ -29,7 +28,7 @@ class EvaluationScoreController extends Controller
         $setting = Setting::first();
         $evaluationScore->load('evaluationItem');
 
-        return view('projects.evaluations.edit', compact('project', 'evaluationScore', 'setting'));
+        return view('evaluation_scores.edit', compact('project', 'evaluationScore', 'setting'));
     }
 
     public function update(EvaluationScoreRequest $request, Project $project, EvaluationScore $evaluationScore, ProjectScoringService $projectScoringService)
@@ -41,6 +40,6 @@ class EvaluationScoreController extends Controller
             $projectScoringService->updateProjectScore($project->id);
         });
 
-        return Redirect::route('projects.evaluations.index', compact('project'));
+        return Redirect::route('evaluation_scores.index', compact('project'));
     }
 }

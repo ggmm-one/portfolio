@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Project;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectConstraintRequest;
 use App\Project;
 use App\ProjectOrderConstraint;
 use Illuminate\Support\Facades\Redirect;
 
-class ProjectConstraintController extends Controller
+class ProjectOrderConstraintController extends Controller
 {
     public function index(Project $project)
     {
@@ -17,7 +16,7 @@ class ProjectConstraintController extends Controller
         $afterProjects = $project->afterProjects;
         $selectProjects = $project->getConstraintProjectsSelect();
 
-        return view('projects.constraints.edit', compact('project', 'beforeProjects', 'afterProjects', 'selectProjects'));
+        return view('project_order_constraints.edit', compact('project', 'beforeProjects', 'afterProjects', 'selectProjects'));
     }
 
     public function store(ProjectConstraintRequest $request, Project $project)
@@ -28,7 +27,7 @@ class ProjectConstraintController extends Controller
         $projectOrderConstraint->after_project_id = Project::getId($request->validated()['pid']);
         $projectOrderConstraint->save();
 
-        return Redirect::route('projects.constraints.index', compact('project'));
+        return Redirect::route('project_order_constraints.index', compact('project'));
     }
 
     public function update(ProjectConstraintRequest $request, Project $project)
@@ -36,7 +35,7 @@ class ProjectConstraintController extends Controller
         $this->authorize('update', $project);
         $project->update($request->validated());
 
-        return Redirect::route('projects.constraints.index', compact('project'));
+        return Redirect::route('project_order_constraints.index', compact('project'));
     }
 
     public function destroy(Project $project, ProjectOrderConstraint $projectOrderConstraint)
@@ -45,6 +44,6 @@ class ProjectConstraintController extends Controller
         $this->authorize('delete', $projectOrderConstraint);
         $projectOrderConstraint->delete();
 
-        return Redirect::route('projects.constraints.index', compact('project'));
+        return Redirect::route('project_order_constraints.index', compact('project'));
     }
 }

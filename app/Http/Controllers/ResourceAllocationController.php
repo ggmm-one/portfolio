@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Project;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\ResourceAllocationRequest;
 use App\Project;
 use App\Resource;
@@ -18,16 +17,16 @@ class ResourceAllocationController extends Controller
         $allocations = $project->resourceAllocations()->with(['project:id,pid,duration', 'resource:id,pid,name'])->orderBy('sort_order')->orderBy('resource_id')->get();
         $allocations = $resourceAllocationService->complete($allocations);
 
-        return view('projects.resources.index', compact('project', 'allocations'));
+        return view('resource_allocations.index', compact('project', 'allocations'));
     }
 
     public function create(Project $project)
     {
         $this->authorize('create', ResourceAllocation::class);
         $resourceAllocation = new ResourceAllocation();
-        $formAction = route('projects.resources.store', ['project' => $project->pid]);
+        $formAction = route('resource_resources.store', ['project' => $project->pid]);
 
-        return view('projects.resources.edit', array_merge(compact('project', 'resourceAllocation', 'formAction'), $this->dropdowns($project)));
+        return view('resource_allocations.edit', array_merge(compact('project', 'resourceAllocation', 'formAction'), $this->dropdowns($project)));
     }
 
     public function store(ResourceAllocationRequest $request, Project $project)
@@ -35,16 +34,16 @@ class ResourceAllocationController extends Controller
         $this->authorize('create', ResourceAllocation::class);
         $project->resourceAllocations()->save(new ResourceAllocation($request->validated()));
 
-        return Redirect::route('projects.resources.index', ['project' => $project->pid]);
+        return Redirect::route('resource_allocations.index', ['project' => $project->pid]);
     }
 
     public function edit(Project $project, ResourceAllocation $resourceAllocation)
     {
         $this->authorize('update', $resourceAllocation);
-        $formAction = route('projects.resources.update', ['project' => $project->pid, 'resource_allocation' => $resourceAllocation->pid]);
-        $deleteAction = route('projects.resources.destroy', ['project' => $project->pid, 'resource_allocation' => $resourceAllocation->pid]);
+        $formAction = route('resource_resources.update', ['project' => $project->pid, 'resource_allocation' => $resourceAllocation->pid]);
+        $deleteAction = route('resource_resources.destroy', ['project' => $project->pid, 'resource_allocation' => $resourceAllocation->pid]);
 
-        return view('projects.resources.edit', array_merge(compact('project', 'resourceAllocation', 'formAction', 'deleteAction'), $this->dropdowns($project)));
+        return view('presource_allocations.edit', array_merge(compact('project', 'resourceAllocation', 'formAction', 'deleteAction'), $this->dropdowns($project)));
     }
 
     public function update(ResourceAllocationRequest $request, Project $project, ResourceAllocation $resourceAllocation)
@@ -52,7 +51,7 @@ class ResourceAllocationController extends Controller
         $this->authorize('update', $resourceAllocation);
         $resourceAllocation->update($request->validated());
 
-        return Redirect::route('projects.resources.index', ['project' => $project->pid]);
+        return Redirect::route('resource_allocations.index', ['project' => $project->pid]);
     }
 
     public function destroy($project, ResourceAllocation $resourceAllocation)
@@ -60,7 +59,7 @@ class ResourceAllocationController extends Controller
         $this->authorize('delete', $resourceAllocation);
         $resourceAllocation->delete();
 
-        return Redirect::route('projects.resources.index', ['project' => $project]);
+        return Redirect::route('presource_allocations.index', ['project' => $project]);
     }
 
     private function dropdowns(Project $project)

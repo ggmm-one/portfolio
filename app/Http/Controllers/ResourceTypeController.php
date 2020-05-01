@@ -20,9 +20,8 @@ class ResourceTypeController extends Controller
     {
         $this->authorize('create', ResourceType::class);
         $resourceType = new ResourceType();
-        $formAction = route('resource_types.store');
 
-        return view('resource_types.edit', compact('resourceType', 'formAction'));
+        return view('resource_types.edit', compact('resourceType'));
     }
 
     public function store(ResourceTypeRequest $request)
@@ -36,9 +35,8 @@ class ResourceTypeController extends Controller
     public function edit(ResourceType $resourceType)
     {
         $this->authorize('view', $resourceType);
-        $formAction = route('resource_types.update', ['resource_type' => $resourceType]);
 
-        return view('resource_types.edit', compact('resourceType', 'formAction'));
+        return view('resource_types.edit', compact('resourceType'));
     }
 
     public function update(ResourceTypeRequest $request, ResourceType $resourceType)

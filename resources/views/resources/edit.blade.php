@@ -9,7 +9,7 @@
 
 @include('layouts.headers.resources')
 
-<form method="POST" action="{{ $formAction }}" class="app-form">
+<form method="POST" action="{{ $resource->exists ? route('resources.update', compact('resource')) : route('resources.store') }}" class="app-form">
     @csrf
     @if($resource->exists)
     @form_public_id(['control_value' => $resource->pid])

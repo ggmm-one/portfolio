@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-light bg-light">
     <span class="navbar-brand">{{ __('Resource Types') }}</span>
-    @can('create', App\resourceType::class) <a href="{{ route('admin.resource_types.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
+    @can('create', App\ResourceType::class) <a href="{{ route('resource_types.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endif
 </nav>
 
 <table class="table">

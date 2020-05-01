@@ -9,14 +9,12 @@
 
 @include('inc.flash_msg')
 
-@php var_dump($role); @endphp
-
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ __($role->exists ? 'Edit Role' : 'Add Role') }}</span>
-    @includeWhen($role->exists && auth()->user()->can('delete', $role), 'inc.delete_btn', ['deleteAction' => route('roles.destroy', ['role' => 'as'])])
+    <x-delete-model :model="$role" class="btn btn-primary" />
 </nav>
 
-<form method="POST" action="{{ route('roles.update', ['role' => 'as']) }}" class="app-form">
+<form method="POST" action="{{ $role->exists ? route('roles.update', compact('role')) : route('roles.store') }}" class="app-form">
     @csrf
     @if ($role->exists)
     @method('PATCH')

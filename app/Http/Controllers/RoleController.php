@@ -27,9 +27,9 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         $this->authorize('create', Role::class);
-        $role = Role::create($request->validated());
+        Role::create($request->validated());
 
-        return Redirect::route('roles.edit', [$role]);
+        return Redirect::route('roles.index');
     }
 
     public function edit(Role $role)

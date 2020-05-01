@@ -4,7 +4,7 @@
 <div id="app-navbar-nav" class="collapsible collapse navbar-collapse justify-content-between">
     <div class="navbar-nav">
         @can('portfoliosModule', App\User::class) <a class="nav-item nav-link" href="{{ route('portfolios.portfolios.index') }}">{{ __('Portfolios') }}</a> @endcan
-        @can('projectsModule', App\User::class) <a class="nav-item nav-link" href="{{ route('projects.projects.index') }}">{{ __('Projects') }}</a> @endcan
+        @can('projectsModule', App\User::class) <a class="nav-item nav-link" href="{{ route('projects.index') }}">{{ __('Projects') }}</a> @endcan
         @can('resourcesModule', App\User::class) <a class="nav-item nav-link" href="{{ route('resources.index') }}">{{ __('Resources') }}</a> @endcan
         @can('adminModule', App\User::class) <a class="nav-item nav-link" href="{{ route('users.index') }}">{{ __('Admin') }}</a> @endcan
     </div>

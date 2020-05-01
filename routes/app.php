@@ -16,15 +16,14 @@ Route::group(['prefix'=>'portfolios/{portfolio_unit}'], function () use ($name) 
 
 //PROJECTS SECTION
 
-$name = ['as' => 'projects'];
-Route::resource('projects', 'Project\ProjectController', $name)->except(['show']);
-Route::group(['prefix'=>'projects/{project}'], function () use ($name) {
-    Route::resource('resources', 'Project\ResourceAllocationController', $name)->except(['show'])->parameters(['resources' => 'resource_allocation']);
-    Route::resource('evaluations', 'Project\EvaluationScoreController', $name)->parameters(['evaluations' => 'evaluation_score'])->only(['index', 'edit', 'update']);
-    Route::resource('reports', 'Project\ProjectReportController', $name)->parameters(['reports' => 'link'])->except(['show']);
-    Route::resource('links', 'Project\ProjectLinkController', $name)->except(['show']);
-    Route::resource('comments', 'Project\ProjectCommentController', $name)->except(['show', 'create']);
-    Route::resource('constraints', 'Project\ProjectConstraintController', $name)->parameters(['constraints' => 'project_order_constraint']);
+Route::resource('projects', 'ProjectController')->except(['show']);
+Route::group(['prefix'=>'projects/{project}'], function () {
+    Route::resource('resource_allocations', 'ResourceAllocationController')->except(['show']);
+    Route::resource('evaluation_scores', 'EvaluationScoreController')->only(['index', 'edit', 'update']);
+    Route::resource('links', 'ProjectReportController')->except(['show']);
+    Route::resource('links', 'ProjectLinkController')->except(['show']);
+    Route::resource('comments', 'ProjectCommentController')->except(['show', 'create']);
+    Route::resource('project_order_constraints', 'ProjectOrderConstraintController')->except(['show', 'edit']);
 });
 
 //RESOURCES SECTION

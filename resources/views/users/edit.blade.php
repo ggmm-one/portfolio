@@ -11,10 +11,10 @@
 
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ __($user->exists ? 'Edit User' : 'Add User') }}</span>
-    @includeWhen($user->exists && auth()->user()->can('delete', $user), 'inc.delete_btn', ['deleteAction' => route('admin.users.destroy', ['user' => $user->pid])])
+    <x-delete-model :model="$user" class="btn btn-primary" />
 </nav>
 
-<form method="POST" action="{{ route('admin.users.update', ['user' => $user->pid]) }}" class="app-form">
+<form method="POST" action="{{ ($user->exists) ? route('users.update', ['user' => $user]) : route('users.store')}}" class="app-form">
     @csrf
     @if ($user->exists)
     @method('PATCH')

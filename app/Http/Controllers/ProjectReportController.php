@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Project;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\LinkRequest;
 use App\Link;
 use App\Project;
 use Illuminate\Support\Facades\Redirect;
 
-class ProjectLinkController extends Controller
+class ProjectReportController extends Controller
 {
     public function index(Project $project)
     {
         $this->authorize('view', $project);
-        $links = $project->other_links;
+        $links = $project->reports;
 
-        return view('projects.links.index', compact('project', 'links'));
+        return view('projects.reports.index', compact('project', 'links'));
     }
 
     public function create(Project $project)
@@ -30,10 +29,10 @@ class ProjectLinkController extends Controller
     {
         $this->authorize('view', $project);
         $link = new Link($request->validated());
-        $link->linkable_subtype = Link::SUBTYPE_PROJECT_OTHER;
+        $link->linkable_subtype = Link::SUBTYPE_PROJECT_REPORT;
         $project->links()->save($link);
 
-        return Redirect::route('projects.links.index', ['project' => $project->pid]);
+        return Redirect::route('projects.reports.index', ['project' => $project->pid]);
     }
 
     public function edit(Project $project, Link $link)
@@ -48,7 +47,7 @@ class ProjectLinkController extends Controller
         $this->authorize('update', $project);
         $link->update($request->validated());
 
-        return Redirect::route('projects.links.index', ['project' => $project->pid]);
+        return Redirect::route('projects.reports.index', ['project' => $project->pid]);
     }
 
     public function destroy(Project $project, Link $link)
@@ -56,6 +55,6 @@ class ProjectLinkController extends Controller
         $this->authorize('delete', $project);
         $link->delete();
 
-        return Redirect::route('projects.links.index', ['project' => $project->pid]);
+        return Redirect::route('projects.reports.index', ['project' => $project->pid]);
     }
 }

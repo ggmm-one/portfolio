@@ -7,7 +7,9 @@
 
 @include('inc.flash_msg')
 
-<nav class="navbar navbar-light app-nav-section">
+@include('layouts.navbars.resources')
+
+<nav class="navbar navbar-light bg-light">
     <div>
         <span class="navbar-brand">
             {{ __('Resources') }}

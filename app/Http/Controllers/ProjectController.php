@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Project;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\ProjectRequest;
 use App\PortfolioUnit;
 use App\Project;
@@ -24,10 +23,10 @@ class ProjectController extends Controller
     {
         $this->authorize('create', Project::class);
         $project = new Project;
-        $formAction = route('projects.projects.store');
+        $formAction = route('projects.store');
         $portfolios = PortfolioUnit::getSelectList();
 
-        return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
+        return view('projects.edit', compact('project', 'formAction', 'portfolios'));
     }
 
     public function store(ProjectRequest $request)
@@ -35,16 +34,16 @@ class ProjectController extends Controller
         $this->authorize('create', Project::class);
         $project = Project::create($request->validated());
 
-        return Redirect::route('projects.projects.edit', ['project' => $project->pid]);
+        return Redirect::route('projects.edit', ['project' => $project->pid]);
     }
 
     public function edit(Project $project)
     {
         $this->authorize('view', $project);
         $portfolios = PortfolioUnit::getSelectList();
-        $formAction = route('projects.projects.update', ['project' => $project->pid]);
+        $formAction = route('projects.update', ['project' => $project->pid]);
 
-        return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
+        return view('projects.edit', compact('project', 'formAction', 'portfolios'));
     }
 
     public function update(ProjectRequest $request, Project $project)
@@ -52,9 +51,9 @@ class ProjectController extends Controller
         $this->authorize('update', $project);
         $project->update($request->validated());
         $portfolios = PortfolioUnit::getSelectList();
-        $formAction = route('projects.projects.update', ['project' => $project->pid]);
+        $formAction = route('projects.update', ['project' => $project->pid]);
 
-        return view('projects.info.edit', compact('project', 'formAction', 'portfolios'));
+        return view('projects.edit', compact('project', 'formAction', 'portfolios'));
     }
 
     public function destroy(Project $project)
@@ -64,7 +63,7 @@ class ProjectController extends Controller
             $project->delete();
         });
 
-        return Redirect::route('projects.projects.index');
+        return Redirect::route('projects.index');
     }
 
     private function filter(Request &$request)

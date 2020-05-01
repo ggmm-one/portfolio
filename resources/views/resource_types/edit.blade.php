@@ -11,10 +11,10 @@
 
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ __($resourceType->exists ? 'Edit Resource Type' : 'Add Resource Type') }}</span>
-    @includeWhen($resourceType->exists && auth()->user()->can('delete', $resourceType), 'inc.delete_btn', ['deleteAction' => route('admin.resource_types.destroy', ['resource_type' => $resourceType->pid])])
+    <x-delete-model :model="$resourceType" class="btn btn-primary" />
 </nav>
 
-<form method="POST" action="{{ $formAction }}" class="app-form">
+<form method="POST" action="{{ $resourceType->exists? route('resource_types.update', ['resource_type' => $resourceType]) : route('resource_types.store') }}" class="app-form">
     @csrf
     @if ($resourceType->exists)
     @method('PATCH')

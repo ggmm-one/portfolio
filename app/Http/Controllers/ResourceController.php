@@ -21,9 +21,8 @@ class ResourceController extends Controller
     {
         $this->authorize('create', Resource::class);
         $resource = new Resource();
-        $formAction = route('resources.store');
 
-        return view('resources.info.edit', compact('resource', 'formAction'));
+        return view('resourcesedit', compact('resource'));
     }
 
     public function store(ResourceRequest $request)
@@ -36,18 +35,17 @@ class ResourceController extends Controller
 
     public function edit(Resource $resource)
     {
-        $formAction = route('resources.update', compact('resource'));
+        $this->authorize('view', $resource);
 
-        return view('resources.edit', compact('resource', 'formAction'));
+        return view('resources.edit', compact('resource'));
     }
 
     public function update(ResourceRequest $request, Resource $resource)
     {
         $this->authorize('view', $resource);
         $resource->update($request->validated());
-        $formAction = route('resources.update', compact('resource'));
 
-        return view('resources.edit', compact('resource', 'formAction'));
+        return view('resources.edit', compact('resource'));
     }
 
     public function destroy(Resource $resource)
