@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Portfolio;
+namespace App\Http\Requests;
 
 use App\PortfolioUnit;
 use Illuminate\Foundation\Http\FormRequest;

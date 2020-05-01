@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Project;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;

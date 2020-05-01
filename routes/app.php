@@ -5,13 +5,12 @@ Route::view('/', 'root');
 
 //PORTFOLIOS SECTION
 
-$name = ['as' => 'portfolios'];
-Route::resource('portfolios', 'Portfolio\PortfolioUnitController', $name)->parameters(['portfolios' => 'portfolio_unit'])->except(['show']);
-Route::group(['prefix'=>'portfolios/{portfolio_unit}'], function () use ($name) {
-    Route::resource('goals', 'Portfolio\PortfolioGoalController', $name)->parameters(['goals' => 'link'])->except(['show']);
-    Route::resource('reports', 'Portfolio\PortfolioReportController', $name)->parameters(['reports' => 'link'])->except(['show']);
-    Route::resource('links', 'Portfolio\PortfolioLinkController', $name)->except(['show']);
-    Route::resource('comments', 'Portfolio\PortfolioCommentController', $name)->except(['show', 'create']);
+Route::resource('portfolio_units', 'PortfolioUnitController')->except(['show']);
+Route::group(['prefix'=>'portfolios/{portfolio_unit}'], function () {
+    Route::resource('goals', 'PortfolioGoalController')->except(['show']);
+    Route::resource('reports', 'PortfolioReportController')->except(['show']);
+    Route::resource('links', 'PortfolioLinkController')->except(['show']);
+    Route::resource('comments', 'PortfolioCommentController')->except(['show', 'create']);
 });
 
 //PROJECTS SECTION

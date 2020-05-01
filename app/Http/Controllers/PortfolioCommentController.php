@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Portfolio;
+namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
 use App\PortfolioUnit;
 use Illuminate\Support\Facades\Auth;

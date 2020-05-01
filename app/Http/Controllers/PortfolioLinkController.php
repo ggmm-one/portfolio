@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Portfolio;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\LinkRequest;
 use App\Link;
 use App\PortfolioUnit;

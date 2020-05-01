@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Portfolio;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\PortfolioUnitRequest;
 use App\PortfolioUnit;
 use App\Services\PortfolioHierarchyService;
