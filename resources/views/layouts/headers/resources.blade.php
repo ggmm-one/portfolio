@@ -3,7 +3,7 @@
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ $resource->name }}</span>
     <div>
-        @includeWhen($resource->exists && auth()->user()->can('delete', $resource), 'inc.delete_btn', ['deleteAction' => route('resources.destroy', ['resource' => $resource->pid])])
+        <x-delete-model :model="$resource" class="btn btn-primary" />
     </div>
 </nav>
 <ul class="nav nav-tabs bg-light app-nav-section">
