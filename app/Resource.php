@@ -2,8 +2,12 @@
 
 namespace App;
 
+use App\Traits\HasComments;
+
 class Resource extends Model
 {
+    use HasComments;
+
     public const MORPH_SHORT_NAME = 'res';
 
     public const DD_NAME_LENGTH = 256;
@@ -14,8 +18,8 @@ class Resource extends Model
         'comments',
     ];
 
-    public const CHECK_BEFORE_DELETING = [
-        [ResourceAllocation::class, 'resource_id', 'Cannot delete resource - allocated to project. Please re-assign and try again.'],
+    protected $checkReferenceBeforeDeleting = [
+        'allocations',
     ];
 
     protected $fillable = [
@@ -41,9 +45,9 @@ class Resource extends Model
         return $this->hasMany(ResourceCapacity::class, 'resource_id');
     }
 
-    public function comments()
+    public function allocations()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->belongsTo(ResourceAllocation::class, 'resource_id');
     }
 
     public function getResourceTypePidAttribute()

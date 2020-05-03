@@ -31,7 +31,7 @@ Route::resource('resource_owners', 'ResourceOwnerController')->except(['show']);
 Route::resource('resources', 'ResourceController')->except(['show']);
 Route::group(['prefix'=>'resources/{resource}'], function () {
     Route::resource('resource_capacities', 'ResourceCapacityController')->except(['show']);
-    Route::resource('comments', 'ResourceCommentController')->except(['show', 'create']);
+    Route::resource('comments', 'CommentController')->except(['show', 'create']);
 });
 
 // ADMIN SECTION

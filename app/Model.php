@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Traits\CheckBeforeDeletes;
+use App\Traits\DeletesIfNotReferenced;
 use App\Traits\PublicAddressable;
 use App\Traits\SessionFlashes;
 use Ggmm\Model\CascadeSoftDeletes;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model as LaravelModel;
 abstract class Model extends LaravelModel
 {
     use PublicAddressable;
-    use CheckBeforeDeletes;
+    use DeletesIfNotReferenced;
     use CascadeSoftDeletes;
     use SessionFlashes;
 

@@ -3,7 +3,9 @@
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ $resource->name }}</span>
     <div>
+        @if (Str::startsWith(Request::route()->getName(), 'resources.'))
         <x-delete-model :model="$resource" class="btn btn-primary" />
+        @endif
     </div>
 </nav>
 <ul class="nav nav-tabs bg-light app-nav-section">
