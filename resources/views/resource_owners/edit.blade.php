@@ -13,7 +13,7 @@
     @if ($resourceOwner->exists)
     <div class="app-action">
         <a href="{{ route('resources.index', ['owner' => $resourceOwner->pid]) }}">{{ __('Resources') }}</a>
-        @includeWhen(auth()->user()->can('delete', $resourceOwner), 'inc.delete_btn', compact('deleteAction'))
+        <x-delete-model :model="$resourceOwner" class="btn btn-primary" />
     </div>
     @endif
 </nav>
