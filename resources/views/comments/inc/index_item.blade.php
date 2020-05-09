@@ -5,7 +5,7 @@
     <div class="card-footer bg-light text-right text-muted app-comments-footer">
 
         @can('update', $comment)
-        <span><a href="{{ route('comments.edit', array_merge(Request::route()->parameters(), compact('comment'))) }}">{{ __('Edit') }}</a></span>
+        <span><a href="{{ route(explode('.', Request::route()->getName())[0].'.comments.edit', array_merge(Request::route()->parameters(), compact('comment'))) }}">{{ __('Edit') }}</a></span>
         @endcan
 
         @can('delete', $comment)

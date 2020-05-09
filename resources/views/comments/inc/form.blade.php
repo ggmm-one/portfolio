@@ -1,9 +1,9 @@
 <br>
 @if (isset($comment))
-<form method="POST" action="{{ route('comments.update', array_merge(Request::route()->parameters(), compact('comment'))) }}">
+<form method="POST" action="{{ route(explode('.', Request::route()->getName())[0].'.comments.update', array_merge(Request::route()->parameters(), compact('comment'))) }}">
     @method('PATCH')
     @else
-    <form method="POST" action="{{ URL::current() }}">
+    <form method="POST" action="{{ route(explode('.', Request::route()->getName())[0].'.comments.store', array_merge(Request::route()->parameters(), compact('comment'))) }}">
         @endif
         @csrf
         <div class="row">

@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('portfolios.inc.portfolios_header')
+@include('layouts.headers.portfolios')
 
 <form method="POST" action="{{ $formAction }}" class="app-form">
     @csrf

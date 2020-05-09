@@ -10,7 +10,7 @@
 
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ __($evaluationItem->exists ? 'Edit Evaluation Item' : 'Add Evaluation Item') }}</span>
-    @includeWhen($evaluationItem->exists, 'inc.delete_btn', ['deleteAction' => route('evaluation_items.destroy', ['evaluation_item' => $evaluationItem->pid])])
+    <x-delete-model :model="$evaluationItem" class="btn btn-primary" />
 </nav>
 
 <form method="POST" action="{{ $formAction }}" class="app-form">
