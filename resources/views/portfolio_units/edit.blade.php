@@ -6,7 +6,7 @@
 
 @include('layouts.headers.portfolios')
 
-<form method="POST" action="{{ $formAction }}" class="app-form">
+<form method="POST" action="{{ route($portfolioUnit->exists? 'portfolio_units.update' : 'portfolio_units.store', ['portfolio_unit' => $portfolioUnit]) }}" class="app-form">
     @csrf
     @if ($portfolioUnit->exists)
     @method('PATCH')
@@ -20,7 +20,3 @@
 </form>
 
 @endsection
-
-@push('bottom')
-<script src="/js/delete_dialog.js"></script>
-@endpush
