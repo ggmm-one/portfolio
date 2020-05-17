@@ -6,6 +6,7 @@ use App\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Model;
 use App\PortfolioUnit;
+use App\Project;
 use App\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,11 +71,17 @@ class CommentController extends Controller
 
     private function getHoldingModel(Request $request)
     {
+        $model = null;
         $prefix = $request->route()->getPrefix();
+
         if (Str::startsWith($prefix, '/resources')) {
-            return Resource::where('pid', $request->resource)->firstOrFail();
+            $model = Resource::where('pid', $request->resource)->firstOrFail();
         } elseif (Str::startsWith($prefix, '/portfolio_units')) {
-            return PortfolioUnit::where('pid', $request->portfolio_unit)->firstOrFail();
+            $model = PortfolioUnit::where('pid', $request->portfolio_unit)->firstOrFail();
+        } elseif (Str::startsWith($prefix, '/projects')) {
+            $model = Project::where('pid', $request->project)->firstOrFail();
         }
+
+        return $model;
     }
 }

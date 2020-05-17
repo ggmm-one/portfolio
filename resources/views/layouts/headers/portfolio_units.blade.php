@@ -1,9 +1,11 @@
 <nav class="navbar navbar-light bg-light app-nav-section">
     <span class="navbar-brand">{{ $portfolioUnit->name }}</span>
     <div class="app-action">
+        @if (Request::route()->getName() == 'portfolio_units.edit')
         @if ($portfolioUnit->exists)
         <a href="{{ route('projects.index', ['portfolio_unit' => $portfolioUnit])}}">{{ __('Projects') }}</a>
-        <xx-delete-model :model="$portfolioUnit" class="btn btn-primary" />
+        <x-delete-model :model="$portfolioUnit" class="btn btn-primary" />
+        @endif
         @endif
     </div>
 </nav>
