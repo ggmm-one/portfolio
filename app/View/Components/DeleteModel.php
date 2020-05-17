@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class DeleteModel extends Component
@@ -18,8 +19,9 @@ class DeleteModel extends Component
             $route = Request::route();
             $routePieces = explode('.', $route->getName());
             $routePieces[count($routePieces) - 1] = 'destroy';
-            $name = implode('.', $routePieces);
-            $this->url = route($name, $route->parameters());
+            $routeName = implode('.', $routePieces);
+            $params = array_merge($route->parameters(), [Str::singular($model->getTable()) => $model->getRouteKey()]);
+            $this->url = route($routeName, $params);
         }
         $this->formId = md5($this->url);
     }

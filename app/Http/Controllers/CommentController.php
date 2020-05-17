@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Model;
+use App\PortfolioUnit;
 use App\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,14 +56,14 @@ class CommentController extends Controller
         $this->authorize('delete', $holdingModel);
         Comment::where('pid', $request->comment)->firstOrFail()->delete();
 
-        return back();
+        return $this->view($holdingModel);
     }
 
     private function view(Model $holdingModel, Comment $editComment = null)
     {
         $comments = Comment::with('author:id,pid,name')->where('commentable_type', $holdingModel::MORPH_SHORT_NAME)->where('commentable_id', $holdingModel->id)->latest()->get();
         $data = compact('holdingModel', 'comments', 'editComment');
-        $data[Str::singular($holdingModel->getTable())] = $holdingModel;
+        $data[Str::camel(Str::singular($holdingModel->getTable()))] = $holdingModel;
 
         return view('comments.index', $data);
     }
@@ -72,6 +73,8 @@ class CommentController extends Controller
         $prefix = $request->route()->getPrefix();
         if (Str::startsWith($prefix, '/resources')) {
             return Resource::where('pid', $request->resource)->firstOrFail();
+        } elseif (Str::startsWith($prefix, '/portfolio_units')) {
+            return PortfolioUnit::where('pid', $request->portfolio_unit)->firstOrFail();
         }
     }
 }

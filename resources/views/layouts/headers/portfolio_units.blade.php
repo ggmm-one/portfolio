@@ -3,7 +3,7 @@
     <div class="app-action">
         @if ($portfolioUnit->exists)
         <a href="{{ route('projects.index', ['portfolio_unit' => $portfolioUnit])}}">{{ __('Projects') }}</a>
-        <x-delete-model :model="$portfolioUnit" class="btn btn-primary" />
+        <xx-delete-model :model="$portfolioUnit" class="btn btn-primary" />
         @endif
     </div>
 </nav>

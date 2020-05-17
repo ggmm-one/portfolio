@@ -32,7 +32,7 @@ class PortfoliosModulePolicy
 
     public function delete(User $user, Model $model)
     {
-        return $user->role->portfoliosAll();
+        return ! $model->isRoot() && $user->role->portfoliosAll();
     }
 
     public function restore(User $user, Model $model)

@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('layouts.headers.portfolios')
+@include('layouts.headers.portfolio_units')
 
 <form method="POST" action="{{ route($portfolioUnit->exists? 'portfolio_units.update' : 'portfolio_units.store', ['portfolio_unit' => $portfolioUnit]) }}" class="app-form">
     @csrf
