@@ -9,10 +9,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "facade/ignition": "2.0.4",
+        "facade/ignition": "2.0.5",
         "fideloper/proxy": "4.3.0",
         "ggmm-one/model-helpers-for-laravel": "1.1.0",
-        "laravel/framework": "7.12.0",
+        "laravel/framework": "7.13.0",
         "laravel/tinker": "2.4.0",
         "laravel/ui": "2.0.3",
         "timacdonald/rule-builder": "4.0.0"
