@@ -7,9 +7,9 @@ Route::view('/', 'root');
 
 Route::resource('portfolio_units', 'PortfolioUnitController')->except(['show']);
 Route::group(['prefix'=>'portfolio_units/{portfolio_unit}'], function () {
-    Route::resource('goals', 'PortfolioGoalController')->except(['show']);
-    Route::resource('reports', 'PortfolioReportController')->except(['show']);
-    Route::resource('links', 'PortfolioLinkController')->except(['show']);
+    Route::resource('links', 'LinkController', ['as' => 'portfolio_units.goals'])->except(['show']);
+    Route::resource('links', 'LinkController', ['as' => 'portfolio_units.reports'])->except(['show']);
+    Route::resource('links', 'LinkController', ['as' => 'portfolio_units'])->except(['show']);
     Route::resource('comments', 'CommentController', ['as' => 'portfolio_units'])->except(['show', 'create']);
 });
 
@@ -19,8 +19,8 @@ Route::resource('projects', 'ProjectController')->except(['show']);
 Route::group(['prefix'=>'projects/{project}'], function () {
     Route::resource('resource_allocations', 'ResourceAllocationController')->except(['show']);
     Route::resource('evaluation_scores', 'EvaluationScoreController')->only(['index', 'edit', 'update']);
-    Route::resource('links', 'ProjectReportController')->except(['show']);
-    Route::resource('links', 'ProjectLinkController')->except(['show']);
+    Route::resource('reports', 'LinkController', ['as' => 'projects'])->parameters([['report' => 'link']])->except(['show']);
+    Route::resource('links', 'LinkController', ['as' => 'projects'])->except(['show']);
     Route::resource('comments', 'CommentController', ['as' => 'projects'])->except(['show', 'create']);
     Route::resource('project_order_constraints', 'ProjectOrderConstraintController')->except(['show', 'edit']);
 });

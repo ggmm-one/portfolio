@@ -21,22 +21,4 @@ class LinkRequest extends FormRequest
             'sort_order' => Rule::integer(0, Link::DD_SORT_ORDER_MAX)->get(),
         ];
     }
-
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $this->validateModelLink();
-        });
-    }
-
-    protected function validateModelLink()
-    {
-        if ($this->routeIs('*store')) {
-            return;
-        }
-        $model = $this->portfolio_unit ?: $this->project ?: null;
-        if ($model == null || $this->link->linkable_id != $model->id || $this->link->linkable_type != $model::MORPH_SHORT_NAME) {
-            abort(404);
-        }
-    }
 }

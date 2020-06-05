@@ -39,9 +39,6 @@
             "database/providers",
             "database/seeds",
             "database/factories"
-        ],
-        "files": [
-            "app/Libraries/UrlHelper.php"
         ]
     },
     "autoload-dev": {

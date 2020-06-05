@@ -76,7 +76,7 @@ class Project extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function links()
+    public function allLinks()
     {
         return $this->morphMany(Link::class, 'linkable');
     }
@@ -91,7 +91,7 @@ class Project extends Model
         return $this->hasMany(ProjectOrderConstraint::class, 'after_project_id');
     }
 
-    public function getOtherLinksAttribute()
+    public function getLinksAttribute()
     {
         return Link::where('linkable_type', self::MORPH_SHORT_NAME)
             ->where('linkable_id', $this->id)

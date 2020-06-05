@@ -5,21 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LinkRequest;
 use App\Link;
 use App\Project;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
-class ProjectLinkController extends Controller
+class LinkController extends Controller
 {
-    public function index(Project $project)
+    public function index(Request $request)
     {
-        $this->authorize('view', $project);
-        $links = $project->other_links;
+        $holdingModel = $this->getHoldingModel($request);
+        $this->authorize('view', $holdingModel);
+        $linkType = $this->getLinkType($request);
+        $links = $holdingModel->{$linkType};
+        $data = compact('holdingModel', 'links');
+        $data[Str::camel(Str::singular($holdingModel->getTable()))] = $holdingModel;
 
-        return view('projects.links.index', compact('project', 'links'));
+        return view('links.index', $data);
     }
 
     public function create(Project $project)
     {
-        $this->authorize('create', $project);
+        $holdingModel = $this->getHoldingModel();
+        $this->authorize('create', $holdingModel);
         $link = new Link;
 
         return view('links.edit', compact('link'));
@@ -56,5 +63,29 @@ class ProjectLinkController extends Controller
         $link->delete();
 
         return Redirect::route('projects.links.index', ['project' => $project->pid]);
+    }
+
+    private function getHoldingModel(Request $request)
+    {
+        $model = null;
+        $prefix = $request->route()->getPrefix();
+
+        if (Str::startsWith($prefix, '/projects')) {
+            $model = Project::where('pid', $request->project)->firstOrFail();
+        }
+
+        return $model;
+    }
+
+    private function getLinkType(Request $request)
+    {
+        $name = $request->route()->getName();
+        $possibleTypes = ['links', 'reports'];
+
+        foreach ($possibleTypes as $possibleType) {
+            if (Str::contains($name, $possibleType)) {
+                return $possibleType;
+            }
+        }
     }
 }

@@ -6,11 +6,13 @@
 
 @include('inc.flash_msg')
 
-@include('projects.inc.projects_header')
+@includeIf('layouts.navbars.'.$holdingModel->getTable())
+
+@includeIf('layouts.headers.'.$holdingModel->getTable())
 
 <nav class="navbar navbar-light">
     <span class="navbar-brand">&nbsp;</span>
-    @can('create', App\Project::class) <a href="{{ route('projects.links.create', ['project' => $project->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
+    @can('create', get_class($holdingModel)) <a href="" class="btn btn-primary">{{ __('Add') }}</a> @endcan
 </nav>
 
 @include('links.inc.table')
