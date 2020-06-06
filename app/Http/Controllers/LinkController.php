@@ -43,19 +43,22 @@ class LinkController extends Controller
         return Redirect::route(str_replace('store', 'index', $request->route()->getName()), $request->route()->parameters());
     }
 
-    public function edit(Project $project, Link $link)
+    public function edit(Request $request)
     {
-        $this->authorize('view', $project);
+        $holdingModel = $this->getHoldingModel($request);
+        $this->authorize('view', $holdingModel);
+        $link = Link::where('pid', $request->link)->firstOrFail();
 
-        return view('links.edit', compact('link'));
+        return view('links.edit', compact('holdingModel', 'link'));
     }
 
-    public function update(LinkRequest $request, Project $project, Link $link)
+    public function update(LinkRequest $request)
     {
-        $this->authorize('update', $project);
-        $link->update($request->validated());
+        $holdingModel = $this->getHoldingModel($request);
+        $this->authorize('update', $holdingModel);
+        Link::where('pid', $request->link)->firstOrFail()->update($request->validated());
 
-        return Redirect::route('projects.links.index', ['project' => $project->pid]);
+        return Redirect::route(str_replace('update', 'index', $request->route()->getName()), $request->route()->parameters());
     }
 
     public function destroy(Project $project, Link $link)

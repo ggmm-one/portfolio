@@ -10,7 +10,7 @@
     <span class="navbar-brand">{{ __($link->exists? 'Edit Link' : 'Add Link') }}</span>
     @can('delete', $holdingModel)
     <span>
-        <x-delete-model :model="$link" />
+        <x-delete-model :model="$link" class="btn btn-primary" />
     </span>
     @endcan
 </nav>
