@@ -12,7 +12,7 @@
 
 <nav class="navbar navbar-light">
     <span class="navbar-brand">&nbsp;</span>
-    @can('create', get_class($holdingModel)) <a href="" class="btn btn-primary">{{ __('Add') }}</a> @endcan
+    @can('create', get_class($holdingModel)) <a href="{{ route(str_replace('index', 'create', Request::route()->getName()), Request::route()->parameters()) }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
 </nav>
 
 @include('links.inc.table')

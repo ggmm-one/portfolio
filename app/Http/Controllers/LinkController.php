@@ -34,13 +34,13 @@ class LinkController extends Controller
 
     public function store(LinkRequest $request)
     {
-        $holdingModel = $ths->getHoldingModel($request);
-        $this->authorize('view', $project);
+        $holdingModel = $this->getHoldingModel($request);
+        $this->authorize('view', $holdingModel);
         $link = new Link($request->validated());
-        $link->linkable_subtype = Link::SUBTYPE_PROJECT_OTHER;
-        $project->links()->save($link);
+        $link->linkable_subtype = $this->getSubtype($request);
+        $holdingModel->links()->save($link);
 
-        return Redirect::route('projects.links.index', ['project' => $project->pid]);
+        return Redirect::route(str_replace('store', 'index', $request->route()->getName()), $request->route()->parameters());
     }
 
     public function edit(Project $project, Link $link)
