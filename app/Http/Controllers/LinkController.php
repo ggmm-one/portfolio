@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LinkRequest;
 use App\Link;
+use App\PortfolioUnit;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -77,6 +78,8 @@ class LinkController extends Controller
 
         if (Str::startsWith($prefix, 'projects')) {
             $model = Project::where('pid', $request->project)->firstOrFail();
+        } elseif (Str::startsWith($prefix, 'portfolio_units')) {
+            $model = PortfolioUnit::where('pid', $request->portfolio_unit)->firstOrFail();
         }
 
         return $model;
@@ -85,7 +88,7 @@ class LinkController extends Controller
     private function getLinkType(Request $request)
     {
         $name = $request->route()->getName();
-        $types = ['links' => 'otherLinks', 'reports' => 'reports'];
+        $types = ['links' => 'otherLinks', 'reports' => 'reports', 'goals' => 'goals'];
 
         foreach ($types as $k => $v) {
             if (Str::contains($name, $k)) {
@@ -97,7 +100,13 @@ class LinkController extends Controller
     private function getSubtype(Request $request)
     {
         $name = $request->route()->getName();
-        $subtypes = ['projects.links' => Link::SUBTYPE_PROJECT_OTHER, 'projects.reports' => Link::SUBTYPE_PROJECT_REPORT];
+        $subtypes = [
+            'projects.links' => Link::SUBTYPE_PROJECT_OTHER,
+            'projects.reports' => Link::SUBTYPE_PROJECT_REPORT,
+            'portfolio_units.goals' => Link::SUBTYPE_PORTFOLIO_GOAL,
+            'portfolio_units.reports' => Link::SUBTYPE_PORTFOLIO_REPORT,
+            'portfolio_units.links' => Link::SUBTYPE_PORTFOLIO_OTHER,
+        ];
 
         foreach ($subtypes as $k => $v) {
             if (Str::startsWith($name, $k)) {

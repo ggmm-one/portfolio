@@ -7,8 +7,8 @@ Route::view('/', 'root');
 
 Route::resource('portfolio_units', 'PortfolioUnitController')->except(['show']);
 Route::group(['prefix'=>'portfolio_units/{portfolio_unit}'], function () {
-    Route::resource('links', 'LinkController', ['as' => 'portfolio_units.goals'])->except(['show']);
-    Route::resource('links', 'LinkController', ['as' => 'portfolio_units.reports'])->except(['show']);
+    Route::resource('goals', 'LinkController', ['as' => 'portfolio_units', 'parameters' => ['goals' => 'link']])->except(['show']);
+    Route::resource('reports', 'LinkController', ['as' => 'portfolio_units', 'parameters' => ['reports' => 'link']])->except(['show']);
     Route::resource('links', 'LinkController', ['as' => 'portfolio_units'])->except(['show']);
     Route::resource('comments', 'CommentController', ['as' => 'portfolio_units'])->except(['show', 'create']);
 });
