@@ -2,8 +2,14 @@
 
 namespace App;
 
+use App\Traits\HasComments;
+use App\Traits\HasLinks;
+
 class Project extends Model
 {
+    use HasComments;
+    use HasLinks;
+
     public const MORPH_SHORT_NAME = 'prj';
 
     public const DD_NAME_LENGTH = 1024;
@@ -71,16 +77,6 @@ class Project extends Model
         return $this->hasMany(ResourceAllocation::class);
     }
 
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
-    public function allLinks()
-    {
-        return $this->morphMany(Link::class, 'linkable');
-    }
-
     public function beforeProjects()
     {
         return $this->hasMany(ProjectOrderConstraint::class, 'before_project_id');
@@ -91,20 +87,16 @@ class Project extends Model
         return $this->hasMany(ProjectOrderConstraint::class, 'after_project_id');
     }
 
-    public function getLinksAttribute()
+    public function getOtherLinksAttribute()
     {
-        return Link::where('linkable_type', self::MORPH_SHORT_NAME)
-            ->where('linkable_id', $this->id)
-            ->where('linkable_subtype', Link::SUBTYPE_PROJECT_OTHER)
+        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PROJECT_OTHER)
             ->ordered()
             ->get();
     }
 
     public function getReportsAttribute()
     {
-        return Link::where('linkable_type', self::MORPH_SHORT_NAME)
-            ->where('linkable_id', $this->id)
-            ->where('linkable_subtype', Link::SUBTYPE_PROJECT_REPORT)
+        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PROJECT_REPORT)
             ->ordered()
             ->get();
     }

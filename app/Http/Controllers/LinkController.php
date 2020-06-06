@@ -23,17 +23,18 @@ class LinkController extends Controller
         return view('links.index', $data);
     }
 
-    public function create(Project $project)
+    public function create(Request $request)
     {
-        $holdingModel = $this->getHoldingModel();
+        $holdingModel = $this->getHoldingModel($request);
         $this->authorize('create', $holdingModel);
         $link = new Link;
 
-        return view('links.edit', compact('link'));
+        return view('links.edit', compact('holdingModel', 'link'));
     }
 
-    public function store(LinkRequest $request, Project $project)
+    public function store(LinkRequest $request)
     {
+        $holdingModel = $ths->getHoldingModel($request);
         $this->authorize('view', $project);
         $link = new Link($request->validated());
         $link->linkable_subtype = Link::SUBTYPE_PROJECT_OTHER;
@@ -68,9 +69,9 @@ class LinkController extends Controller
     private function getHoldingModel(Request $request)
     {
         $model = null;
-        $prefix = $request->route()->getPrefix();
+        $prefix = $request->route()->getName();
 
-        if (Str::startsWith($prefix, '/projects')) {
+        if (Str::startsWith($prefix, 'projects')) {
             $model = Project::where('pid', $request->project)->firstOrFail();
         }
 
@@ -80,11 +81,23 @@ class LinkController extends Controller
     private function getLinkType(Request $request)
     {
         $name = $request->route()->getName();
-        $possibleTypes = ['links', 'reports'];
+        $types = ['links' => 'otherLinks', 'reports' => 'reports'];
 
-        foreach ($possibleTypes as $possibleType) {
-            if (Str::contains($name, $possibleType)) {
-                return $possibleType;
+        foreach ($types as $k => $v) {
+            if (Str::contains($name, $k)) {
+                return $v;
+            }
+        }
+    }
+
+    private function getSubtype(Request $request)
+    {
+        $name = $request->route()->getName();
+        $subtypes = ['projects.links' => Link::SUBTYPE_PROJECT_OTHER, 'projects.reports' => Link::SUBTYPE_PROJECT_REPORT];
+
+        foreach ($subtypes as $k => $v) {
+            if (Str::startsWith($name, $k)) {
+                return $v;
             }
         }
     }

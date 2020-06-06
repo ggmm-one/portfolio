@@ -2,10 +2,15 @@
 
 namespace App;
 
+use App\Traits\HasComments;
+use App\Traits\HasLinks;
 use Illuminate\Validation\ValidationException;
 
 class PortfolioUnit extends Model
 {
+    use HasComments;
+    use HasLinks;
+
     public const MORPH_SHORT_NAME = 'pun';
 
     public const DD_NAME_LENGTH = 256;
@@ -34,41 +39,25 @@ class PortfolioUnit extends Model
         'type' => self::TYPE_PORTFOLIO,
     ];
 
-    public function links()
-    {
-        return $this->morphMany(Link::class, 'linkable');
-    }
-
     public function getGoalsAttribute()
     {
-        return Link::where('linkable_type', self::MORPH_SHORT_NAME)
-            ->where('linkable_id', $this->id)
-            ->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_GOAL)
+        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_GOAL)
             ->ordered()
             ->get();
     }
 
     public function getReportsAttribute()
     {
-        return Link::where('linkable_type', self::MORPH_SHORT_NAME)
-            ->where('linkable_id', $this->id)
-            ->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_REPORT)
+        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_REPORT)
             ->ordered()
             ->get();
     }
 
     public function getOtherLinksAttribute()
     {
-        return Link::where('linkable_type', self::MORPH_SHORT_NAME)
-            ->where('linkable_id', $this->id)
-            ->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_OTHER)
+        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_OTHER)
             ->ordered()
             ->get();
-    }
-
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function parent()
