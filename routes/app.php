@@ -19,7 +19,7 @@ Route::resource('projects', 'ProjectController')->except(['show']);
 Route::group(['prefix'=>'projects/{project}'], function () {
     Route::resource('resource_allocations', 'ResourceAllocationController')->except(['show']);
     Route::resource('evaluation_scores', 'EvaluationScoreController')->only(['index', 'edit', 'update']);
-    Route::resource('reports', 'LinkController', ['as' => 'projects'])->parameters([['report' => 'link']])->except(['show']);
+    Route::resource('reports', 'LinkController', ['as' => 'projects', 'parameters' => ['reports' => 'link']])->except(['show']);
     Route::resource('links', 'LinkController', ['as' => 'projects'])->except(['show']);
     Route::resource('comments', 'CommentController', ['as' => 'projects'])->except(['show', 'create']);
     Route::resource('project_order_constraints', 'ProjectOrderConstraintController')->except(['show', 'edit']);
