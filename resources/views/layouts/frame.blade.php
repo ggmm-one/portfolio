@@ -22,7 +22,7 @@
     @yield('frame')
 
     <footer class="container text-center app-footer">
-        <span>Portfolio Management (c) 2019 ggmm-one</span>
+        <span>Portfolio Management (c) 2020 ggmm-one</span>
         <span>{{ \Carbon\Carbon::now()->toDateTimeString() }}</span>
     </footer>
 
