@@ -61,12 +61,13 @@ class LinkController extends Controller
         return Redirect::route(str_replace('update', 'index', $request->route()->getName()), $request->route()->parameters());
     }
 
-    public function destroy(Project $project, Link $link)
+    public function destroy(Request $request)
     {
-        $this->authorize('delete', $project);
-        $link->delete();
+        $holdingModel = $this->getHoldingModel($request);
+        $this->authorize('delete', $holdingModel);
+        Link::where('pid', $request->link)->firstOrFail()->delete();
 
-        return Redirect::route('projects.links.index', ['project' => $project->pid]);
+        return Redirect::route(str_replace('destroy', 'index', $request->route()->getName()), $request->route()->parameters());
     }
 
     private function getHoldingModel(Request $request)
