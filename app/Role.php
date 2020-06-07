@@ -35,7 +35,7 @@ class Role extends Model
 
     public static function getSelectList()
     {
-        return self::select('id', 'name')->ordered()->get();
+        return self::ordered()->get()->pluck('name', 'hashid');
     }
 
     public function adminNone()

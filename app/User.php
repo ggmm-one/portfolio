@@ -39,7 +39,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function getRoleHashidAttribute()
     {
-        return $this->role ? $this->role->hashid() : null;
+        return $this->role ? $this->role->hashid : null;
     }
 
     public function setRoleHashidAttribute($value)

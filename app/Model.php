@@ -3,10 +3,10 @@
 namespace App;
 
 use App\Traits\DeletesIfNotReferenced;
+use App\Traits\HasHashid;
 use App\Traits\SessionFlashes;
 use Ggmm\Model\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model as LaravelModel;
-use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
 abstract class Model extends LaravelModel
