@@ -13,11 +13,10 @@
     <x-delete-model :model="$role" class="btn btn-primary" />
 </nav>
 
-<form method="POST" action="{{ $role->exists ? route('roles.update', compact('role')) : route('roles.store') }}" class="app-form">
+<form method="POST" action="{{ $role->exists ? route('roles.update', [$role]) : route('roles.store') }}" class="app-form">
     @csrf
     @if ($role->exists)
     @method('PATCH')
-    @form_public_id(['control_value' => $role->pid])
     @endif
     @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $role->name), 'control_validation' => 'required autofocus maxlenght='.\App\Role::DD_NAME_LENGTH])
     @foreach (['portfolios', 'projects', 'resources', 'admin'] as $type)

@@ -26,9 +26,8 @@ class EvaluationItemController extends Controller
     {
         $this->authorize('create', EvaluationItem::class);
         $evaluationItem = new EvaluationItem();
-        $formAction = route('evaluation_items.store');
 
-        return view('evaluation_items.edit', compact('evaluationItem', 'formAction'));
+        return view('evaluation_items.edit', compact('evaluationItem'));
     }
 
     public function store(EvaluationItemRequest $request, ProjectScoringService $projectScoringService)
@@ -54,9 +53,8 @@ class EvaluationItemController extends Controller
     public function edit(EvaluationItem $evaluationItem)
     {
         $this->authorize('view', $evaluationItem);
-        $formAction = route('evaluation_items.update', ['evaluation_item' => $evaluationItem->pid]);
 
-        return view('evaluation_items.edit', compact('evaluationItem', 'formAction'));
+        return view('evaluation_items.edit', compact('evaluationItem'));
     }
 
     public function update(EvaluationItemRequest $request, EvaluationItem $evaluationItem, ProjectScoringService $projectScoringService)

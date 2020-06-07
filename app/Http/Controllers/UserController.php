@@ -49,10 +49,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //User cannot delete itself
-        if ($user->pid == Auth::user()->pid) {
+        if ($user->id == Auth::user()->id) {
             Session::flash('flash-danger', 'Cannot delete your own user');
 
-            return Redirect::route('users.edit', ['user' => $user->pid]);
+            return Redirect::route('users.edit', [$user]);
         } else {
             $user->delete();
 

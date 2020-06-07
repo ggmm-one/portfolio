@@ -1,3 +1,3 @@
-@foreach ($options as $key => $value)
-    <option value="{{ $key }}" @if(isset($selected) && $key == $selected) selected=selected @endif>{{ __($value) }}</option>
+@foreach ($options as $option)
+<option value="{{ $option->hashid() }}" @if(isset($selected) && $option->hashid() == $selected) selected=selected @endif>{{ __($option->name ) }}</option>
 @endforeach

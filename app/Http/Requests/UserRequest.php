@@ -18,7 +18,7 @@ class UserRequest extends FormRequest
         return [
             'name' => Rule::required()->string(1, User::DD_NAME_LENGTH)->get(),
             'email' => Rule::required()->email(User::DD_EMAIL_LENGTH)->unique('users')->ignore($this->user->id ?? -1)->get(),
-            'role_pid' => Rule::required()->exists('roles', 'pid')->get(),
+            'role_hashid' => Rule::required()->get(),
         ];
     }
 }

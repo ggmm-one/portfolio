@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public const DD_EMAIL_LENGTH = 256;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role_pid',
+        'name', 'email', 'password', 'role_hashid',
     ];
 
     protected $hidden = [
@@ -37,14 +37,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsTo(Role::class);
     }
 
-    public function getRolePidAttribute()
+    public function getRoleHashidAttribute()
     {
-        return $this->role->pid ?? null;
+        return $this->role ? $this->role->hashid() : null;
     }
 
-    public function setRolePidAttribute($value)
+    public function setRoleHashidAttribute($value)
     {
-        $this->attributes['role_id'] = Role::getId($value);
+        $this->attributes['role_id'] = (new Role)->hashidToId($value);
     }
 
     public function scopeOrdered($query)

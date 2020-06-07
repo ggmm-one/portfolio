@@ -9,12 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "facade/ignition": "2.0.6",
-        "fideloper/proxy": "4.3.0",
         "ggmm-one/model-helpers-for-laravel": "1.1.0",
         "laravel/framework": "7.14.1",
         "laravel/tinker": "2.4.0",
         "laravel/ui": "2.0.3",
+        "facade/ignition": "2.0.6",
+        "fideloper/proxy": "4.3.0",
+        "mtvs/eloquent-hashids": "2.0.0",
         "timacdonald/rule-builder": "4.0.0"
     },
     "require-dev": {

@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::include('inc.form.input', 'form_input');
         Blade::include('inc.form.select', 'form_select');
         Blade::include('inc.form.textarea', 'form_textarea');
-        Blade::include('inc.form.public_id', 'form_public_id');
         Blade::include('inc.form.submit', 'form_submit');
         Blade::directive('activeTab', function ($expression) {
             return "<?php echo Str::startsWith(Route::currentRouteName(), {$expression}) ? 'active' : '' ?>";
@@ -42,8 +41,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Blueprint::macro('modelHeader', function () {
             $this->bigIncrements('id');
-            $this->char('pid', 11);
-            $this->unique('pid', 'ux_'.$this->getTable().'_pid');
         });
         Blueprint::macro('modelFooter', function () {
             $this->timestamps();

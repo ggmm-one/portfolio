@@ -49,7 +49,7 @@ class Project extends Model
     ];
 
     protected $fillable = [
-        'type', 'status', 'name', 'code', 'portfolio_unit_pid', 'start', 'duration', 'start_after', 'end_before',
+        'type', 'status', 'name', 'code', 'portfolio_unit_id', 'start', 'duration', 'start_after', 'end_before',
     ];
 
     protected $dates = [
@@ -116,19 +116,6 @@ class Project extends Model
                 $query->select('after_project_id')->from('project_order_constraints')->where('before_project_id', $projectId)->whereNull('deleted_at');
             })
             ->ordered()->get()->pluck('name', 'pid');
-    }
-
-    public function setPortfolioUnitPidAttribute($pid)
-    {
-        $this->portfolio_unit_id = PortfolioUnit::select('id')->where('pid', $pid)->value('id');
-        if ($this->portfolio_unit_id == null) {
-            abort(400);
-        }
-    }
-
-    public function getPortfolioUnitPidAttribute()
-    {
-        return $this->exists ? $this->portfolio->pid : null;
     }
 
     public function scopeOrdered($query)

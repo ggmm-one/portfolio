@@ -13,11 +13,10 @@
     <x-delete-model :model="$evaluationItem" class="btn btn-primary" />
 </nav>
 
-<form method="POST" action="{{ $formAction }}" class="app-form">
+<form method="POST" action="{{ $evaluationItem->exists ? route('evaluation_items.update', [$evaluationItem]) : route('evaluation_items.store')}}" class="app-form">
     @csrf
     @if ($evaluationItem->exists)
     @method('PATCH')
-    @form_public_id(['control_value' => $evaluationItem->pid])
     @endif
     @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $evaluationItem->name), 'control_validation' => 'required autofocus maxlenght='.\App\EvaluationItem::DD_NAME_LENGTH])
     @form_textarea(['control_id' => 'instructions', 'control_label' => 'Instructions', 'control_value' => old('instructions', $evaluationItem->instructions), 'control_validation' => 'maxlenght='.\App\EvaluationItem::DD_INSTRUCTIONS_LENGTH])
