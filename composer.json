@@ -13,7 +13,7 @@
         "laravel/framework": "7.14.1",
         "laravel/tinker": "2.4.0",
         "laravel/ui": "2.0.3",
-        "facade/ignition": "2.0.6",
+        "facade/ignition": "2.0.7",
         "fideloper/proxy": "4.3.0",
         "mtvs/eloquent-hashids": "2.0.0",
         "timacdonald/rule-builder": "4.0.0"
