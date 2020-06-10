@@ -48,7 +48,7 @@ class LinkController extends Controller
     {
         $holdingModel = $this->getHoldingModel($request);
         $this->authorize('view', $holdingModel);
-        $link = Link::where('pid', $request->link)->firstOrFail();
+        $link = Link::findOrFail($holdingModel->hashidToId($request->link));
 
         return view('links.edit', compact('holdingModel', 'link'));
     }
@@ -57,7 +57,7 @@ class LinkController extends Controller
     {
         $holdingModel = $this->getHoldingModel($request);
         $this->authorize('update', $holdingModel);
-        Link::where('pid', $request->link)->firstOrFail()->update($request->validated());
+        Link::findOrFail($holdingModel->hashidToId($request->link))->update($request->validated());
 
         return Redirect::route(str_replace('update', 'index', $request->route()->getName()), $request->route()->parameters());
     }
@@ -66,7 +66,7 @@ class LinkController extends Controller
     {
         $holdingModel = $this->getHoldingModel($request);
         $this->authorize('delete', $holdingModel);
-        Link::where('pid', $request->link)->firstOrFail()->delete();
+        Link::findOrFail($holdingModel->hashidToId($request->link))->delete();
 
         return Redirect::route(str_replace('destroy', 'index', $request->route()->getName()), $request->route()->parameters());
     }
@@ -77,9 +77,9 @@ class LinkController extends Controller
         $prefix = $request->route()->getName();
 
         if (Str::startsWith($prefix, 'projects')) {
-            $model = Project::where('pid', $request->project)->firstOrFail();
+            $model = Project::findOrFail((new Project)->hashidToId($request->project));
         } elseif (Str::startsWith($prefix, 'portfolio_units')) {
-            $model = PortfolioUnit::where('pid', $request->portfolio_unit)->firstOrFail();
+            $model = PortfolioUnit::findOrFail((new PortfolioUnit)->hashidToId($request->portfolio_unit));
         }
 
         return $model;

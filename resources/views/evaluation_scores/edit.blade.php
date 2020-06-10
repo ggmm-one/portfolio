@@ -8,7 +8,7 @@
 
 @include('layouts.headers.projects')
 
-<form method="POST" action="{{ route('evaluation_scores.update', ['project' => $project->pid, 'evaluation_score' => $evaluationScore]) }}" class="app-form">
+<form method="POST" action="{{ route('evaluation_scores.update', ['project' => $project, 'evaluation_score' => $evaluationScore]) }}" class="app-form">
     @csrf
     @method('PATCH')
     @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => $evaluationScore->evaluationItem->name, 'disabled' => true])

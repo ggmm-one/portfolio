@@ -11,12 +11,11 @@
 <form method="POST" action="{{ $formAction }}" class="app-form">
     @csrf
     @if($project->exists)
-    @form_public_id(['control_value' => $project->pid])
     @method('PATCH')
     @endif
     @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $project->name), 'control_validation' => 'required autofocus maxlenght='.\App\Project::DD_NAME_LENGTH])
     @form_input(['input_type' => 'text', 'control_id' => 'code', 'control_label' => 'Code', 'control_value' => old('code', $project->code), 'control_validation' => 'maxlength='.\App\Project::DD_CODE_LENGTH, 'control_size' => 'm'])
-    @form_select(['control_id' => 'portfolio_unit_pid', 'control_label' => 'Portfolio', 'control_value' => old('portfolio_unit_pid', $project->portfolio_unit_pid),'select_options' => $portfolios])
+    @form_select(['control_id' => 'portfolio_unit_hashid', 'control_label' => 'Portfolio', 'control_value' => old('portfolio_unit_hashid', $project->portfolio_unit_hashid),'select_options' => $portfolios])
     @form_select(['control_id' => 'type', 'control_label' => 'Type', 'control_value' => old('type', $project->type),'select_options' => App\Project::TYPES, 'control_size' => 'm'])
     @form_select(['control_id' => 'status', 'control_label' => 'Status', 'control_value' => old('status', $project->status),'select_options' => App\Project::STATUS, 'control_size' => 'm'])
     @form_input(['input_type' => 'date', 'control_id' => 'start', 'control_label' => 'Start', 'control_value' => old('start', isset($project->start) ? $project->start->toDateString() : '')])

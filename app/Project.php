@@ -49,7 +49,7 @@ class Project extends Model
     ];
 
     protected $fillable = [
-        'type', 'status', 'name', 'code', 'portfolio_unit_id', 'start', 'duration', 'start_after', 'end_before',
+        'type', 'status', 'name', 'code', 'portfolio_unit_hashid', 'start', 'duration', 'start_after', 'end_before',
     ];
 
     protected $dates = [
@@ -106,16 +106,26 @@ class Project extends Model
         return number_format($this->attributes['score'], 2);
     }
 
+    public function getPortfolioUnitHashidAttribute()
+    {
+        return $this->portfolio ? $this->portfolio->hashid : null;
+    }
+
+    public function setPortfolioUnitHashidAttribute($value)
+    {
+        $this->attributes['portfolio_unit_id'] = (new PortfolioUnit)->hashidToId($value);
+    }
+
     public function getConstraintProjectsSelect()
     {
         $projectId = $this->id;
 
-        return self::select('id', 'pid', 'name')
+        return self::select('id', 'name')
             ->where('id', '<>', $projectId)
             ->whereNotIn('id', function ($query) use ($projectId) {
                 $query->select('after_project_id')->from('project_order_constraints')->where('before_project_id', $projectId)->whereNull('deleted_at');
             })
-            ->ordered()->get()->pluck('name', 'pid');
+            ->ordered()->get()->pluck('name', 'hashid');
     }
 
     public function scopeOrdered($query)

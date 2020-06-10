@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Project\ProjectRequest;
+use App\Http\Requests\ProjectRequest;
 use App\PortfolioUnit;
 use App\Project;
 use Illuminate\Http\Request;
@@ -14,7 +14,6 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Project::class);
-        $projects = $this->filter($request)->get();
 
         return view('projects.index', compact('projects'));
     }
@@ -34,14 +33,14 @@ class ProjectController extends Controller
         $this->authorize('create', Project::class);
         $project = Project::create($request->validated());
 
-        return Redirect::route('projects.edit', ['project' => $project->pid]);
+        return Redirect::route('projects.edit', compact('project'));
     }
 
     public function edit(Project $project)
     {
         $this->authorize('view', $project);
         $portfolios = PortfolioUnit::getSelectList();
-        $formAction = route('projects.update', ['project' => $project->pid]);
+        $formAction = route('projects.update', compact('project'));
 
         return view('projects.edit', compact('project', 'formAction', 'portfolios'));
     }
@@ -50,10 +49,8 @@ class ProjectController extends Controller
     {
         $this->authorize('update', $project);
         $project->update($request->validated());
-        $portfolios = PortfolioUnit::getSelectList();
-        $formAction = route('projects.update', ['project' => $project->pid]);
 
-        return view('projects.edit', compact('project', 'formAction', 'portfolios'));
+        return Redirect::route('projects.edit', compact('project'));
     }
 
     public function destroy(Project $project)
@@ -64,18 +61,5 @@ class ProjectController extends Controller
         });
 
         return Redirect::route('projects.index');
-    }
-
-    private function filter(Request &$request)
-    {
-        $builder = Project::with('portfolio:id,pid,name')->ordered();
-
-        if ($request->has('portfolio_unit')) {
-            $builder->join('portfolio_units', 'portfolio_units.id', '=', 'projects.portfolio_unit_id')
-                ->where('portfolio_units.pid', $request->input('portfolio_unit'));
-            $request->setFiltered();
-        }
-
-        return $builder;
     }
 }

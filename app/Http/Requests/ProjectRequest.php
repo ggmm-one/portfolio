@@ -20,7 +20,7 @@ class ProjectRequest extends FormRequest
         return [
             'name' => Rule::required()->string(1, Project::DD_NAME_LENGTH)->get(),
             'code' => Rule::nullable()->string(1, Project::DD_CODE_LENGTH)->get(),
-            'portfolio_unit_pid' => Rule::required()->get(),
+            'portfolio_unit_hashid' => Rule::required()->get(),
             'type' => Rule::required()->in(array_keys(Project::TYPES))->get(),
             'status' => Rule::required()->in(array_keys(Project::STATUS))->get(),
             'start' => Rule::nullable()->after(Model::DD_DATE_MIN)->before(Model::DD_DATE_MAX)->get(),

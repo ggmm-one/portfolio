@@ -32,7 +32,7 @@ class PortfolioReportController extends Controller
         $link->linkable_subtype = Link::SUBTYPE_PORTFOLIO_REPORT;
         $portfolioUnit->links()->save($link);
 
-        return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit->pid]);
+        return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit]);
     }
 
     public function edit(PortfolioUnit $portfolioUnit, Link $link)
@@ -47,7 +47,7 @@ class PortfolioReportController extends Controller
         $this->authorize('update', $portfolioUnit);
         $link->update($request->validated());
 
-        return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit->pid]);
+        return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit]);
     }
 
     public function destroy(PortfolioUnit $portfolioUnit, Link $link)
@@ -55,6 +55,6 @@ class PortfolioReportController extends Controller
         $this->authorize('delete', $portfolioUnit);
         $link->delete();
 
-        return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit->pid]);
+        return Redirect::route('portfolios.reports.index', ['portfolio_unit' => $portfolioUnit]);
     }
 }

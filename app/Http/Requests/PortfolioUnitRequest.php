@@ -21,7 +21,7 @@ class PortfolioUnitRequest extends FormRequest
         ];
         if (! $this->portfolio_unit || ! $this->portfolio_unit->isRoot()) {
             $rules['type'] = Rule::required()->in(array_keys(PortfolioUnit::TYPES))->get();
-            $rules['parent_pid'] = Rule::required()->exists('portfolio_units', 'pid')->get();
+            $rules['parent_hashid'] = Rule::required()->get();
         }
 
         return $rules;

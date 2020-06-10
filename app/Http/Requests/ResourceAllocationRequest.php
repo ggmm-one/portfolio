@@ -15,7 +15,7 @@ class ResourceAllocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'resource_pid' => Rule::required()->exists('resources', 'pid')->get(),
+            'resource_hashid' => Rule::required()->get(),
             'month' => Rule::required()->integer()->get(),
             'quantity' => Rule::required()->integer()->get(),
             'sort_order' => Rule::required()->integer(0)->get(),

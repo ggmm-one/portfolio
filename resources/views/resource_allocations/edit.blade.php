@@ -22,11 +22,10 @@
 <form method="POST" action="{{ $formAction }}" class="app-form">
     @csrf
     @if($resourceAllocation->exists)
-    @form_public_id(['control_value' => $resourceAllocation->pid])
     @method('PATCH')
     @endif
 
-    @form_select(['control_id' => 'resource_pid', 'control_label' => 'Resource', 'control_value' => old('resource_pid', $resourceAllocation->resource_pid), 'select_options' => $resources])
+    @form_select(['control_id' => 'resource_hashid', 'control_label' => 'Resource', 'control_value' => old('resource_hashid', $resourceAllocation->resource_hashid), 'select_options' => $resources])
     @form_select(['control_id' => 'month', 'control_label' => 'Month', 'control_value' => old('month', $resourceAllocation->month), 'select_options' => $months, 'control_size' => 'm'])
     @form_input(['input_type' => 'number', 'control_id' => 'quantity', 'control_label' => 'Quantity', 'control_value' => old('quantity', $resourceAllocation->quantity), 'control_size' => 'm'])
     @form_input(['input_type' => 'number', 'control_id' => 'sort_order', 'control_label' => 'Sort Order', 'control_value' => old('sort_order', $resourceAllocation->sort_order), 'control_size' => 'm'])

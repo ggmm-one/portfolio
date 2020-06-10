@@ -1,6 +1,6 @@
 <div class="card app-comments-card">
     <div class="card-body">
-        <p class="card-text"><a name="{{ $comment->pid }}"></a>{!! nl2br(e($comment->content)) !!}</p>
+        <p class="card-text"><a name="{{ $comment->hashid }}"></a>{!! nl2br(e($comment->content)) !!}</p>
     </div>
     <div class="card-footer bg-light text-right text-muted app-comments-footer">
 
@@ -15,7 +15,7 @@
         @endcan
 
 
-        <span title="{{ $comment->author->pid }}">{{ $comment->author->name }}</span>
+        <span title="{{ $comment->author->hashid }}">{{ $comment->author->name }}</span>
 
         <span title="{{ __('Created at: ').$comment->created_at.__(' | Last updated at: ').$comment->updated_at }}">
             {{ $comment->created_at->diffForHumans() }}

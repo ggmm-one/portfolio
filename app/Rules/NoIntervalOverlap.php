@@ -22,10 +22,10 @@ class NoIntervalOverlap implements Rule
         $start = DateHelper::setDateToMonth($this->request->input('start'));
         $end = DateHelper::setDateToMonth($this->request->input('end'));
         $query = ResourceCapacity::join('resources', 'resources.id', '=', 'resource_capacities.resource_id')
-            ->where('resources.pid', '=', $route->resource->pid)
+            ->where('resources.id', '=', $route->resource->id)
             ->whereDate('start', '<', $end)->whereDate('end', '>', $start);
         if ($route->resource_capacity) {
-            $query->where('resource_capacities.pid', '<>', $route->resource_capacity->pid);
+            $query->where('resource_capacities.id', '<>', $route->resource_capacity->id);
         }
 
         return ! $query->exists();

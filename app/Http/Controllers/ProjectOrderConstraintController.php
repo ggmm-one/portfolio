@@ -24,7 +24,7 @@ class ProjectOrderConstraintController extends Controller
         $this->authorize('create', ProjectOrderConstraint::class);
         $projectOrderConstraint = new projectOrderConstraint();
         $projectOrderConstraint->before_project_id = $project->id;
-        $projectOrderConstraint->after_project_id = Project::getId($request->validated()['pid']);
+        $projectOrderConstraint->after_project_id = $project->hashidToId($request->validated()['hashid']);
         $projectOrderConstraint->save();
 
         return Redirect::route('project_order_constraints.index', compact('project'));

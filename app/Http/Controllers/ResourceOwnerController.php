@@ -36,8 +36,8 @@ class ResourceOwnerController extends Controller
     public function edit(ResourceOwner $resourceOwner)
     {
         $this->authorize('view', $resourceOwner);
-        $formAction = route('resource_owners.update', ['resource_owner' => $resourceOwner->pid]);
-        $deleteAction = route('resource_owners.destroy', ['resource_owner' => $resourceOwner->pid]);
+        $formAction = route('resource_owners.update', ['resource_owner' => $resourceOwner]);
+        $deleteAction = route('resource_owners.destroy', ['resource_owner' => $resourceOwner]);
 
         return view('resource_owners.edit', compact('resourceOwner', 'formAction', 'deleteAction'));
     }

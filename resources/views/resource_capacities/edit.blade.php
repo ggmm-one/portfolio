@@ -11,7 +11,6 @@
 <form method="POST" action="{{ $formAction }}" class="app-form">
     @csrf
     @if($resourceCapacity->exists)
-    @form_public_id(['control_value' => $resourceCapacity->pid])
     @method('PATCH')
     @endif
     @form_input(['input_type' => 'date', 'control_id' => 'start', 'control_label' => 'Start', 'control_value' => old('start', $resourceCapacity->start->toDateString()), 'control_validation' => 'required autofocus'])

@@ -21,7 +21,7 @@ class ResourceCapacityController extends Controller
     {
         $this->authorize('create', ResourceCapacity::class);
         $resourceCapacity = new ResourceCapacity(['start' => Carbon::now()->setDay(1), 'end' => Carbon::now()->addYear()->setDay(1)]);
-        $formAction = route('resources.capacities.store', ['resource' => $resource->pid]);
+        $formAction = route('resources.capacities.store', compact('resource'));
 
         return view('resources_capacities.edit', compact('resource', 'resourceCapacity', 'formAction'));
     }
@@ -33,7 +33,7 @@ class ResourceCapacityController extends Controller
         $capacity->resource_id = $resource->id;
         $capacity->save();
 
-        return Redirect::route('resources_capacities.index', ['resource' => $resource->pid]);
+        return Redirect::route('resources_capacities.index', compact('resource'));
     }
 
     public function edit(Resource $resource, ResourceCapacity $resourceCapacity)
@@ -42,7 +42,7 @@ class ResourceCapacityController extends Controller
         if ($resourceCapacity->resource_id != $resource->id) {
             abort(404);
         }
-        $formAction = route('resource_capacities.update', ['resource' => $resource->pid, 'resource_capacity' => $resourceCapacity->pid]);
+        $formAction = route('resource_capacities.update', ['resource' => $resource, 'resource_capacity' => $resourceCapacity]);
 
         return view('resource_capacities.edit', compact('resource', 'resourceCapacity', 'formAction'));
     }
@@ -66,6 +66,6 @@ class ResourceCapacityController extends Controller
         }
         $resourceCapacity->delete();
 
-        return Redirect::route('resource_capacities.index', ['resource' => $resource->pid]);
+        return Redirect::route('resource_capacities.index', compact('resource'));
     }
 }

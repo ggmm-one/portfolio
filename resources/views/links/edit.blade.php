@@ -18,7 +18,6 @@
 <form method="POST" action="{{ route(str_replace('edit', 'update', str_replace('create', 'store', Request::route()->getName())), array_merge(Request::route()->parameters(), compact('link'))) }}" class="app-form">
     @csrf
     @if($link->exists)
-    @form_public_id(['control_value' => $link->pid])
     @method('PATCH')
     @endif
     @form_input(['input_type' => 'text', 'control_id' => 'title', 'control_label' => 'Title', 'control_value' => old('title', $link->title), 'control_validation' => 'required autofocus maxlenght='.\App\Link::DD_TITLE_LENGTH])

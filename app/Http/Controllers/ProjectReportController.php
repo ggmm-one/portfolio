@@ -32,7 +32,7 @@ class ProjectReportController extends Controller
         $link->linkable_subtype = Link::SUBTYPE_PROJECT_REPORT;
         $project->links()->save($link);
 
-        return Redirect::route('projects.reports.index', ['project' => $project->pid]);
+        return Redirect::route('projects.reports.index', compact('project'));
     }
 
     public function edit(Project $project, Link $link)
@@ -47,7 +47,7 @@ class ProjectReportController extends Controller
         $this->authorize('update', $project);
         $link->update($request->validated());
 
-        return Redirect::route('projects.reports.index', ['project' => $project->pid]);
+        return Redirect::route('projects.reports.index', compact('project'));
     }
 
     public function destroy(Project $project, Link $link)
@@ -55,6 +55,6 @@ class ProjectReportController extends Controller
         $this->authorize('delete', $project);
         $link->delete();
 
-        return Redirect::route('projects.reports.index', ['project' => $project->pid]);
+        return Redirect::route('projects.reports.index', compact('project'));
     }
 }

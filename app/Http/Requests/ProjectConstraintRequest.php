@@ -15,7 +15,7 @@ class ProjectConstraintRequest extends FormRequest
     public function rules()
     {
         if ($this->routeIs('*store')) {
-            return ['pid' => Rule::required()->exists('projects')->get()];
+            return ['hashid' => Rule::required()->exists('projects')->get()];
         } elseif ($this->routeIs('*update')) {
             return [
                 'start_after' => Rule::nullable()->date()->get(),

@@ -5,7 +5,7 @@ namespace App;
 class ResourceAllocation extends Model
 {
     protected $fillable = [
-        'resource_pid', 'month', 'quantity', 'sort_order',
+        'resource_hashid', 'month', 'quantity', 'sort_order',
     ];
 
     public function resource()
@@ -18,13 +18,13 @@ class ResourceAllocation extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function getResourcePidAttribute()
+    public function getResourceHashidAttribute()
     {
-        return Resource::getPid($this->resource_id);
+        return $this->resource ? $this->resource->hashid : null;
     }
 
-    public function setResourcePidAttribute($value)
+    public function setResourceHashidAttribute($value)
     {
-        $this->attributes['resource_id'] = Resource::getId($value);
+        $this->attributes['resource_id'] = (new Resource)->hashidToId($value);
     }
 }

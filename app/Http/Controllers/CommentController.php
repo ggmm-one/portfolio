@@ -6,7 +6,6 @@ use App\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Model;
 use App\PortfolioUnit;
-use App\Project;
 use App\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +36,7 @@ class CommentController extends Controller
     {
         $holdingModel = $this->getHoldingModel($request);
         $this->authorize('view', $holdingModel);
-        $editComment = Comment::where('pid', $request->comment)->firstOrFail();
+        $editComment = Comment::findOrFail($holdingModel->hashidToId($request->comment));
 
         return $this->view($holdingModel, $editComment);
     }
@@ -46,7 +45,7 @@ class CommentController extends Controller
     {
         $holdingModel = $this->getHoldingModel($request);
         $this->authorize('update', $holdingModel);
-        Comment::where('pid', $request->comment)->firstOrFail()->update($request->validated());
+        Comment::findOrFail($holdingModel->hashidToId($request->comment))->update($request->validated());
 
         return $this->view($holdingModel);
     }
@@ -55,14 +54,14 @@ class CommentController extends Controller
     {
         $holdingModel = $this->getHoldingModel($request);
         $this->authorize('delete', $holdingModel);
-        Comment::where('pid', $request->comment)->firstOrFail()->delete();
+        Comment::findOrFail($holdingModel->hashidToId($request->comment))->delete();
 
         return $this->view($holdingModel);
     }
 
     private function view(Model $holdingModel, Comment $editComment = null)
     {
-        $comments = Comment::with('author:id,pid,name')->where('commentable_type', $holdingModel::MORPH_SHORT_NAME)->where('commentable_id', $holdingModel->id)->latest()->get();
+        $comments = Comment::with('author:id,name')->where('commentable_type', $holdingModel::MORPH_SHORT_NAME)->where('commentable_id', $holdingModel->id)->latest()->get();
         $data = compact('holdingModel', 'comments', 'editComment');
         $data[Str::camel(Str::singular($holdingModel->getTable()))] = $holdingModel;
 
@@ -75,11 +74,11 @@ class CommentController extends Controller
         $prefix = $request->route()->getPrefix();
 
         if (Str::startsWith($prefix, '/resources')) {
-            $model = Resource::where('pid', $request->resource)->firstOrFail();
+            $model = Resource::findOrFail($holdingModel->hashidToId($request->resource));
         } elseif (Str::startsWith($prefix, '/portfolio_units')) {
-            $model = PortfolioUnit::where('pid', $request->portfolio_unit)->firstOrFail();
+            $model = PortfolioUnit::findOrFail($holdingModel->hashidToId($request->portfolio_unit));
         } elseif (Str::startsWith($prefix, '/projects')) {
-            $model = Project::where('pid', $request->project)->firstOrFail();
+            $model = ProjectfindOrFail($holdingModel->hashidToId($request->project));
         }
 
         return $model;

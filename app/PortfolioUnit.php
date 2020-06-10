@@ -31,7 +31,7 @@ class PortfolioUnit extends Model
     ];
 
     protected $fillable = [
-        'name', 'type', 'parent_pid', 'description',
+        'name', 'type', 'parent_hashid', 'description',
     ];
 
     protected $attributes = [
@@ -75,24 +75,14 @@ class PortfolioUnit extends Model
         return self::TYPES[$this->type];
     }
 
-    /**
-     * Sets the id for the parent, given the parent's public id.
-     *
-     * @param string pid The parent's public id
-     *
-     * @return void
-     */
-    public function setParentPidAttribute($pid)
+    public function setParentHashidAttribute($hashid)
     {
-        $this->parent_id = self::getId($pid);
-        if ($this->parent_id == null) {
-            abort(400);
-        }
+        $this->parent_id = (new self)->hashidToId($hashid);
     }
 
-    public function getParentPidAttribute()
+    public function getParentHashidAttribute()
     {
-        return $this->exists ? ($this->parent_id == null ? $this->pid : $this->parent->pid) : null;
+        return $this->parent ? $this->parent->hashid : null;
     }
 
     protected function checkBeforeDeleting()
@@ -104,13 +94,13 @@ class PortfolioUnit extends Model
 
     public static function getSelectList(self $portfolioUnit = null)
     {
-        $root = self::select('pid', 'name')->whereNull('parent_id');
-        $query = self::select('pid', 'name')->union($root)->whereNotNull('parent_id')->ordered();
+        $root = self::select('id', 'name')->whereNull('parent_id');
+        $query = self::select('id', 'name')->union($root)->whereNotNull('parent_id')->ordered();
         if ($portfolioUnit) {
-            $query->where('pid', '<>', $portfolioUnit->pid);
+            $query->where('id', '<>', $portfolioUnit->id);
         }
 
-        return $query->get()->pluck('name', 'pid');
+        return $query->get()->pluck('name', 'hashid');
     }
 
     public function scopeHierarchyOrdered($query)

@@ -10,7 +10,7 @@
 
 <nav class="navbar navbar-light">
     <span class="navbar-brand">&nbsp;</span>
-    @can('create', App\ResourceAllocation::class) <a href="{{ route('resource_allocations.create', ['project' => $project->pid]) }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
+    @can('create', App\ResourceAllocation::class) <a href="{{ route('resource_allocations.create', ['project' => $project]) }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
 
     <table class="table">
         <thead>
