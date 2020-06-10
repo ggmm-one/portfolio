@@ -23,7 +23,7 @@ class Resource extends Model
     ];
 
     protected $fillable = [
-        'name', 'resource_type_pid', 'resource_owner_pid', 'description',
+        'name', 'resource_type_hashid', 'resource_owner_hashid', 'description',
     ];
 
     protected $attributes = [
@@ -50,28 +50,28 @@ class Resource extends Model
         return $this->belongsTo(ResourceAllocation::class, 'resource_id');
     }
 
-    public function getResourceTypePidAttribute()
+    public function getResourceTypeHashidAttribute()
     {
-        return ResourceType::getPid($this->resource_type_id);
+        return $this->type ? $this->type->hashid : null;
     }
 
-    public function setResourceTypePidAttribute($value)
+    public function setResourceTypeHashidAttribute($value)
     {
-        $this->resource_type_id = ResourceType::getId($value);
+        $this->attributes['resource_type_id'] = (new ResourceType)->hashidToId($value);
     }
 
-    public function getResourceOwnerPidAttribute()
+    public function getResourceOwnerHashidAttribute()
     {
-        return ResourceOwner::getPid($this->resource_owner_id);
+        return $this->owner ? $this->owner->hashid : null;
     }
 
-    public function setResourceOwnerPidAttribute($value)
+    public function setResourceOwnerHashidAttribute($value)
     {
-        $this->resource_owner_id = ResourceOwner::getId($value);
+        $this->attributes['resource_owner_id'] = (new ResourceOwner)->hashidToId($value);
     }
 
     public static function getSelectList()
     {
-        return self::select('id', 'pid', 'name')->orderBy('name')->get()->pluck('name', 'pid');
+        return self::orderBy('name')->get()->pluck('name', 'hashid');
     }
 }

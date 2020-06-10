@@ -12,9 +12,9 @@ class ResourceController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Resource::class);
-        $resources = $this->filter($request)->get();
+        $resources = Resource::all();
 
-        return view('resources.index', compact('resources', 'isFiltered'));
+        return view('resources.index', compact('resources'));
     }
 
     public function create()
@@ -54,20 +54,5 @@ class ResourceController extends Controller
         $resource->deleteIfNotReferenced();
 
         return Redirect::route('resources.index');
-    }
-
-    private function filter(Request &$request)
-    {
-        $builder = Resource::with('owner:id,pid,name')->with('type:id,pid,name');
-
-        if ($request->has('owner')) {
-            $builder->join('resource_owners', 'resource_owners.id', '=', 'resources.resource_owner_id')
-                ->where('resource_owners.pid', $request->input('owner'));
-            $request->setFiltered();
-        }
-
-        $builder->orderBy('resources.name')->get();
-
-        return $builder;
     }
 }

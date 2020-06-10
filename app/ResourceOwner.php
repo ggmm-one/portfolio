@@ -22,6 +22,6 @@ class ResourceOwner extends Model
 
     public static function getSelectList()
     {
-        return self::ordered()->get()->pluck('name', 'pid');
+        return self::ordered()->get()->pluck('name', 'hashid');
     }
 }
