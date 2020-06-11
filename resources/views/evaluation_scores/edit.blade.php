@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', 'Edit Evaluation')
+@page_title(['title' => $evaluationScore])
 
 @section('content')
 

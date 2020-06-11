@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', $resourceType->exists ? 'Edit Resource Type' : 'Add Resource Type')
+@page_title(['title' => $resourceType])
 
 @include('layouts.navbars.admin')
 

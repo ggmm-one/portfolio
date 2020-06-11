@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', $evaluationItem->exists ? 'Edit Evaluation Item' : 'Add Evaluation Item')
+@page_title(['title' => $evaluationItem])
 
 @include('layouts.navbars.admin')
 

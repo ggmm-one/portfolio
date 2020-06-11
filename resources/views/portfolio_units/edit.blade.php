@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', $portfolioUnit->exists ? 'Edit Portfolio' : 'Add Portfolio')
+@page_title(['title' => $portfolioUnit])
 
 @section('content')
 

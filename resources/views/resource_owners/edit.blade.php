@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', $resourceOwner->exists ? 'Edit Resource Owner' : 'Add Resource Owner')
+@page_title(['title' => $resourceOwner])
 
 @include('layouts.navbars.resources')
 

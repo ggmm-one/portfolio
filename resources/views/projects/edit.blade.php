@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', $project->exists ? 'Edit Project' : 'Add Project')
+@page_title(['title' => $project])
 
 @section('content')
 

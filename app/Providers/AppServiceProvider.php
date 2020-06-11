@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function bootBlade()
     {
+        Blade::include('components.page-title', 'page_title');
         Blade::include('inc.form.input', 'form_input');
         Blade::include('inc.form.select', 'form_select');
         Blade::include('inc.form.textarea', 'form_textarea');

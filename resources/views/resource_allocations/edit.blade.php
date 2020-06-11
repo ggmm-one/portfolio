@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', 'Resources')
+@page_title(['title' => $resourceAllocation])
 
 @section('content')
 

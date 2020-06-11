@@ -1,6 +1,6 @@
 @extends('layouts.frame_app')
 
-@section('pagetitle', $user->exists ? 'Edit User' : 'Add User')
+@page_title(['title' => $user])
 
 @include('layouts.navbars.admin')
 
