@@ -74,11 +74,11 @@ class CommentController extends Controller
         $prefix = $request->route()->getPrefix();
 
         if (Str::startsWith($prefix, '/resources')) {
-            $model = Resource::findOrFail($holdingModel->hashidToId($request->resource));
+            $model = Resource::findOrFail((new Resource)->hashidToId($request->resource));
         } elseif (Str::startsWith($prefix, '/portfolio_units')) {
-            $model = PortfolioUnit::findOrFail($holdingModel->hashidToId($request->portfolio_unit));
+            $model = PortfolioUnit::findOrFail((new PortfolioUnit)->hashidToId($request->portfolio_unit));
         } elseif (Str::startsWith($prefix, '/projects')) {
-            $model = ProjectfindOrFail($holdingModel->hashidToId($request->project));
+            $model = Project::findOrFail((new Project)->hashidToId($request->project));
         }
 
         return $model;
