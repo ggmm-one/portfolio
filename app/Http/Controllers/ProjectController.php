@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\PortfolioUnit;
 use App\Project;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ProjectController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $this->authorize('viewAny', Project::class);
+        $projects = Project::all();
 
         return view('projects.index', compact('projects'));
     }

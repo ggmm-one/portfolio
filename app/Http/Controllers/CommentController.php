@@ -6,6 +6,7 @@ use App\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Model;
 use App\PortfolioUnit;
+use App\Project;
 use App\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
