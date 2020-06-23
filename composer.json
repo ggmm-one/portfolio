@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.2",
         "ggmm-one/model-helpers-for-laravel": "1.1.0",
-        "laravel/framework": "7.15.0",
+        "laravel/framework": "7.16.1",
         "laravel/tinker": "2.4.0",
         "laravel/ui": "2.0.3",
         "facade/ignition": "2.0.7",
