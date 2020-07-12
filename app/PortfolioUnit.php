@@ -75,16 +75,6 @@ class PortfolioUnit extends Model
         return self::TYPES[$this->type];
     }
 
-    public function setParentHashidAttribute($hashid)
-    {
-        $this->parent_id = (new self)->hashidToId($hashid);
-    }
-
-    public function getParentHashidAttribute()
-    {
-        return $this->parent ? $this->parent->hashid : null;
-    }
-
     protected function checkBeforeDeleting()
     {
         if ($this->isRoot()) {
