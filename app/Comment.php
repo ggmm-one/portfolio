@@ -19,9 +19,4 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function scopeLatest($query)
-    {
-        return $query->orderBy('created_at', 'DESC');
-    }
 }
