@@ -106,16 +106,6 @@ class Project extends Model
         return number_format($this->attributes['score'], 2);
     }
 
-    public function getPortfolioUnitHashidAttribute()
-    {
-        return $this->portfolio ? $this->portfolio->hashid : null;
-    }
-
-    public function setPortfolioUnitHashidAttribute($value)
-    {
-        $this->attributes['portfolio_unit_id'] = (new PortfolioUnit)->hashidToId($value);
-    }
-
     public function getConstraintProjectsSelect()
     {
         $projectId = $this->id;
