@@ -10,10 +10,10 @@
     "require": {
         "php": "^7.2",
         "ggmm-one/model-helpers-for-laravel": "1.1.0",
-        "laravel/framework": "7.21.0",
-        "laravel/tinker": "2.4.1",
+        "laravel/framework": "7.25.0",
+        "laravel/tinker": "2.4.2",
         "laravel/ui": "2.1.0",
-        "facade/ignition": "2.3.3",
+        "facade/ignition": "2.3.6",
         "fideloper/proxy": "4.4.0",
         "mtvs/eloquent-hashids": "2.0.0",
         "timacdonald/rule-builder": "4.0.0"
@@ -21,7 +21,7 @@
     "require-dev": {
         "fzaninotto/faker": "1.9.1",
         "nunomaduro/collision": "4.2.0",
-        "phpunit/phpunit": "9.2.6"
+        "phpunit/phpunit": "9.3.7"
     },
     "config": {
         "optimize-autoloader": true,
