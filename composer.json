@@ -13,15 +13,15 @@
         "ggmm-one/eloquent-hashids": "1.1.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "3.0.0",
+        "laravel/ui": "^3.0",
         "facade/ignition": "^2.5",
-        "fideloper/proxy": "4.4.1",
-        "timacdonald/rule-builder": "4.0.0"
+        "fideloper/proxy": "^4.4",
+        "timacdonald/rule-builder": "^4.0"
     },
     "require-dev": {
-        "fzaninotto/faker": "1.9.1",
+        "fzaninotto/faker": "^1.9",
         "nunomaduro/collision": "^5.1",
-        "phpunit/phpunit": "9.4.2"
+        "phpunit/phpunit": "^9.4"
     },
     "config": {
         "optimize-autoloader": true,
