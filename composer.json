@@ -11,9 +11,9 @@
         "php": "^7.2",
         "ggmm-one/model-helpers-for-laravel": "1.5.0",
         "ggmm-one/eloquent-hashids": "1.1.0",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "^8.14",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.0",
+        "laravel/ui": "^3.1",
         "facade/ignition": "^2.5",
         "fideloper/proxy": "^4.4",
         "timacdonald/rule-builder": "^4.0"
