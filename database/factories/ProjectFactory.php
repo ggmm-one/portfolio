@@ -1,20 +1,26 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
 use App\Project;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
-$factory->define(Project::class, function (Faker $faker) {
-    $faker->addProvider(new Timestamps($faker));
-    $faker->addProvider(new Lorem($faker));
-    return Timestamps::appendTimestamps($faker, [
-        'type' => Arr::random(array_keys(Project::TYPES)),
-        'status' => Arr::random(array_keys(Project::STATUS)),
-        'name' => $faker->loremTitle,
-        'code' => $faker->optional(0.5)->ean8,
-        'start' =>$faker->optional(0.5)->dateTime,
-        'duration' => $faker->numberBetween(1, 12),
-        'description' => $faker->paragraph,
-        'score' => $faker->numberBetween(1, 10)
-    ]);
-});
+class ProjectFactory extends Factory
+{
+    protected $model = Project::class;
+
+    public function definition()
+    {
+        return [
+            'type' => Arr::random(array_keys(Project::TYPES)),
+            'status' => Arr::random(array_keys(Project::STATUS)),
+            'name' => $this->faker->words(3, true),
+            'code' => $this->faker->optional(0.5)->ean8,
+            'start' =>$this->faker->optional(0.5)->dateTime,
+            'duration' => $this->faker->numberBetween(1, 12),
+            'description' => $this->faker->paragraph,
+            'score' => $this->faker->numberBetween(1, 10),
+        ];
+    }
+}

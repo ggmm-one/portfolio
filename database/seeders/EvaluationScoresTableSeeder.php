@@ -1,10 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Project;
+namespace Database\Seeders;
+
 use App\EvaluationItem;
 use App\EvaluationScore;
+use App\Project;
 use App\Services\ProjectScoringService;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class EvaluationScoresTableSeeder extends Seeder
 {
@@ -12,9 +15,9 @@ class EvaluationScoresTableSeeder extends Seeder
     {
         foreach (Project::select('id')->orderBy('id')->get() as $project) {
             foreach (EvaluationItem::select('id')->orderBy('id')->get() as $item) {
-                factory(EvaluationScore::class)->create([
+                EvaluationScore::factory()->create([
                     'project_id' => $project->id,
-                    'evaluation_item_id' => $item->id
+                    'evaluation_item_id' => $item->id,
                 ]);
             }
         }

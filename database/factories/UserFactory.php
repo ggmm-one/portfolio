@@ -1,17 +1,23 @@
 <?php
 
+namespace Database\Factories;
+
 use App\User;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(User::class, function (Faker $faker) {
-    $faker->addProvider(new Person($faker));
+class UserFactory extends Factory
+{
+    protected $model = User::class;
 
-    return Timestamps::appendTimestamps($faker, [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => $faker->dateTime,
-        'password' => '$2y$10$/X8Opco2jiLLPuBE2Il6h.NjBDEoOZ8o8RKZtE.ZGUQclCDdyfqTe', //passwd
-        'created_at' => $faker->dateTime,
-        'updated_at' => $faker->dateTime,
-    ]);
-});
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'email_verified_at' => $this->faker->dateTime,
+            'password' => '$2y$10$/X8Opco2jiLLPuBE2Il6h.NjBDEoOZ8o8RKZtE.ZGUQclCDdyfqTe', //passwd
+            'created_at' => $this->faker->dateTime,
+            'updated_at' => $this->faker->dateTime,
+        ];
+    }
+}

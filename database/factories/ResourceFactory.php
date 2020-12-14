@@ -1,13 +1,19 @@
 <?php
 
-use App\Resource;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Resource::class, function (Faker $faker) {
-    $faker->addProvider(new Timestamps($faker));
-    $faker->addProvider(new Lorem($faker));
-    return Timestamps::appendTimestamps($faker, [
-        'name' => $faker->loremTitle,
-        'description' => $faker->paragraph()
-    ]);
-});
+use App\Resource;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ResourceFactory extends Factory
+{
+    protected $model = Resource::class;
+
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->words(3, true),
+            'description' => $this->faker->paragraph(),
+        ];
+    }
+}

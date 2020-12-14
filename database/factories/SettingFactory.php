@@ -1,16 +1,18 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Setting;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Setting::class, function (Faker $faker) {
-    $faker->addProvider(new Timestamps($faker));
+class SettingFactory extends Factory
+{
+    protected $model = Setting::class;
 
-    return [
-        'evaluation_max' => $faker->numberBetween(3, 10),
-        'created_at' => $faker->createdAt,
-        'updated_at' => $faker->updatedAt,
-    ];
-});
+    public function definition()
+    {
+        return [
+            'evaluation_max' => $this->faker->numberBetween(3, 10),
+        ];
+    }
+}

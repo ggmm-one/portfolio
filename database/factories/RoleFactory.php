@@ -1,20 +1,23 @@
 <?php
 
+namespace Database\Factories;
+
 use App\Role;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
-$factory->define(Role::class, function (Faker $faker) {
-    $faker->addProvider(new Timestamps($faker));
-    $faker->addProvider(new Lorem($faker));
+class RoleFactory extends Factory
+{
+    protected $model = Role::class;
 
-    return [
-        'name' => $faker->loremTitle,
-        'permission_portfolios' => Arr::random(array_keys(Role::PERMISSIONS)),
-        'permission_projects' => Arr::random(array_keys(Role::PERMISSIONS)),
-        'permission_resources' => Arr::random(array_keys(Role::PERMISSIONS)),
-        'permission_admin' => Arr::random(array_keys(Role::PERMISSIONS)),
-        'created_at' => $faker->createdAt,
-        'updated_at' => $faker->updatedAt,
-    ];
-});
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->words(3, true),
+            'permission_portfolios' => Arr::random(array_keys(Role::PERMISSIONS)),
+            'permission_projects' => Arr::random(array_keys(Role::PERMISSIONS)),
+            'permission_resources' => Arr::random(array_keys(Role::PERMISSIONS)),
+            'permission_admin' => Arr::random(array_keys(Role::PERMISSIONS)),
+        ];
+    }
+}

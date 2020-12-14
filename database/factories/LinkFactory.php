@@ -1,14 +1,19 @@
 <?php
 
+namespace Database\Factories;
+
 use App\Link;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Link::class, function (Faker $faker) {
-    $faker->addProvider(new Timestamps($faker));
-    $faker->addProvider(new Lorem($faker));
+class LinkFactory extends Factory
+{
+    protected $model = Link::class;
 
-    return Timestamps::appendTimestamps($faker, [
-        'title' => $faker->loremTitle,
-        'url' => $faker->url,
-    ]);
-});
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->words(3, true),
+            'url' => $this->faker->url,
+        ];
+    }
+}

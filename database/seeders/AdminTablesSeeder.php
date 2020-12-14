@@ -1,31 +1,33 @@
 <?php
 
-use App\ResourceType;
-use App\Setting;
+namespace Database\Seeders;
+
 use App\EvaluationItem;
 use App\PortfolioUnit;
-use Illuminate\Database\Seeder;
+use App\ResourceType;
 use App\Services\ProjectScoringService;
+use App\Setting;
+use Illuminate\Database\Seeder;
 
 class AdminTablesSeeder extends Seeder
 {
     public function run()
     {
-        factory(Setting::class)->create();
+        Setting::factory()->create();
 
         foreach (ResourceType::CATEGORIES as $key => $value) {
-            factory(ResourceType::class)->create([
+            ResourceType::factory()->create([
                     'category' => $key,
-                    'name' => $value
+                    'name' => $value,
                 ]);
         }
 
-        factory(EvaluationItem::class, rand(10, 20))->create();
+        EvaluationItem::factory()->count(rand(10, 20))->create();
         (new ProjectScoringService)->updateWeightFactor();
 
-        factory(PortfolioUnit::class)->create([
+        PortfolioUnit::factory()->create([
                 'name' => 'Main Portfolio',
-                'type' => PortfolioUnit::TYPE_PORTFOLIO
+                'type' => PortfolioUnit::TYPE_PORTFOLIO,
             ]);
     }
 }

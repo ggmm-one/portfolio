@@ -1,14 +1,19 @@
 <?php
 
+namespace Database\Factories;
+
 use App\ResourceOwner;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(ResourceOwner::class, function (Faker $faker) {
-    $faker->addProvider(new Person($faker));
-    $faker->addProvider(new Timestamps($faker));
+class ResourceOwnerFactory extends Factory
+{
+    protected $model = ResourceOwner::class;
 
-    return Timestamps::appendTimestamps($faker, [
-        'name' => $faker->name,
-        'email' => $faker->safeEmail,
-    ]);
-});
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+        ];
+    }
+}

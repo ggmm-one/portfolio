@@ -1,12 +1,20 @@
 <?php
 
-use App\EvaluationScore;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(EvaluationScore::class, function (Faker $faker) {
-    return [
-        'score' => $faker->numberBetween(1, 10),
-        'weighted_score' => $faker->numberBetween(1, 10),
-        'description' => $faker->paragraph()
-    ];
-});
+use App\EvaluationScore;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class EvaluationScoreFactory extends Factory
+{
+    protected $model = EvaluationScore::class;
+
+    public function definition()
+    {
+        return [
+            'score' => $this->faker->numberBetween(1, 10),
+            'weighted_score' => $this->faker->numberBetween(1, 10),
+            'description' => $this->faker->paragraph(),
+        ];
+    }
+}

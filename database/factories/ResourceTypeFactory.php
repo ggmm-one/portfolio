@@ -1,13 +1,20 @@
 <?php
 
+namespace Database\Factories;
+
 use App\ResourceType;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 
-$factory->define(ResourceType::class, function (Faker $faker) {
-    $faker->addProvider(new Timestamps($faker));
+class ResourceTypeFactory extends Factory
+{
+    protected $model = ResourceType::class;
 
-    return Timestamps::appendTimestamps($faker, [
-        'category' => Arr::random(array_keys(ResourceType::CATEGORIES)),
-        'name' => $faker->unique()->sentence(2),
-    ]);
-});
+    public function definition()
+    {
+        return [
+            'category' => Arr::random(array_keys(ResourceType::CATEGORIES)),
+            'name' => $this->faker->unique()->sentence(2),
+        ];
+    }
+}

@@ -1,16 +1,22 @@
 <?php
 
+namespace Database\Factories;
+
 use App\ResourceCapacity;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
-$factory->define(ResourceCapacity::class, function (Faker $faker) {
-    $faker->addProvider(new Timestamps($faker));
+class ResourceCapacityFactory extends Factory
+{
+    protected $model = ResourceCapacity::class;
 
-    return Timestamps::appendTimestamps($faker, [
-        'start' => $faker->sequentialDate,
-        'end' => $faker->sequentialDate,
-        'type' => Arr::random(array_keys(ResourceCapacity::TYPES)),
-        'quantity' => $faker->numberBetween(5, 1000),
-    ]);
-});
+    public function definition()
+    {
+        return [
+            'start' => $this->faker->date,
+            'end' => $this->faker->date,
+            'type' => Arr::random(array_keys(ResourceCapacity::TYPES)),
+            'quantity' => $this->faker->numberBetween(5, 1000),
+        ];
+    }
+}
