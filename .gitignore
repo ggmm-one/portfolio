@@ -15,3 +15,6 @@ storage/*.key
 .env
 Homestead.yaml
 Homestead.json
+
+#phpunit
+.phpunit*
