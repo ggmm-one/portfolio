@@ -3,16 +3,10 @@
 namespace App\Http\Requests;
 
 use App\EvaluationItem;
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class EvaluationItemRequest extends FormRequest
+final class EvaluationItemRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [

@@ -3,16 +3,10 @@
 namespace App\Http\Requests;
 
 use App\ResourceOwner;
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class ResourceOwnerRequest extends FormRequest
+final class ResourceOwnerRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [

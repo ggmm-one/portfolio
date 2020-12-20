@@ -3,16 +3,10 @@
 namespace App\Http\Requests;
 
 use App\PortfolioUnit;
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class PortfolioUnitRequest extends FormRequest
+final class PortfolioUnitRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         $rules = [

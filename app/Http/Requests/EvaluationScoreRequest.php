@@ -4,16 +4,10 @@ namespace App\Http\Requests;
 
 use App\EvaluationScore;
 use App\Setting;
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class EvaluationScoreRequest extends FormRequest
+final class EvaluationScoreRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         if ($this->routeIs('*edit')) {

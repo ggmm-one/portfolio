@@ -2,16 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class ProjectConstraintRequest extends FormRequest
+final class ProjectConstraintRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         if ($this->routeIs('*store')) {

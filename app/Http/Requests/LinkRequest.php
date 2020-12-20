@@ -3,16 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Link;
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class LinkRequest extends FormRequest
+final class LinkRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [

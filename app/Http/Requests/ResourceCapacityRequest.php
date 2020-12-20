@@ -6,16 +6,10 @@ use App\Libraries\DateHelper;
 use App\Model;
 use App\ResourceCapacity;
 use App\Rules\NoIntervalOverlap;
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class ResourceCapacityRequest extends FormRequest
+final class ResourceCapacityRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [

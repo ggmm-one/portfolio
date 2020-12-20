@@ -3,16 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Comment;
-use Illuminate\Foundation\Http\FormRequest;
 use TiMacDonald\Validation\Rule;
 
-class CommentRequest extends FormRequest
+final class CommentRequest extends BaseFormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [
