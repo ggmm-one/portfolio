@@ -20,7 +20,7 @@ class Role extends Model
     ];
 
     protected $fillable = [
-        'name', 'permission_portfolios', 'permission_projects', 'permission_resources', 'permission_resources', 'permission_admin',
+        'name', 'permission_portfolios', 'permission_projects', 'permission_resources', 'permission_admin',
     ];
 
     public function users()
