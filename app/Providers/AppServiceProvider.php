@@ -8,6 +8,7 @@ use App\Resource;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('activeTab', function ($expression) {
             return "<?php echo Str::startsWith(Route::currentRouteName(), {$expression}) ? 'active' : '' ?>";
         });
+
+        Paginator::useBootstrap();
     }
 
     private function bootBlueprint()

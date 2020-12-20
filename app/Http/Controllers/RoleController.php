@@ -34,7 +34,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        $this->authorize('view', $role);
+        $this->authorize('update', $role);
 
         return view('roles.edit', compact('role'));
     }
