@@ -18,3 +18,4 @@ Homestead.json
 
 #phpunit
 .phpunit*
+tests/coverage/*
