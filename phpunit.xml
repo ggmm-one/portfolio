@@ -9,6 +9,9 @@
     <testsuite name="UnitRequests">
       <directory suffix="Test.php">./tests/Unit/Requests</directory>
     </testsuite>
+    <testsuite name="UnitModels">
+      <directory suffix="Test.php">./tests/Unit/Models</directory>
+    </testsuite>
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>
