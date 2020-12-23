@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Project;
 use App\ProjectOrderConstraint;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -11,6 +12,9 @@ class ProjectOrderConstraintFactory extends Factory
 
     public function definition()
     {
-        return [];
+        return [
+            'before_project_id' => Project::factory(),
+            'after_project_id' => Project::factory(),
+        ];
     }
 }

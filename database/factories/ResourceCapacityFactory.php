@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Resource;
 use App\ResourceCapacity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
@@ -13,6 +14,7 @@ class ResourceCapacityFactory extends Factory
     public function definition()
     {
         return [
+            'resource_id' => Resource::factory(),
             'start' => $this->faker->date,
             'end' => $this->faker->date,
             'type' => Arr::random(array_keys(ResourceCapacity::TYPES)),
