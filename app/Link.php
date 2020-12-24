@@ -31,28 +31,8 @@ class Link extends Model
         return $this->morphTo();
     }
 
-    public function scopePortfolioGoals($query)
+    public function scopeSubtype($query, $subtype)
     {
-        return $query->where('linkable_subtype', self::SUBTYPE_PORTFOLIO_GOAL);
-    }
-
-    public function scopePortfolioReports($query)
-    {
-        return $query->where('linkable_subtype', self::SUBTYPE_PORTFOLIO_REPORT);
-    }
-
-    public function scopePortfolioOther($query)
-    {
-        return $query->where('linkable_subtype', self::SUBTYPE_PORTFOLIO_OTHER);
-    }
-
-    public function scopeProjectReports($query)
-    {
-        return $query->where('linkable_subtype', self::SUBTYPE_PROJECT_REPORT);
-    }
-
-    public function scopeProjectOther($query)
-    {
-        return $query->where('linkable_subtype', self::SUBTYPE_PROJECT_OTHER);
+        return $query->where('linkable_subtype', $subtype);
     }
 }
