@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37c032cc23365cbe8485f4dd8f236def",
+    "content-hash": "47a61a59b1a35d058ec63af946950954",
     "packages": [
         {
             "name": "brick/math",
@@ -700,16 +700,16 @@
         },
         {
             "name": "ggmm-one/model-helpers-for-laravel",
-            "version": "1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ggmm-one/model-helpers-for-laravel.git",
-                "reference": "68dbd1e0ee4043a96b29a5ce98e1da3d79674723"
+                "reference": "df397026274426a665b30e18dcaf333213ee8fbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ggmm-one/model-helpers-for-laravel/zipball/68dbd1e0ee4043a96b29a5ce98e1da3d79674723",
-                "reference": "68dbd1e0ee4043a96b29a5ce98e1da3d79674723",
+                "url": "https://api.github.com/repos/ggmm-one/model-helpers-for-laravel/zipball/df397026274426a665b30e18dcaf333213ee8fbe",
+                "reference": "df397026274426a665b30e18dcaf333213ee8fbe",
                 "shasum": ""
             },
             "require": {
@@ -732,7 +732,7 @@
                 }
             ],
             "description": "A set of helpers for building Laravel apps even faster",
-            "time": "2020-09-18T23:35:53+00:00"
+            "time": "2020-12-24T05:52:16+00:00"
         },
         {
             "name": "graham-campbell/result-type",
