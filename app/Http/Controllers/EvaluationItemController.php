@@ -16,7 +16,7 @@ class EvaluationItemController extends Controller
     public function index()
     {
         $this->authorize('viewAny', EvaluationItem::class);
-        $evaluationItems = EvaluationItem::sorted()->get();
+        $evaluationItems = EvaluationItem::ordered()->get();
         $sum = array_sum(Arr::pluck($evaluationItems, 'weight'));
 
         return view('evaluation_items.index', compact('evaluationItems', 'sum'));

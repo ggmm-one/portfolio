@@ -32,6 +32,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $with = ['role'];
 
+    protected $hasOrder = ['name'];
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -45,10 +47,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function setRoleHashidAttribute($value)
     {
         $this->attributes['role_id'] = (new Role)->hashidToId($value);
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('name');
     }
 }

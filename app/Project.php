@@ -62,6 +62,8 @@ class Project extends Model
         'status' => self::STATUS_DRAFT,
     ];
 
+    protected $hasOrder = ['name'];
+
     public function portfolio()
     {
         return $this->belongsTo(PortfolioUnit::class, 'portfolio_unit_id');
@@ -87,20 +89,6 @@ class Project extends Model
         return $this->hasMany(ProjectOrderConstraint::class, 'after_project_id');
     }
 
-    public function getOtherLinksAttribute()
-    {
-        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PROJECT_OTHER)
-            ->ordered()
-            ->get();
-    }
-
-    public function getReportsAttribute()
-    {
-        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PROJECT_REPORT)
-            ->ordered()
-            ->get();
-    }
-
     public function getFormattedScoreAttribute()
     {
         return number_format($this->attributes['score'], 2);
@@ -116,10 +104,5 @@ class Project extends Model
                 $query->select('after_project_id')->from('project_order_constraints')->where('before_project_id', $projectId)->whereNull('deleted_at');
             })
             ->ordered()->get()->pluck('name', 'hashid');
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('name');
     }
 }

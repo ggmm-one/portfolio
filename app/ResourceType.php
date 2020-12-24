@@ -30,6 +30,8 @@ class ResourceType extends Model
         'category' => self::CATEGORY_FINANCIAL,
     ];
 
+    protected $hasOrder = ['name'];
+
     public function resources()
     {
         return $this->hasMany(Resource::class);
@@ -38,11 +40,6 @@ class ResourceType extends Model
     public function getCategoryNameAttribute()
     {
         return self::CATEGORIES[$this->category];
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('name');
     }
 
     public static function getSelectList()

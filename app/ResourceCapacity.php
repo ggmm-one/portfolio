@@ -30,13 +30,10 @@ class ResourceCapacity extends Model
         'start', 'end',
     ];
 
+    protected $hasOrder = ['start'];
+
     public function getTypeNameAttribute()
     {
         return self::TYPES[$this->type];
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('start');
     }
 }

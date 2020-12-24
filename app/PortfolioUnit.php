@@ -39,26 +39,7 @@ class PortfolioUnit extends Model
         'type' => self::TYPE_PORTFOLIO,
     ];
 
-    public function getGoalsAttribute()
-    {
-        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_GOAL)
-            ->ordered()
-            ->get();
-    }
-
-    public function getReportsAttribute()
-    {
-        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_REPORT)
-            ->ordered()
-            ->get();
-    }
-
-    public function getOtherLinksAttribute()
-    {
-        return $this->links()->where('linkable_subtype', Link::SUBTYPE_PORTFOLIO_OTHER)
-            ->ordered()
-            ->get();
-    }
+    protected $hasOrder = ['name'];
 
     public function parent()
     {
@@ -96,10 +77,5 @@ class PortfolioUnit extends Model
     public function scopeHierarchyOrdered($query)
     {
         return $query->orderBy('hierarchy_order');
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('name');
     }
 }

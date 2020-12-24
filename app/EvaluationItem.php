@@ -21,6 +21,8 @@ class EvaluationItem extends Model
         'sort_order' => 'integer',
     ];
 
+    protected $hasOrder = ['sort_order'];
+
     public function evaluationScores()
     {
         return $this->hasMany(EvaluationScore::class);
@@ -30,10 +32,5 @@ class EvaluationItem extends Model
     {
         $this->attributes['weight'] = $value;
         $this->attributes['weight_factor'] = $value;
-    }
-
-    public function scopeSorted($query)
-    {
-        return $query->orderBy('sort_order');
     }
 }

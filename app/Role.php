@@ -23,14 +23,11 @@ class Role extends Model
         'name', 'permission_portfolios', 'permission_projects', 'permission_resources', 'permission_admin',
     ];
 
+    protected $hasOrder = ['name'];
+
     public function users()
     {
         return $this->hasMany(User::class);
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('name');
     }
 
     public static function getSelectList()

@@ -15,10 +15,7 @@ class ResourceOwner extends Model
         'name', 'email',
     ];
 
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('name');
-    }
+    protected $hasOrder = ['name'];
 
     public static function getSelectList()
     {

@@ -24,13 +24,35 @@ class Link extends Model
         'sort_order' => 0,
     ];
 
+    protected $hasOrder = ['sort_order', 'title'];
+
     public function linkable()
     {
         return $this->morphTo();
     }
 
-    public function scopeOrdered($query)
+    public function scopePortfolioGoals($query)
     {
-        return $query->orderBy('sort_order')->orderBy('title');
+        return $query->where('linkable_subtype', self::SUBTYPE_PORTFOLIO_GOAL);
+    }
+
+    public function scopePortfolioReports($query)
+    {
+        return $query->where('linkable_subtype', self::SUBTYPE_PORTFOLIO_REPORT);
+    }
+
+    public function scopePortfolioOther($query)
+    {
+        return $query->where('linkable_subtype', self::SUBTYPE_PORTFOLIO_OTHER);
+    }
+
+    public function scopeProjectReports($query)
+    {
+        return $query->where('linkable_subtype', self::SUBTYPE_PROJECT_REPORT);
+    }
+
+    public function scopeProjectOther($query)
+    {
+        return $query->where('linkable_subtype', self::SUBTYPE_PROJECT_OTHER);
     }
 }
