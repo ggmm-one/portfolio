@@ -16,6 +16,9 @@ class ResourceAllocationFactory extends Factory
         return [
             'project_id' => Project::factory(),
             'resource_id' => Resource::factory(),
+            'month' => $this->faker->numberBetween(1, 11),
+            'quantity' => $this->faker->numberBetween(1, 20),
+            'sort_order' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

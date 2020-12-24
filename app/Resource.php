@@ -47,7 +47,7 @@ class Resource extends Model
 
     public function allocations()
     {
-        return $this->belongsTo(ResourceAllocation::class, 'resource_id');
+        return $this->hasMany(ResourceAllocation::class, 'resource_id');
     }
 
     public function getResourceTypeHashidAttribute()
