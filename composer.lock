@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47a61a59b1a35d058ec63af946950954",
+    "content-hash": "27d4af015e8d27e835af3fc9e92ec40a",
     "packages": [
         {
             "name": "brick/math",
@@ -663,16 +663,16 @@
         },
         {
             "name": "ggmm-one/eloquent-hashids",
-            "version": "v1.1.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ggmm-one/eloquent-hashids.git",
-                "reference": "5513d51fd15e144dc83834284ff8ce99753a8843"
+                "reference": "fa5b47e2ed4409f9cbb9c525d2de800f4d2569b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ggmm-one/eloquent-hashids/zipball/5513d51fd15e144dc83834284ff8ce99753a8843",
-                "reference": "5513d51fd15e144dc83834284ff8ce99753a8843",
+                "url": "https://api.github.com/repos/ggmm-one/eloquent-hashids/zipball/fa5b47e2ed4409f9cbb9c525d2de800f4d2569b6",
+                "reference": "fa5b47e2ed4409f9cbb9c525d2de800f4d2569b6",
                 "shasum": ""
             },
             "require": {
@@ -696,7 +696,7 @@
                 }
             ],
             "description": "Add hashids to your Eloquent models on-the-fly",
-            "time": "2020-09-21T08:41:14+00:00"
+            "time": "2020-12-25T10:00:36+00:00"
         },
         {
             "name": "ggmm-one/model-helpers-for-laravel",

@@ -15,6 +15,7 @@ class LinkController extends Controller
         $data = [
             'holdingModel' => $request->holdingModel,
             'project' => $request->holdingModel,
+            'portfolioUnit' => $request->holdingModel,
             'links' => $request->holdingModel->links()->subtype($request->routeSubtype)->get(),
         ];
 
@@ -43,7 +44,7 @@ class LinkController extends Controller
     {
         $this->authorize('view', $request->holdingModel);
 
-        $link = Link::findOrFail($request->holdingModel->decodeHashid($request->link));
+        $link = Link::findOrFailByHashid($request->link);
 
         return view('links.edit', ['holdingModel' => $request->holdingModel, 'link' => $link]);
     }
@@ -52,7 +53,7 @@ class LinkController extends Controller
     {
         $this->authorize('update', $request->holdingModel);
 
-        Link::findOrFail($request->holdingModel->decodeHashid($request->link))->update($request->validated());
+        Link::findOrFailByHashid($request->link)->update($request->validated());
 
         return Redirect::route(str_replace('update', 'index', $request->route()->getName()), $request->route()->parameters());
     }
@@ -61,7 +62,7 @@ class LinkController extends Controller
     {
         $this->authorize('delete', $request->holdingModel);
 
-        Link::findOrFail($request->holdingModel->decodeHashid($request->link))->delete();
+        Link::findOrFailByHashid($request->link)->delete();
 
         return Redirect::route(str_replace('destroy', 'index', $request->route()->getName()), $request->route()->parameters());
     }

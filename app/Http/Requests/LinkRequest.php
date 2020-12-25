@@ -35,7 +35,7 @@ final class LinkRequest extends BaseFormRequest
         }
     }
 
-    public function parseAdditionalInfo()
+    private function parseAdditionalInfo()
     {
         $nameParts = explode('.', $this->route()->getName());
         $this->routeGroup = $nameParts[0];
@@ -43,10 +43,10 @@ final class LinkRequest extends BaseFormRequest
         $this->routeAction = $nameParts[2];
 
         if ($this->routeGroup == 'projects') {
-            $this->holdingModel = Project::findOrFail((new Project)->decodeHashid($this->project));
+            $this->holdingModel = Project::findOrFailByHashid($this->project);
             $this->routeSubtype = $this->projectSubtypes[$this->routeType];
         } elseif ($this->routeGroup == 'portfolio_units') {
-            $this->holdingModel = PortfolioUnit::findOrFail((new PortfolioUnit)->decodeHashid($this->portfolio_unit));
+            $this->holdingModel = PortfolioUnit::findOrFailByHashid($this->portfolio_unit);
             $this->routeSubtype = $this->portfolioSubtypes[$this->routeType];
         }
     }
