@@ -7,6 +7,7 @@ use App\EvaluationItem;
 use App\EvaluationScore;
 use App\Policies\AdminModulePolicy;
 use App\Policies\CommentPolicy;
+use App\Policies\LinkPolicy;
 use App\Policies\PortfoliosModulePolicy;
 use App\Policies\ProjectsModulePolicy;
 use App\Policies\ResourcesModulePolicy;
@@ -22,15 +23,19 @@ use App\Role;
 use App\Setting;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+/**
+ * @codeCoverageIgnore
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
         Comment::class => CommentPolicy::class,
         EvaluationItem::class => AdminModulePolicy::class,
         EvaluationScore::class => ProjectsModulePolicy::class,
+        Link::class => LinkPolicy::class,
+        PortfolioUnit::class => PortfoliosModulePolicy::class,
         Project::class => ProjectsModulePolicy::class,
         ProjectOrderConstraint::class => ProjectsModulePolicy::class,
-        PortfolioUnit::class => PortfoliosModulePolicy::class,
         Resource::class => ResourcesModulePolicy::class,
         ResourceAllocation::class => ProjectsModulePolicy::class,
         ResourceCapacity::class => ResourcesModulePolicy::class,
