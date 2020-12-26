@@ -2,8 +2,10 @@
 
 namespace Tests\Unit\Models;
 
+use App\Comment;
 use App\EvaluationItem;
 use App\EvaluationScore;
+use App\Link;
 use App\PortfolioUnit;
 use App\Project;
 use App\ProjectOrderConstraint;
@@ -51,5 +53,25 @@ class ProjectTest extends TestCase
         $project = Project::factory()->create();
         $order = ProjectOrderConstraint::factory()->create(['after_project_id' => $project->id]);
         $this->assertEquals(1, $project->afterProjects->count());
+    }
+
+    public function testLinks()
+    {
+        $project = Project::factory()->create();
+        $link = Link::factory()->create([
+            'linkable_id' => $project->id,
+            'linkable_type' => Project::MORPH_SHORT_NAME,
+        ]);
+        $this->assertEquals(1, $project->links->count());
+    }
+
+    public function testComments()
+    {
+        $project = Project::factory()->create();
+        $link = Comment::factory()->create([
+            'commentable_id' => $project->id,
+            'commentable_type' => Project::MORPH_SHORT_NAME,
+        ]);
+        $this->assertEquals(1, $project->comments->count());
     }
 }
