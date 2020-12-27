@@ -1,6 +1,8 @@
 <?php
 
-Route::view('/', 'root');
+use App\Providers\RouteServiceProvider;
+
+Route::view(RouteServiceProvider::HOME, 'root');
 
 Route::get('auth/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('auth/login', 'Auth\LoginController@login');

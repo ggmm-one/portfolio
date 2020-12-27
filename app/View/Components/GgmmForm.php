@@ -24,7 +24,7 @@ class GgmmForm extends Form
         if ($this->bind->exists) {
             $action = route($action.'.update', [$this->bind]);
         } else {
-            $action = route($action.'store');
+            $action = route($action.'.store');
         }
         $attributes['action'] = $action;
 

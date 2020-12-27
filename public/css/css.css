@@ -1,78 +1,28 @@
-#app-navbar {
-    background: #C33764;
-    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
-    background: linear-gradient(to right, #1D2671, #C33764);
-    border-bottom: 1px solid #1D2671;
-    color:white;
+a {
+    text-decoration: none;
 }
 
-#app-navbar a {
-    color:white;
+.card, form, div[role='alert'], button[type='submit'] {
+    margin-top: 1.3rem;
 }
 
-a.app-navbar-toggler-close {
-    display: none;
+.card-header span, legend {
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
-#app-navbar:target .collapsible,  #app-navbar-section:target .collapsible {
-    display: -ms-flexbox !important;
-    display: flex !important;
+legend {
+    padding: 0.77rem;
 }
 
-#app-navbar:target .app-navbar-toggler-open, #app-navbar-section:target .app-navbar-toggler-open {
-    display: none;
-}
-
-#app-navbar:target .app-navbar-toggler-close, #app-navbar-section:target .app-navbar-toggler-close {
-    display: inline;
-}
-
-#app-navbar-section-nav a {
-    color: #007bff;
-}
-
-td.app-action a, div.app-action a {
-    margin-right: 1rem;
-}
-
-div.app-auth-login-card {
-    margin-top: 3rem;
-}
-
-div.app-comments-card {
-    margin-bottom: 1rem;
-}
-
-div.app-comments-footer {
-    font-size: 0.56rem;
-    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-}
-
-div.app-comments-footer span {
-    margin-left: 1rem;
-}
-
-div.app-content {
-    margin-top: 2rem;
-}
-
-span.app-filtered-tag {
-    font-style: italic;
-    font-size: 0.88rem;
-    color: silver;
-}
-
-form.app-form {
-    margin-top: 1rem;
-}
-
-footer.app-footer {
+footer {
     margin-top: 7rem;
     margin-bottom: 3rem;
     font-size: 0.5rem;
+    text-align: center;
 }
 
-footer.app-footer span {
+footer span {
     margin-right: 1rem;
     margin-left: 1rem;
 }

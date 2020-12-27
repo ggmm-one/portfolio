@@ -18,6 +18,6 @@ class LoginController extends Controller
 
     protected function loggedOut(Request $request)
     {
-        return redirect('/auth/login');
+        return redirect(RouteServiceProvider::AUTH_LOGIN);
     }
 }

@@ -3,7 +3,7 @@
         <a name="{{ $comment->hashid }}"></a>
         @include('comments.inc.form')
     </div>
-    <div class="card-footer bg-light text-right text-muted app-comments-footer">
+    <div class="card-footer bg-light text-right text-muted">
         &nbsp;
     </div>
 </div>

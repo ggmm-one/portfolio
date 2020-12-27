@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-sm-8 offset-sm-2">
-        <div class="card app-auth-login-card">
+        <div class="card">
             <div class="card-header">
                 <h2 class="card-title">{{ __('Reset Password') }}</h2>
             </div>

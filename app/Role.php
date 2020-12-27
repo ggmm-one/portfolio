@@ -30,11 +30,6 @@ class Role extends Model
         return $this->hasMany(User::class);
     }
 
-    public static function getSelectList()
-    {
-        return self::ordered()->get()->pluck('name', 'hashid');
-    }
-
     public function adminNone()
     {
         return $this->permission_admin == static::PERMISSION_NONE;

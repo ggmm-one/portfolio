@@ -1,6 +1,6 @@
 <tr>
     <td>{{ $role->name }}</td>
-    <td class="app-action">
+    <td>
         <a href="{{ route('roles.edit', [$role]) }}">{{ __('Edit') }}</a>
     </td>
 </tr>

@@ -1,16 +1,15 @@
-@extends('layouts.frame_app')
+@extends('layouts.base')
 
-@include('layouts.navbars.admin')
+@include('layouts.navbars.primary.main')
+@include('layouts.navbars.secondary.admin')
 
 @section('content')
 
-    @include('inc.flash_msg')
-
     @bind($role)
-    <x-form class="app-form">
+    <x-form>
         <fieldset class="form-group">
             <x-ggmm-form-header>
-                <x-form-input name="name" label="Name" :maxlength="\App\Role::DD_NAME_LENGTH" autofocus required />
+                <x-form-input name="name" label="Name" :maxlength="\App\Role::DD_NAME_LENGTH" default="New Role" autofocus required />
                 <x-form-group name="permission_portfolios" label="Portfolios" :default="\App\Role::PERMISSION_NONE" inline>
                     <x-form-radio name="permission_portfolios" :value="\App\Role::PERMISSION_NONE" label="None" />
                     <x-form-radio name="permission_portfolios" :value="\App\Role::PERMISSION_READ" label="Read" />

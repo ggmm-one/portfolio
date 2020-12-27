@@ -1,5 +1,3 @@
-@extends('layouts.frame_app')
+@extends('layouts.base')
 
-@section('content')
-&nbsp;
-@endsection
+@include('layouts.navbars.primary.main')

@@ -1,28 +1,29 @@
-@extends('layouts.frame_app')
+@extends('layouts.base')
 
-@section('pagetitle', __('Roles'))
-
-@include('layouts.navbars.admin')
+@include('layouts.navbars.primary.main')
+@include('layouts.navbars.secondary.admin')
 
 @section('content')
 
-@include('inc.flash_msg')
+    <div class="card">
+        <div class="card-header">
+            <span>{{ __('Roles') }}</span>
+            @can('create', App\Role::class) <a href="{{ route('roles.create') }}" class="btn btn-primary float-right">{{ __('Add') }}</a>
+            @endcan
+        </div>
 
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand">{{ __('Roles') }}</span>
-    @can('create', App\Role::class) <a href="{{ route('roles.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
-</nav>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>{{ __('Name') }}</th>
-            <th>{{ __('Actions') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        @each('roles.index_item', $roles, 'role', 'roles.index_item_empty')
-    </tbody>
-</table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ __('Name') }}</th>
+                    <th>{{ __('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @each('roles.index_item', $roles, 'role', 'roles.index_item_empty')
+            </tbody>
+        </table>
+    </div>
 
 @endsection

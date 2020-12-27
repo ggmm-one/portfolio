@@ -1,5 +1,5 @@
 @if (Request::isFiltered())
-    <span class="app-filtered-tag">
-        ({{ __('Filtered') }})
     <span>
+        ({{ __('Filtered') }})
+    </span>
 @endif

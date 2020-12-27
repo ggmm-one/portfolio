@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     public const HOME = '/';
+    public const AUTH_LOGIN = '/auth/login';
 
     protected $namespace = 'App\\Http\\Controllers';
 
