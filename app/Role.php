@@ -30,6 +30,11 @@ class Role extends Model
         return $this->hasMany(User::class);
     }
 
+    public function scopeSelectList($query)
+    {
+        return $query->select('id', 'name')->orderBy('name');
+    }
+
     public function adminNone()
     {
         return $this->permission_admin == static::PERMISSION_NONE;

@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public const DD_EMAIL_LENGTH = 256;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role_hashid',
+        'name', 'email', 'password', 'role_id',
     ];
 
     protected $hidden = [
@@ -37,15 +37,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function role()
     {
         return $this->belongsTo(Role::class);
-    }
-
-    public function getRoleHashidAttribute()
-    {
-        return $this->role ? $this->role->hashid : null;
-    }
-
-    public function setRoleHashidAttribute($value)
-    {
-        $this->attributes['role_id'] = (new Role)->hashidToId($value);
     }
 }

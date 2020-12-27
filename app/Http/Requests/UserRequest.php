@@ -12,7 +12,7 @@ final class UserRequest extends BaseFormRequest
         return [
             'name' => Rule::required()->string(1, User::DD_NAME_LENGTH)->get(),
             'email' => Rule::required()->email(User::DD_EMAIL_LENGTH)->unique('users')->ignore($this->user->id ?? -1)->get(),
-            'role_hashid' => Rule::required()->get(),
+            'role_id' => Rule::required()->exists('roles', 'id')->get(),
         ];
     }
 }

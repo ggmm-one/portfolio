@@ -42,6 +42,7 @@ class RoleController extends Controller
     public function update(RoleRequest $request, Role $role)
     {
         $this->authorize('update', $role);
+
         $role->update($request->validated());
 
         return Redirect::route('roles.index');
@@ -50,6 +51,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $this->authorize('delete', $role);
+
         $role->deleteIfNotReferenced();
 
         return Redirect::route('roles.index');

@@ -15,6 +15,6 @@ class UserRequestTest extends TestCase
         $this->assertCount(3, $rules);
         $this->assertArrayHasKey('name', $rules);
         $this->assertArrayHasKey('email', $rules);
-        $this->assertArrayHasKey('role_hashid', $rules);
+        $this->assertArrayHasKey('role_id', $rules);
     }
 }
