@@ -11,10 +11,10 @@ class GgmmForm extends Form
 
     private $bind;
 
-    public function __construct(string $method = 'POST', $bind = null)
+    public function __construct()
     {
-        $this->bind = $bind === null ? $this->getBoundTarget() : $bind;
-        $method = $this->bind->exists ? 'PATCH' : $method;
+        $this->bind = $this->getBoundTarget();
+        $method = $this->bind->exists ? 'PATCH' : 'POST';
         parent::__construct($method);
     }
 
