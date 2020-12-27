@@ -1,39 +1,40 @@
 @extends('layouts.frame_app')
 
-@page_title(['title' => $role])
-
 @include('layouts.navbars.admin')
 
 @section('content')
 
-@include('inc.flash_msg')
+    @include('inc.flash_msg')
 
-<nav class="navbar navbar-light bg-light app-nav-section">
-    <span class="navbar-brand">{{ __($role->exists ? 'Edit Role' : 'Add Role') }}</span>
-    <x-delete-model :model="$role" class="btn btn-primary" />
-</nav>
+    <nav class="navbar navbar-light bg-light app-nav-section">
+        <span class="navbar-brand">{{ __($role->exists ? 'Edit Role' : 'Add Role') }}</span>
+    </nav>
 
-<form method="POST" action="{{ $role->exists ? route('roles.update', [$role]) : route('roles.store') }}" class="app-form">
-    @csrf
-    @if ($role->exists)
-    @method('PATCH')
-    @endif
-    @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $role->name), 'control_validation' => 'required autofocus maxlenght='.\App\Role::DD_NAME_LENGTH])
-    @foreach (['portfolios', 'projects', 'resources', 'admin'] as $type)
-    <div class="form-group form-row">
-        <label for="permission_{{ $type }}" class="col-sm-2 offset-sm-1 col-form-label">{{ __(Str::title($type)) }}</label>
-        @foreach (\App\Role::PERMISSIONS as $k => $v)
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="permission_{{ $type }}" id="permission_{{ $type }}" value="{{ $k }}" required @if ($role->{'permission_'.$type} == $k)
-            checked=checked
-            @endif
-            >
-            <label class="form-check-label" for="permission_{{ $type }}">{{ __($v) }}</label>
-        </div>
-        @endforeach
-    </div>
-    @endforeach
-    @can('update', $role) @form_submit @endcan
-</form>
+    @bind($role)
+    <x-form class="app-form">
+        <x-form-input name="name" label="Name" :maxlength="\App\Role::DD_NAME_LENGTH" autofocus required />
+        <x-form-group name="permission_portfolios" label="Portfolios" :default="\App\Role::PERMISSION_NONE" inline>
+            <x-form-radio name="permission_portfolios" :value="\App\Role::PERMISSION_NONE" label="None" />
+            <x-form-radio name="permission_portfolios" :value="\App\Role::PERMISSION_READ" label="Read" />
+            <x-form-radio name="permission_portfolios" :value="\App\Role::PERMISSION_ALL" label="All" />
+        </x-form-group>
+        <x-form-group name="permission_projects" label="Projects" :default="\App\Role::PERMISSION_NONE" inline>
+            <x-form-radio name="permission_projects" :value="\App\Role::PERMISSION_NONE" label="None" />
+            <x-form-radio name="permission_projects" :value="\App\Role::PERMISSION_READ" label="Read" />
+            <x-form-radio name="permission_projects" :value="\App\Role::PERMISSION_ALL" label="All" />
+        </x-form-group>
+        <x-form-group name="permission_resources" label="Resources" :default="\App\Role::PERMISSION_NONE" inline>
+            <x-form-radio name="permission_resources" :value="\App\Role::PERMISSION_NONE" label="None" />
+            <x-form-radio name="permission_resources" :value="\App\Role::PERMISSION_READ" label="Read" />
+            <x-form-radio name="permission_resources" :value="\App\Role::PERMISSION_ALL" label="All" />
+        </x-form-group>
+        <x-form-group name="permission_admin" label="Resources" :default="\App\Role::PERMISSION_NONE" inline>
+            <x-form-radio name="permission_admin" :value="\App\Role::PERMISSION_NONE" label="None" />
+            <x-form-radio name="permission_admin" :value="\App\Role::PERMISSION_READ" label="Read" />
+            <x-form-radio name="permission_admin" :value="\App\Role::PERMISSION_ALL" label="All" />
+        </x-form-group>
+        <x-form-submit>Save</x-form-submit>
+    </x-form>
+    @endbind
 
 @endsection

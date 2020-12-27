@@ -44,7 +44,7 @@ class RoleController extends Controller
         $this->authorize('update', $role);
         $role->update($request->validated());
 
-        return Redirect::route('roles.edit', [$role]);
+        return Redirect::route('roles.index');
     }
 
     public function destroy(Role $role)

@@ -11,12 +11,13 @@
         "php": "^7.3",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "ggmm-one/eloquent-hashids": "^1.3",
+        "ggmm-one/model-helpers-for-laravel": "^1.6",
         "guzzlehttp/guzzle": "^7.0",
         "laravel/framework": "^8.20",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
-        "ggmm-one/model-helpers-for-laravel": "^1.6",
-        "ggmm-one/eloquent-hashids": "^1.3",
+        "protonemedia/laravel-form-components": "^2.5",
         "timacdonald/rule-builder": "^4.0"
     },
     "require-dev": {
