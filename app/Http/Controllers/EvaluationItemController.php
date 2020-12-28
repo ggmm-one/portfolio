@@ -16,6 +16,7 @@ class EvaluationItemController extends Controller
     public function index()
     {
         $this->authorize('viewAny', EvaluationItem::class);
+
         $evaluationItems = EvaluationItem::ordered()->get();
         $sum = array_sum(Arr::pluck($evaluationItems, 'weight'));
 
@@ -25,6 +26,7 @@ class EvaluationItemController extends Controller
     public function create()
     {
         $this->authorize('create', EvaluationItem::class);
+
         $evaluationItem = new EvaluationItem();
 
         return view('evaluation_items.edit', compact('evaluationItem'));
@@ -33,6 +35,7 @@ class EvaluationItemController extends Controller
     public function store(EvaluationItemRequest $request, ProjectScoringService $projectScoringService)
     {
         $this->authorize('create', EvaluationItem::class);
+
         DB::transaction(function () use ($request, $projectScoringService) {
             $evaluationItem = EvaluationItem::create($request->validated());
             foreach (Project::all() as $project) {
@@ -60,6 +63,7 @@ class EvaluationItemController extends Controller
     public function update(EvaluationItemRequest $request, EvaluationItem $evaluationItem, ProjectScoringService $projectScoringService)
     {
         $this->authorize('update', $evaluationItem);
+
         DB::transaction(function () use ($evaluationItem, $request, $projectScoringService) {
             $evaluationItem->update($request->validated());
             $projectScoringService->recalculateAll();
@@ -71,6 +75,7 @@ class EvaluationItemController extends Controller
     public function destroy(EvaluationItem $evaluationItem, ProjectScoringService $projectScoringService)
     {
         $this->authorize('delete', $evaluationItem);
+
         DB::transaction(function () use ($evaluationItem, $projectScoringService) {
             $evaluationItem->delete();
             $projectScoringService->recalculateAll();

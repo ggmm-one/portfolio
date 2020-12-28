@@ -13,5 +13,6 @@
             <x-form-submit>Save</x-form-submit>
         </x-ggmm-form-header>
     </x-form>
+    @endbind
 
 @endsection
