@@ -1,29 +1,29 @@
-@extends('layouts.frame_app')
+@extends('layouts.base')
 
-@section('pagetitle', 'Resources')
-
-@include('layouts.navbars.resources')
+@include('layouts.navbars.primary.main')
+@include('layouts.navbars.secondary.resources')
 
 @section('content')
 
-@include('inc.flash_msg')
+    <div class="card">
+        <div class="card-header">
+            <span>{{ __('Resource Owners') }}</span>
+            @can('create', App\ResourceOwner::class) <a href="{{ route('resource_owners.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
+        </div>
 
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand">{{ __('Resource Owners') }}</span>
-    @can('create', App\ResourceOwner::class) <a href="{{ route('resource_owners.create') }}" class="btn btn-primary">{{ __('Add') }}</a> @endcan
-</nav>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>{{ __('Name') }}</th>
-            <th>{{ __('Email') }}</th>
-            <th>{{ __('Actions') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        @each('resource_owners.index_item', $resourceOwners, 'resourceOwner', 'resource_owners.index_item_empty')
-    </tbody>
-</table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ __('Name') }}</th>
+                    <th>{{ __('Email') }}</th>
+                    <th>{{ __('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @each('resource_owners.index_item', $resourceOwners, 'resourceOwner', 'resource_owners.index_item_empty')
+            </tbody>
+        </table>
+    </div>
 
 @endsection
