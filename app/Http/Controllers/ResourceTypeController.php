@@ -11,6 +11,7 @@ class ResourceTypeController extends Controller
     public function index()
     {
         $this->authorize('viewAny', ResourceType::class);
+
         $resourceTypes = ResourceType::ordered()->get();
 
         return view('resource_types.index', compact('resourceTypes'));
@@ -19,6 +20,7 @@ class ResourceTypeController extends Controller
     public function create()
     {
         $this->authorize('create', ResourceType::class);
+
         $resourceType = new ResourceType();
 
         return view('resource_types.edit', compact('resourceType'));
@@ -27,6 +29,7 @@ class ResourceTypeController extends Controller
     public function store(ResourceTypeRequest $request)
     {
         $this->authorize('create', ResourceType::class);
+
         ResourceType::create($request->validated());
 
         return Redirect::route('resource_types.index');
@@ -42,6 +45,7 @@ class ResourceTypeController extends Controller
     public function update(ResourceTypeRequest $request, ResourceType $resourceType)
     {
         $this->authorize('update', $resourceType);
+
         $resourceType->update($request->validated());
 
         return Redirect::route('resource_types.index');
@@ -50,6 +54,7 @@ class ResourceTypeController extends Controller
     public function destroy(ResourceType $resourceType)
     {
         $this->authorize('delete', $resourceType);
+
         $resourceType->deleteIfNotReferenced();
 
         return Redirect::route('resource_types.index');

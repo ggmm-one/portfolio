@@ -1,26 +1,17 @@
-@extends('layouts.frame_app')
+@extends('layouts.base')
 
-@page_title(['title' => $resourceType])
-
-@include('layouts.navbars.admin')
+@include('layouts.navbars.primary.main')
+@include('layouts.navbars.secondary.admin')
 
 @section('content')
 
-@include('inc.flash_msg')
-
-<nav class="navbar navbar-light bg-light app-nav-section">
-    <span class="navbar-brand">{{ __($resourceType->exists ? 'Edit Resource Type' : 'Add Resource Type') }}</span>
-    <x-delete-model :model="$resourceType" class="btn btn-primary" />
-</nav>
-
-<form method="POST" action="{{ $resourceType->exists? route('resource_types.update', ['resource_type' => $resourceType]) : route('resource_types.store') }}" class="app-form">
-    @csrf
-    @if ($resourceType->exists)
-    @method('PATCH')
-    @endif
-    @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $resourceType->name), 'control_validation' => 'required autofocus maxlenght='.\App\ResourceType::DD_NAME_LENGTH])
-    @form_select(['control_id' => 'category', 'control_label' => 'Category', 'control_value' => old('category', $resourceType->category),'select_options' => App\ResourceType::CATEGORIES, 'control_size' => 'm'])
-    @can('update', $resourceType) @form_submit @endcan
-</form>
+    @bind($resourceType)
+    <x-form>
+        <x-ggmm-form-header>
+            <x-form-input name="name" label="Name" :maxlength="\App\ResourceType::DD_NAME_LENGTH" autofocus required />
+            <x-form-select name="category" label="Category" :options="\App\ResourceType::CATEGORIES" />
+            <x-form-submit>Save</x-form-submit>
+        </x-ggmm-form-header>
+    </x-form>
 
 @endsection
