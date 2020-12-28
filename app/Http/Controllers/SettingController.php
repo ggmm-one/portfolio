@@ -22,6 +22,7 @@ class SettingController extends Controller
     {
         $setting = Setting::first();
         $this->authorize('update', $setting);
+
         $setting->fill($request->validated());
         if ($setting->isDirty('evaluation_max') && EvaluationScore::where('score', '>', $setting->evaluation_max)->exists()) {
             Session::flash('flash-warning', 'Cannot change Evaluation Highest Score as there are evaluations assigned with higher values. Please change any evaluation higher than the new score and try again.');
