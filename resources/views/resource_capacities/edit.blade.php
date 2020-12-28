@@ -1,23 +1,21 @@
-@extends('layouts.frame_app')
+@extends('layouts.base')
 
-@page_title(['title' => $resourceCapacity])
-
-@include('layouts.navbars.resources')
+@include('layouts.navbars.primary.main')
+@include('layouts.navbars.secondary.resources')
+@include('layouts.navbars.tertiary.resources')
 
 @section('content')
 
-@include('layouts.headers.resources')
-
-<form method="POST" action="{{ $formAction }}" class="app-form">
-    @csrf
-    @if($resourceCapacity->exists)
-    @method('PATCH')
-    @endif
-    @form_input(['input_type' => 'date', 'control_id' => 'start', 'control_label' => 'Start', 'control_value' => old('start', $resourceCapacity->start->toDateString()), 'control_validation' => 'required autofocus'])
-    @form_input(['input_type' => 'date', 'control_id' => 'end', 'control_label' => 'End', 'control_value' => old('end', $resourceCapacity->end->toDateString()), 'control_validation' => 'required'])
-    @form_select(['control_id' => 'type', 'control_label' => 'Type', 'control_value' => old('type', $resourceCapacity->type),'select_options' => \App\ResourceCapacity::TYPES, 'control_size' => 'm'])
-    @form_input(['input_type' => 'number', 'control_id' => 'quantity', 'control_label' => 'Quantity', 'control_value' => old('quantity', $resourceCapacity->quantity), 'control_size' => 'm', 'control_validation' => 'min=0 autofocus max='.\App\ResourceCapacity::DD_QUANTITY_MAX])
-    @can('update', $resource)) @form_submit @endcan
-</form>
+    @bind($resourceCapacity)
+    <x-form>
+        <x-ggmm-form-header>
+            <x-form-input type="date" name="start" label="Start" autofocus required />
+            <x-form-input type="date" name="end" label="End" required />
+            <x-form-select name="type" label="Type" :options="\App\ResourceCapacity::TYPES" />
+            <x-form-input type="number" name="quantity" label="Quantity" min="0" :max="\App\ResourceCapacity::DD_QUANTITY_MAX" required />
+            <x-form-submit>Save</x-form-submit>
+        </x-ggmm-form-header>
+    </x-form>
+    @endbind
 
 @endsection

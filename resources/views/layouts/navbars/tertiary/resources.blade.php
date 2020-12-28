@@ -1,20 +1,18 @@
-@include('inc.flash_msg')
+@section('navbar-tertiary')
 
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand">{{ $resource->name }}</span>
-    <div>
-        @if (Request::route()->getName() == 'resources.index'))
-            <x-delete-model :model="$resource" class="btn btn-primary" />
-        @endif
-    </div>
-</nav>
-<ul class="nav nav-tabs bg-light">
-    <li class="nav-item"><a href="{{ route('resources.edit', ['resource' => $resource]) }}"
-            class="nav-link @activeTab('resources.edit')">{{ __('Info') }}</a></li>
-    @if ($resource->exists)
-        <li class="nav-item"><a href="{{ route('resource_capacities.index', ['resource' => $resource]) }}"
-                class="nav-link @activeTab('resource_capacities')">{{ __('Capacity') }}</a></li>
-        <li class="nav-item"><a href="{{ route('resources.comments.index', ['resource' => $resource]) }}"
-                class="nav-link @activeTab('resources.comments')">{{ __('Comments') }}</a></li>
-    @endif
-</ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">{{ $resource->name }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTertiaryResources" aria-controls="navbarTertiaryResources" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTertiaryResources">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('resources.edit', [$resource]) }}">{{ __('Info') }}</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('resource_capacities.index', [$resource]) }}">{{ __('Capacity') }}</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('resources.comments.index', [$resource]) }}">{{ __('Comments') }}</a>
+                </ul>
+            </div>
+    </nav>
+
+@endsection

@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Support\Facades\Route;
 use ProtoneMedia\LaravelFormComponents\Components\Form;
 use ProtoneMedia\LaravelFormComponents\Components\HandlesBoundValues;
 
@@ -20,13 +21,10 @@ class GgmmForm extends Form
 
     public function withAttributes(array $attributes)
     {
-        $action = $this->bind->getTable();
-        if ($this->bind->exists) {
-            $action = route($action.'.update', [$this->bind]);
-        } else {
-            $action = route($action.'.store');
-        }
-        $attributes['action'] = $action;
+        $routeName = $this->bind->getTable();
+        $routeName .= $this->bind->exists ? '.update' : 'store';
+
+        $attributes['action'] = route($routeName, Route::current()->parameters());
 
         return parent::withAttributes($attributes);
     }

@@ -17,8 +17,8 @@ class ResourceOwner extends Model
 
     protected $hasOrder = ['name'];
 
-    public static function getSelectList()
+    public function scopeSelectList($query)
     {
-        return self::ordered()->get()->pluck('name', 'hashid');
+        return $query->select('id', 'name')->orderBy('name');
     }
 }

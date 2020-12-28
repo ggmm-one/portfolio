@@ -14,8 +14,8 @@ class ResourceRequestTest extends TestCase
         $this->assertTrue($request->authorize());
         $this->assertCount(4, $rules);
         $this->assertArrayHasKey('name', $rules);
-        $this->assertArrayHasKey('resource_type_hashid', $rules);
-        $this->assertArrayHasKey('resource_owner_hashid', $rules);
+        $this->assertArrayHasKey('resource_type_id', $rules);
+        $this->assertArrayHasKey('resource_owner_id', $rules);
         $this->assertArrayHasKey('description', $rules);
     }
 }

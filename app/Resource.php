@@ -23,11 +23,7 @@ class Resource extends Model
     ];
 
     protected $fillable = [
-        'name', 'resource_type_hashid', 'resource_owner_hashid', 'description',
-    ];
-
-    protected $attributes = [
-        'name' => 'New Resource',
+        'name', 'resource_type_id', 'resource_owner_id', 'description',
     ];
 
     public function owner()
@@ -48,26 +44,6 @@ class Resource extends Model
     public function allocations()
     {
         return $this->hasMany(ResourceAllocation::class, 'resource_id');
-    }
-
-    public function getResourceTypeHashidAttribute()
-    {
-        return $this->type ? $this->type->hashid : null;
-    }
-
-    public function setResourceTypeHashidAttribute($value)
-    {
-        $this->attributes['resource_type_id'] = (new ResourceType)->hashidToId($value);
-    }
-
-    public function getResourceOwnerHashidAttribute()
-    {
-        return $this->owner ? $this->owner->hashid : null;
-    }
-
-    public function setResourceOwnerHashidAttribute($value)
-    {
-        $this->attributes['resource_owner_id'] = (new ResourceOwner)->hashidToId($value);
     }
 
     public static function getSelectList()
