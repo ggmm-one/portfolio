@@ -56,12 +56,6 @@ class Project extends Model
         'start', 'start_after', 'end_before',
     ];
 
-    protected $attributes = [
-        'name' => 'New Project',
-        'type' => self::TYPE_PROJECT,
-        'status' => self::STATUS_DRAFT,
-    ];
-
     protected $hasOrder = ['name'];
 
     public function portfolio()

@@ -21,11 +21,6 @@ class ResourceCapacity extends Model
         'start', 'end', 'quantity', 'type',
     ];
 
-    protected $attributes = [
-        'quantity' => 0,
-        'type' => self::TYPE_UNLIMITED,
-    ];
-
     protected $dates = [
         'start', 'end',
     ];

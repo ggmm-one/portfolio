@@ -12,6 +12,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('resource_owners.index') }}">{{ __('Owners') }}</a>
                 </ul>
             </div>
+        </div>
     </nav>
 
 @endsection

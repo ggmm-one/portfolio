@@ -34,11 +34,6 @@ class PortfolioUnit extends Model
         'name', 'type', 'parent_hashid', 'description',
     ];
 
-    protected $attributes = [
-        'name' => 'New Portfolio',
-        'type' => self::TYPE_PORTFOLIO,
-    ];
-
     protected $hasOrder = ['name'];
 
     public function parent()
@@ -63,15 +58,9 @@ class PortfolioUnit extends Model
         }
     }
 
-    public static function getSelectList(self $portfolioUnit = null)
+    public function scopeSelectList($query, $arg)
     {
-        $root = self::select('id', 'name')->whereNull('parent_id');
-        $query = self::select('id', 'name')->union($root)->whereNotNull('parent_id')->ordered();
-        if ($portfolioUnit) {
-            $query->where('id', '<>', $portfolioUnit->id);
-        }
-
-        return $query->get()->pluck('name', 'hashid');
+        return $query->select('id', 'name')->where('id', '<>', $arg)->orderBy('name');
     }
 
     public function scopeHierarchyOrdered($query)

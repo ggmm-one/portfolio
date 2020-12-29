@@ -1,19 +1,25 @@
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand">{{ $project->name }}</span>
-    <div>
-        @if (Request::route()->getName() == 'projects.edit')
-            <x-delete-model :model="$project" class="btn btn-primary" />
-        @endif
-    </div>
-</nav>
-<ul class="nav nav-tabs bg-light">
-    <li class="nav-item"><a href="{{ route('projects.edit', compact('project')) }}" class="nav-link @activeTab('projects.edit')">{{ __('Info') }}</a></li>
-    @if ($project->exists)
-        <li class="nav-item"><a href="{{ route('resource_allocations.index', compact('project')) }}" class="nav-link @activeTab('resource_allocations')">{{ __('Resources') }}</a></li>
-        <li class="nav-item"><a href="{{ route('evaluation_scores.index', compact('project')) }}" class="nav-link @activeTab('evaluation_scores')">{{ __('Evaluation') }}</a></li>
-        <li class="nav-item"><a href="{{ route('project_order_constraints.index', compact('project')) }}" class="nav-link @activeTab('project_order_constraints')">{{ __('Constraints') }}</a></li>
-        <li class="nav-item"><a href="{{ route('projects.reports.index', compact('project')) }}" class="nav-link @activeTab('projects.reports')">{{ __('Reports') }}</a></li>
-        <li class="nav-item"><a href="{{ route('projects.links.index', compact('project')) }}" class="nav-link @activeTab('projects.links')">{{ __('Links') }}</a></li>
-        <li class="nav-item"><a href="{{ route('projects.comments.index', compact('project')) }}" class="nav-link @activeTab('projects.comments')">{{ __('Comments') }}</a></li>
-    @endif
-</ul>
+@section('navbar-tertiary')
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">{{ $project->name }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTertiaryProjects" aria-controls="navbarTertiaryProjects" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTertiaryProjects">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('projects.edit', compact('project')) }}">{{ __('Info') }}</a>
+                        @if ($project->exists)
+                    <li class="nav-item"><a class="nav-link" href="{{ route('resource_allocations.index', compact('project')) }}">{{ __('Resources') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('evaluation_scores.index', compact('project')) }}">{{ __('Evaluation') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('project_order_constraints.index', compact('project')) }}">{{ __('Constraints') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('projects.reports.index', compact('project')) }}">{{ __('Reports') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('projects.links.index', compact('project')) }}">{{ __('Links') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('projects.comments.index', compact('project')) }}">{{ __('Comments') }}</a></li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+@endsection

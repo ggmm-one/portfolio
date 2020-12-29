@@ -13,6 +13,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('resources.comments.index', [$resource]) }}">{{ __('Comments') }}</a>
                 </ul>
             </div>
+        </div>
     </nav>
 
 @endsection

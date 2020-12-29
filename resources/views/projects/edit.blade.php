@@ -1,27 +1,24 @@
-@extends('layouts.frame_app')
+@extends('layouts.base')
 
-@page_title(['title' => $project])
+@include('layouts.navbars.primary.main')
+@include('layouts.navbars.tertiary.projects')
 
 @section('content')
 
-@include('inc.flash_msg')
-
-@include('layouts.headers.projects')
-
-<form method="POST" action="{{ $formAction }}" class="app-form">
-    @csrf
-    @if($project->exists)
-    @method('PATCH')
-    @endif
-    @form_input(['input_type' => 'text', 'control_id' => 'name', 'control_label' => 'Name', 'control_value' => old('name', $project->name), 'control_validation' => 'required autofocus maxlenght='.\App\Project::DD_NAME_LENGTH])
-    @form_input(['input_type' => 'text', 'control_id' => 'code', 'control_label' => 'Code', 'control_value' => old('code', $project->code), 'control_validation' => 'maxlength='.\App\Project::DD_CODE_LENGTH, 'control_size' => 'm'])
-    @form_select(['control_id' => 'portfolio_unit_hashid', 'control_label' => 'Portfolio', 'control_value' => old('portfolio_unit_hashid', $project->portfolio_unit_hashid),'select_options' => $portfolios])
-    @form_select(['control_id' => 'type', 'control_label' => 'Type', 'control_value' => old('type', $project->type),'select_options' => App\Project::TYPES, 'control_size' => 'm'])
-    @form_select(['control_id' => 'status', 'control_label' => 'Status', 'control_value' => old('status', $project->status),'select_options' => App\Project::STATUS, 'control_size' => 'm'])
-    @form_input(['input_type' => 'date', 'control_id' => 'start', 'control_label' => 'Start', 'control_value' => old('start', isset($project->start) ? $project->start->toDateString() : '')])
-    @form_input(['input_type' => 'number', 'control_id' => 'duration', 'control_label' => 'Duration (months)', 'control_value' => old('duration', $project->duration), 'control_validation' => 'min=1 max='.\App\Project::DD_DURATION_MAX, 'control_size' => 'm'])
-    @form_textarea(['control_id' => 'description', 'control_label' => 'Description', 'control_value' => old('description', $project->description), 'control_validation' => 'maxlength='.\App\Project::DD_DESCRIPTION_LENGTH])
-    @can('update', $project) @form_submit @endcan
-</form>
+    @bind($project)
+    <x-form>
+        <x-ggmm-form-header>
+            <x-form-input name="name" label="Name" autofocus required :maxlenght="\App\Project::DD_NAME_LENGTH" />
+            <x-form-input name="code" label="Code" required :maxlenght="\App\Project::DD_CODE_LENGTH" />
+            <x-form-select name="portfolio_unit_id" label="Portfolio" :options="\App\PortfolioUnit::selectList($project->id)->get()->pluck('name', 'id')" />
+            <x-form-select name="type" label="Type" :options="App\Project::TYPES" />
+            <x-form-select name="status" label="Status" :options="App\Project::STATUS" />
+            <x-form-input type="date" name="start" label="Start" />
+            <x-form-input type="number" name="duration" label="Duration (months)" />
+            <x-form-textarea name="description" label="Description" />
+            <x-form-submit>Save</x-form-submit>
+        </x-ggmm-form-header>
+    </x-form>
+    @endbind
 
 @endsection

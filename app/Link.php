@@ -18,12 +18,6 @@ class Link extends Model
         'title', 'url', 'sort_order',
     ];
 
-    protected $attributes = [
-        'title' => '',
-        'url' => '',
-        'sort_order' => 0,
-    ];
-
     protected $hasOrder = ['sort_order', 'title'];
 
     public function linkable()

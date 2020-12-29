@@ -23,8 +23,8 @@ class ResourceAllocationController extends Controller
     public function create(Project $project)
     {
         $this->authorize('create', ResourceAllocation::class);
+
         $resourceAllocation = new ResourceAllocation();
-        $formAction = route('resource_resources.store', compact('project'));
 
         return view('resource_allocations.edit', array_merge(compact('project', 'resourceAllocation', 'formAction'), $this->dropdowns($project)));
     }

@@ -17,14 +17,4 @@ class ResourceAllocation extends Model
     {
         return $this->belongsTo(Project::class);
     }
-
-    public function getResourceHashidAttribute()
-    {
-        return $this->resource ? $this->resource->hashid : null;
-    }
-
-    public function setResourceHashidAttribute($value)
-    {
-        $this->attributes['resource_id'] = (new Resource)->hashidToId($value);
-    }
 }
