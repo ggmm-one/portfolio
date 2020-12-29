@@ -58,7 +58,7 @@ class PortfolioUnit extends Model
         }
     }
 
-    public function scopeSelectList($query, $arg)
+    public function scopeSelectList($query, $arg = -1)
     {
         return $query->select('id', 'name')->where('id', '<>', $arg)->orderBy('name');
     }

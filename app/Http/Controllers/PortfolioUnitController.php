@@ -13,6 +13,7 @@ class PortfolioUnitController extends Controller
     public function index()
     {
         $this->authorize('viewAny', PortfolioUnit::class);
+
         $portfolioUnits = PortfolioUnit::hierarchyOrdered()->get();
 
         return view('portfolio_units.index', compact('portfolioUnits'));
@@ -21,15 +22,16 @@ class PortfolioUnitController extends Controller
     public function create()
     {
         $this->authorize('create', PortfolioUnit::class);
-        $portfolioUnit = new PortfolioUnit();
-        $availParents = PortfolioUnit::getSelectList();
 
-        return view('portfolio_units.edit', compact('portfolioUnit', 'availParents'));
+        $portfolioUnit = new PortfolioUnit();
+
+        return view('portfolio_units.edit', compact('portfolioUnit'));
     }
 
     public function store(PortfolioUnitRequest $request)
     {
         $this->authorize('create', PortfolioUnit::class);
+
         $portfolioUnit = PortfolioUnit::create($request->validated());
         self::processHierarchy();
 
@@ -38,22 +40,22 @@ class PortfolioUnitController extends Controller
 
     public function edit(PortfolioUnit $portfolioUnit)
     {
-        $this->authorize('view', $portfolioUnit);
-        $availParents = PortfolioUnit::getSelectList($portfolioUnit);
+        $this->authorize('update', $portfolioUnit);
 
-        return view('portfolio_units.edit', compact('portfolioUnit', 'availParents'));
+        return view('portfolio_units.edit', compact('portfolioUnit'));
     }
 
     public function update(PortfolioUnitRequest $request, PortfolioUnit $portfolioUnit, PortfolioHierarchyService $portfolioHierarchyService)
     {
         $this->authorize('update', $portfolioUnit);
+
         $validated = $request->validated();
         DB::transaction(function () use ($portfolioUnit, $validated, $portfolioHierarchyService) {
             $portfolioUnit->update($validated);
             $portfolioHierarchyService->process();
         });
 
-        return back();
+        return Redirect::route('portfolio_units.index');
     }
 
     public function destroy(PortfolioUnit $portfolioUnit, PortfolioHierarchyService $portfolioHierarchyService)
