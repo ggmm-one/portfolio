@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Comment;
-use App\PortfolioUnit;
+use App\Portfolio;
 use App\Project;
 use Symfony\Component\HttpFoundation\Request;
 use TiMacDonald\Validation\Rule;
@@ -26,8 +26,8 @@ final class CommentRequest extends BaseFormRequest
 
         if ($this->routeGroup == 'projects') {
             $this->holdingModel = Project::findOrFailByHashid($this->project);
-        } elseif ($this->routeGroup == 'portfolio_units') {
-            $this->holdingModel = PortfolioUnit::findOrFailByHashid($this->portfolio_unit);
+        } elseif ($this->routeGroup == 'portfolios') {
+            $this->holdingModel = Portfolio::findOrFailByHashid($this->portfolio);
         }
     }
 }

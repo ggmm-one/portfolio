@@ -1,9 +1,9 @@
 <?php
 
 use App\Project;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProjectsTable extends Migration
 {
@@ -11,7 +11,7 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->modelHeader();
-            $table->bigInteger('portfolio_unit_id');
+            $table->bigInteger('portfolio_id');
             $table->char('type', 1);
             $table->char('status', 1);
             $table->decimal('score', 5, 3);
@@ -23,8 +23,8 @@ class CreateProjectsTable extends Migration
             $table->date('start_after')->nullable();
             $table->date('end_before')->nullable();
             $table->modelFooter();
-            $table->index('portfolio_unit_id', 'ix_projects_portfolio_unit_id');
-            $table->foreign('portfolio_unit_id', 'fk_projects_portfolio_unit_id')->references('id')->on('portfolio_units');
+            $table->index('portfolio_id', 'ix_projects_portfolio_id');
+            $table->foreign('portfolio_id', 'fk_projects_portfolio_id')->references('id')->on('portfolios');
         });
     }
 

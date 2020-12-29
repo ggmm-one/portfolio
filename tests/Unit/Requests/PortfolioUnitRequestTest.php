@@ -2,20 +2,19 @@
 
 namespace Tests\Unit\Requests;
 
-use App\Http\Requests\PortfolioUnitRequest;
+use App\Http\Requests\PortfolioRequest;
 use Tests\TestCase;
 
 class PortfolioUnitRequestTest extends TestCase
 {
     public function testRules()
     {
-        $request = new PortfolioUnitRequest();
+        $request = new PortfolioRequest();
         $rules = $request->rules();
         $this->assertTrue($request->authorize());
-        $this->assertCount(4, $rules);
+        $this->assertCount(3, $rules);
         $this->assertArrayHasKey('name', $rules);
         $this->assertArrayHasKey('description', $rules);
-        $this->assertArrayHasKey('type', $rules);
-        $this->assertArrayHasKey('parent_hashid', $rules);
+        $this->assertArrayHasKey('parent_id', $rules);
     }
 }

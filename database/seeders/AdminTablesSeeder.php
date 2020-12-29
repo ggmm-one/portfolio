@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\EvaluationItem;
-use App\PortfolioUnit;
+use App\Portfolio;
 use App\ResourceType;
 use App\Services\ProjectScoringService;
 use App\Setting;
@@ -25,9 +25,8 @@ class AdminTablesSeeder extends Seeder
         EvaluationItem::factory()->count(rand(10, 20))->create();
         (new ProjectScoringService)->updateWeightFactor();
 
-        PortfolioUnit::factory()->create([
+        Portfolio::factory()->create([
                 'name' => 'Main Portfolio',
-                'type' => PortfolioUnit::TYPE_PORTFOLIO,
             ]);
     }
 }

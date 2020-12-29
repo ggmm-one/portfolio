@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Link;
-use App\PortfolioUnit;
+use App\Portfolio;
 use App\Project;
 use Symfony\Component\HttpFoundation\Request;
 use TiMacDonald\Validation\Rule;
@@ -45,8 +45,8 @@ final class LinkRequest extends BaseFormRequest
         if ($this->routeGroup == 'projects') {
             $this->holdingModel = Project::findOrFailByHashid($this->project);
             $this->routeSubtype = $this->projectSubtypes[$this->routeType];
-        } elseif ($this->routeGroup == 'portfolio_units') {
-            $this->holdingModel = PortfolioUnit::findOrFailByHashid($this->portfolio_unit);
+        } elseif ($this->routeGroup == 'portfolios') {
+            $this->holdingModel = Portfolio::findOrFailByHashid($this->portfolio);
             $this->routeSubtype = $this->portfolioSubtypes[$this->routeType];
         }
     }

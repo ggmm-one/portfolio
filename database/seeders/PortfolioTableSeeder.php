@@ -4,18 +4,18 @@ namespace Database\Seeders;
 
 use App\Comment;
 use App\Link;
-use App\PortfolioUnit;
+use App\Portfolio;
 use App\Services\PortfolioHierarchyService;
 use App\User;
 use Illuminate\Database\Seeder;
 
-class PortfolioUnitsTableSeeder extends Seeder
+class PortfolioTableSeeder extends Seeder
 {
     public function run()
     {
         $users = User::select('id')->whereNull('deleted_at')->pluck('id');
-        $root = PortfolioUnit::select('id')->whereNull('parent_id')->value('id');
-        PortfolioUnit::factory()->count(rand(10, 20))->create([
+        $root = Portfolio::select('id')->whereNull('parent_id')->value('id');
+        Portfolio::factory()->count(rand(10, 20))->create([
                 'parent_id' => $root,
                 ])->each(function ($portfolio) use ($users) {
                     $portfolio->comments()->saveMany(Comment::factory()->count(rand(1, 10))->make([

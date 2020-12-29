@@ -6,7 +6,7 @@ use App\Comment;
 use App\EvaluationItem;
 use App\EvaluationScore;
 use App\Link;
-use App\PortfolioUnit;
+use App\Portfolio;
 use App\Project;
 use App\ProjectOrderConstraint;
 use App\ResourceAllocation;
@@ -16,16 +16,16 @@ class ProjectTest extends TestCase
 {
     public function testPortfolio()
     {
-        $portfolioUnit = PortfolioUnit::factory()->create();
-        $project = Project::factory()->create(['portfolio_unit_id' => $portfolioUnit->id]);
-        $this->assertInstanceOf(PortfolioUnit::class, $project->portfolio);
-        $this->assertEquals($project->portfolio->id, $portfolioUnit->id);
+        $portfolio = Portfolio::factory()->create();
+        $project = Project::factory()->create(['portfolio_id' => $portfolio->id]);
+        $this->assertInstanceOf(Portfolio::class, $project->portfolio);
+        $this->assertEquals($project->portfolio->id, $portfolio->id);
     }
 
     public function testEvaluationScores()
     {
-        $portfolioUnit = PortfolioUnit::factory()->create();
-        $project = Project::factory()->create(['portfolio_unit_id' => $portfolioUnit->id]);
+        $portfolio = Portfolio::factory()->create();
+        $project = Project::factory()->create(['portfolio_id' => $portfolio->id]);
         $evaluationItem = EvaluationItem::factory()->create();
         EvaluationScore::factory()->create([
             'project_id' => $project->id,

@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
     {
         $roles = Role::select('id')->where('name', '<>', 'Admin')->pluck('id');
         $admin = Role::select('id')->where('name', 'Admin')->pluck('id');
-        for ($i = 0; $i < rand(10, 20); $i++) {
+        for ($i = 0; $i < rand(2, 6); $i++) {
             User::factory()->create([
                 'role_id' => $roles->random(),
             ]);

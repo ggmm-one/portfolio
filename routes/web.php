@@ -15,12 +15,12 @@ Route::post('auth/logout', 'Auth\LoginController@logout')->name('logout');
 
 //PORTFOLIOS SECTION
 
-Route::resource('portfolio_units', 'PortfolioUnitController')->except(['show']);
-Route::group(['prefix'=>'portfolio_units/{portfolio_unit}'], function () {
-    Route::resource('goals', 'LinkController', ['as' => 'portfolio_units', 'parameters' => ['goals' => 'link']])->except(['show']);
-    Route::resource('reports', 'LinkController', ['as' => 'portfolio_units', 'parameters' => ['reports' => 'link']])->except(['show']);
-    Route::resource('links', 'LinkController', ['as' => 'portfolio_units'])->except(['show']);
-    Route::resource('comments', 'CommentController', ['as' => 'portfolio_units'])->except(['show', 'create']);
+Route::resource('portfolios', 'PortfolioController')->except(['show']);
+Route::group(['prefix'=>'portfolios/{portfolios}'], function () {
+    Route::resource('goals', 'LinkController', ['as' => 'portfolios', 'parameters' => ['goals' => 'link']])->except(['show']);
+    Route::resource('reports', 'LinkController', ['as' => 'portfolios', 'parameters' => ['reports' => 'link']])->except(['show']);
+    Route::resource('links', 'LinkController', ['as' => 'portfolios'])->except(['show']);
+    Route::resource('comments', 'CommentController', ['as' => 'portfolios'])->except(['show', 'create']);
 });
 
 //PROJECTS SECTION

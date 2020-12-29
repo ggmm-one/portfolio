@@ -11,7 +11,7 @@ use App\Policies\LinkPolicy;
 use App\Policies\PortfoliosModulePolicy;
 use App\Policies\ProjectsModulePolicy;
 use App\Policies\ResourcesModulePolicy;
-use App\PortfolioUnit;
+use App\Portfolio;
 use App\Project;
 use App\ProjectOrderConstraint;
 use App\Resource;
@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
         EvaluationItem::class => AdminModulePolicy::class,
         EvaluationScore::class => ProjectsModulePolicy::class,
         Link::class => LinkPolicy::class,
-        PortfolioUnit::class => PortfoliosModulePolicy::class,
+        Portfolio::class => PortfoliosModulePolicy::class,
         Project::class => ProjectsModulePolicy::class,
         ProjectOrderConstraint::class => ProjectsModulePolicy::class,
         Resource::class => ResourcesModulePolicy::class,

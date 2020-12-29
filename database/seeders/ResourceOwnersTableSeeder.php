@@ -9,6 +9,6 @@ class ResourceOwnersTableSeeder extends Seeder
 {
     public function run()
     {
-        ResourceOwner::factory()->count(rand(20, 50))->create();
+        ResourceOwner::factory()->count(rand(2, 10))->create();
     }
 }

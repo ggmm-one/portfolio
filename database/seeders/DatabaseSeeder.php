@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(ResourceOwnersTableSeeder::class);
         $this->call(ResourcesTableSeeder::class);
-        $this->call(PortfolioUnitsTableSeeder::class);
+        $this->call(PortfolioTableSeeder::class);
         $this->call(ProjectsTableSeeder::class);
-        $this->call(EvaluationScoresTableSeeder::class);
+        //$this->call(EvaluationScoresTableSeeder::class);
         DB::commit();
     }
 }

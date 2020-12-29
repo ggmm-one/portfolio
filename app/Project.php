@@ -49,7 +49,7 @@ class Project extends Model
     ];
 
     protected $fillable = [
-        'type', 'status', 'name', 'code', 'portfolio_unit_hashid', 'start', 'duration', 'start_after', 'end_before',
+        'type', 'status', 'name', 'code', 'portfolio_id', 'start', 'duration', 'start_after', 'end_before',
     ];
 
     protected $dates = [
@@ -60,7 +60,7 @@ class Project extends Model
 
     public function portfolio()
     {
-        return $this->belongsTo(PortfolioUnit::class, 'portfolio_unit_id');
+        return $this->belongsTo(Portfolio::class, 'portfolio_id');
     }
 
     public function evaluationScores()

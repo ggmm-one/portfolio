@@ -59,7 +59,7 @@ class CommentController extends Controller
         $comments = Comment::with('author:id,name')->where('commentable_type', $holdingModel::MORPH_SHORT_NAME)->where('commentable_id', $holdingModel->id)->latest()->get();
         $data = compact('holdingModel', 'comments', 'editComment');
         $data['project'] = $holdingModel;
-        $data['portfolioUnit'] = $holdingModel;
+        $data['portfolio'] = $holdingModel;
 
         return view('comments.index', $data);
     }

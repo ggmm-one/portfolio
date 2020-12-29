@@ -21,10 +21,10 @@ class ResourcesTableSeeder extends Seeder
                     'resource_owner_id' => $owner->id,
                     'resource_type_id' => $types->random(),
                 ])->each(function ($resource) use ($users) {
-                    $resource->comments()->saveMany(Comment::factory()->count(rand(1, 10))->make([
+                    $resource->comments()->saveMany(Comment::factory()->count(rand(1, 3))->make([
                         'user_id' => $users->random(),
                     ]));
-                    $resource->capacities()->saveMany(ResourceCapacity::factory()->count(rand(1, 5))->make());
+                    $resource->capacities()->saveMany(ResourceCapacity::factory()->count(rand(1, 3))->make());
                 });
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\PortfolioUnit;
+use App\Portfolio;
 use App\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
@@ -22,7 +22,7 @@ class ProjectFactory extends Factory
             'duration' => $this->faker->numberBetween(1, 12),
             'description' => $this->faker->paragraph,
             'score' => $this->faker->numberBetween(1, 10),
-            'portfolio_unit_id' => PortfolioUnit::factory(),
+            'portfolio_id' => Portfolio::factory(),
         ];
     }
 }

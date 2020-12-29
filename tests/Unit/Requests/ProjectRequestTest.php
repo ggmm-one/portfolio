@@ -15,7 +15,7 @@ class ProjectRequestTest extends TestCase
         $this->assertCount(8, $rules);
         $this->assertArrayHasKey('name', $rules);
         $this->assertArrayHasKey('code', $rules);
-        $this->assertArrayHasKey('portfolio_unit_hashid', $rules);
+        $this->assertArrayHasKey('portfolio_id', $rules);
         $this->assertArrayHasKey('type', $rules);
         $this->assertArrayHasKey('status', $rules);
         $this->assertArrayHasKey('start', $rules);

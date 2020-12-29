@@ -15,7 +15,7 @@ class LinkController extends Controller
         $data = [
             'holdingModel' => $request->holdingModel,
             'project' => $request->holdingModel,
-            'portfolioUnit' => $request->holdingModel,
+            'portfolio' => $request->holdingModel,
             'links' => $request->holdingModel->links()->subtype($request->routeSubtype)->get(),
         ];
 
