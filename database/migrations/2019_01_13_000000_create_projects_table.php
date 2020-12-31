@@ -17,8 +17,8 @@ class CreateProjectsTable extends Migration
             $table->decimal('score', 5, 3);
             $table->string('name', Project::DD_NAME_LENGTH);
             $table->string('code', Project::DD_CODE_LENGTH)->nullable();
-            $table->date('start')->nullable();
-            $table->integer('duration');
+            $table->date('start');
+            $table->date('end');
             $table->string('description', Project::DD_DESCRIPTION_LENGTH)->nullable();
             $table->date('start_after')->nullable();
             $table->date('end_before')->nullable();

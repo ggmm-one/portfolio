@@ -5,7 +5,7 @@ namespace App;
 class ResourceAllocation extends Model
 {
     protected $fillable = [
-        'resource_hashid', 'month', 'quantity', 'sort_order',
+        'resource_id', 'start', 'end', 'quantity',
     ];
 
     public function resource()

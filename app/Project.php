@@ -49,7 +49,7 @@ class Project extends Model
     ];
 
     protected $fillable = [
-        'type', 'status', 'name', 'code', 'portfolio_id', 'start', 'duration', 'start_after', 'end_before',
+        'type', 'status', 'name', 'code', 'portfolio_id', 'start', 'end', 'start_after', 'end_before',
     ];
 
     protected $dates = [

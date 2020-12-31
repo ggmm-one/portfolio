@@ -12,9 +12,9 @@ class CreateResourceAllocationsTable extends Migration
             $table->modelHeader();
             $table->bigInteger('project_id');
             $table->bigInteger('resource_id');
-            $table->integer('month');
+            $table->date('start');
+            $table->date('end');
             $table->integer('quantity');
-            $table->integer('sort_order');
             $table->modelFooter();
             $table->foreign('project_id', 'fk_resource_allocations_project_id')->references('id')->on('projects');
             $table->foreign('resource_id', 'fk_resource_allocations_resource_id')->references('id')->on('resources');
