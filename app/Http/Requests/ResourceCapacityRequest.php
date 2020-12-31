@@ -15,7 +15,6 @@ final class ResourceCapacityRequest extends BaseFormRequest
         return [
             'start' => Rule::required()->after(Model::DD_DATE_MIN)->before(Model::DD_DATE_MAX)->get(),
             'end' => Rule::required()->after(Model::DD_DATE_MIN)->before(Model::DD_DATE_MAX)->after('start')->add(new NoIntervalOverlap($this))->get(),
-            'type' => Rule::required()->in(array_keys(ResourceCapacity::TYPES))->get(),
             'quantity' => Rule::required()->integer(0, ResourceCapacity::DD_QUANTITY_MAX)->get(),
         ];
     }

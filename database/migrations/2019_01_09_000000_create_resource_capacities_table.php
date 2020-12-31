@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateResourceCapacitiesTable extends Migration
 {
@@ -13,7 +13,6 @@ class CreateResourceCapacitiesTable extends Migration
             $table->bigInteger('resource_id');
             $table->date('start');
             $table->date('end');
-            $table->char('type', 1);
             $table->bigInteger('quantity')->default(0);
             $table->modelFooter();
             $table->index('resource_id', 'ix_resource_capacities_resource_id');
